@@ -1,4 +1,7 @@
 ---
+import '@/styles/globals.css'
+import '@fontsource-variable/noto-sans-jp'
+
 interface Props {
   title: string
 }
@@ -6,7 +9,30 @@ interface Props {
 const { title } = Astro.props
 ---
 
-<!doctype html>
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme')
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
+  }
+  const isDark = getThemePreference() === 'dark'
+  document.documentElement.classList[isDark ? 'add' : 'remove']('dark')
+
+  if (typeof localStorage !== 'undefined') {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark')
+      localStorage.setItem('theme', isDark ? 'dark' : 'light')
+    })
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+  }
+</script>
+
 <html lang='en'>
   <head>
     <meta charset='UTF-8' />
@@ -20,32 +46,46 @@ const { title } = Astro.props
     <slot />
   </body>
 </html>
+
 <style is:global>
-  :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
   }
+
   html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-size: 16px;
   }
-  code {
-    font-family:
-      Menlo,
-      Monaco,
-      Lucida Console,
-      Liberation Mono,
-      DejaVu Sans Mono,
-      Bitstream Vera Sans Mono,
-      Courier New,
-      monospace;
+
+  body {
+    font-family: 'Noto Sans JP Variable', sans-serif;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 </style>
