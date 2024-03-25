@@ -6,8 +6,45 @@ import {
 import HeaderSelect from './HeaderSelect'
 import { ModeToggle } from './ModeToggle'
 import CardSymbol from './Card'
+import { HiraganaCharacters, KatakanaCharacters } from '@/data/characters'
+import { useEffect, useState } from 'react'
+
+type Config = {
+  mode: 'Hiragana' | 'Katakana' | 'Kanji'
+  group: string
+  consonant: 'all' | 'voicedConsonants' | 'palatalizedConsonants'
+}
+
+type Characters = {
+  [key: string]: string | [string[], string]
+}
 
 export function ResizableDemo() {
+  const [config, setConfig] = useState<Config>({
+    mode: 'Hiragana',
+    group: 'all',
+    consonant: 'all'
+  })
+  const [characters, setCharacters] = useState<Characters>()
+
+  useEffect(() => {
+    const getCharacters = () => {
+      if (config.group === 'all' && config.consonant === 'all') {
+        const selectMode =
+          config.mode === 'Hiragana' ? HiraganaCharacters : KatakanaCharacters
+        const allCharacters = Object.values(selectMode).flatMap(group =>
+          Object.values(group)
+        )
+
+        return allCharacters.reduce((acc, group) => {
+          return { ...acc, ...group }
+        }, {})
+      }
+    }
+
+    setCharacters(getCharacters())
+  }, [config])
+
   return (
     <ResizablePanelGroup
       direction='horizontal'
@@ -38,16 +75,11 @@ export function ResizableDemo() {
           <HeaderSelect />
           <ModeToggle />
         </header>
-        <section
-          className='w-full h-full grid gap-3 overflow-y-auto overflow-x-hidden'
-          style={{
-            gridTemplateColumns: 'auto',
-            gridTemplateRows: 'repeat(auto-fit, minmax(180px, 1fr))'
-          }}
-        >
-          {Array.from({ length: 71 }).map((_, i) => (
-            <CardSymbol key={i} />
-          ))}
+        <section className='w-full h-full flex flex-wrap sm:gap-3 gap-1 overflow-y-auto overflow-x-hidden'>
+          {characters &&
+            Object.entries(characters).map(([key, value]) => (
+              <CardSymbol key={key} symbol={value} reading={key} />
+            ))}
         </section>
       </ResizablePanel>
     </ResizablePanelGroup>
