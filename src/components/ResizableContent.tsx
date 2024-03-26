@@ -6,43 +6,25 @@ import {
 import HeaderSelect from './HeaderSelect'
 import { ModeToggle } from './ModeToggle'
 import CardSymbol from './Card'
-import { HiraganaCharacters, KatakanaCharacters } from '@/data/characters'
-import { useEffect, useState } from 'react'
-
-type Config = {
-  mode: 'Hiragana' | 'Katakana' | 'Kanji'
-  group: string
-  consonant: 'all' | 'voicedConsonants' | 'palatalizedConsonants'
-}
-
-type Characters = {
-  [key: string]: string | [string[], string]
-}
+import { useState, useEffect } from 'react'
+import {
+  AllHiraganaCharacters,
+  AllKatakanaCharacters,
+  type AllCharactersType
+} from '@/data/characters'
+import { alphabetType } from '@/store/learnStore'
+import { useStore } from '@nanostores/react'
 
 export function ResizableDemo() {
-  const [config, setConfig] = useState<Config>({
-    mode: 'Hiragana',
-    group: 'all',
-    consonant: 'all'
-  })
-  const [characters, setCharacters] = useState<Characters>()
+  const config = useStore(alphabetType)
+  const [characters, setCharacters] = useState<AllCharactersType>(
+    config === 'hiragana' ? AllHiraganaCharacters : AllKatakanaCharacters
+  )
 
   useEffect(() => {
-    const getCharacters = () => {
-      if (config.group === 'all' && config.consonant === 'all') {
-        const selectMode =
-          config.mode === 'Hiragana' ? HiraganaCharacters : KatakanaCharacters
-        const allCharacters = Object.values(selectMode).flatMap(group =>
-          Object.values(group)
-        )
-
-        return allCharacters.reduce((acc, group) => {
-          return { ...acc, ...group }
-        }, {})
-      }
-    }
-
-    setCharacters(getCharacters())
+    setCharacters(
+      config === 'hiragana' ? AllHiraganaCharacters : AllKatakanaCharacters
+    )
   }, [config])
 
   return (
