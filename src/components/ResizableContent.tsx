@@ -14,6 +14,7 @@ import {
 } from '@/data/characters'
 import { alphabetType } from '@/store/learnStore'
 import { useStore } from '@nanostores/react'
+import Aside from './aside/Aside'
 
 export function ResizableDemo() {
   const config = useStore(alphabetType)
@@ -38,13 +39,7 @@ export function ResizableDemo() {
         maxSize={30}
         className='p-2 flex justify-between items-center flex-col gap-2'
       >
-        <aside>
-          <header>Header</header>
-          <section>Custom</section>
-          <section>Config</section>
-          <section>Last try</section>
-          <footer>Footer</footer>
-        </aside>
+        <Aside />
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel

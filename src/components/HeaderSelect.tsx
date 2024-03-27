@@ -21,7 +21,7 @@ export default function HeaderSelect() {
 
   return (
     <Select defaultValue={config} onValueChange={handleCharacterChange}>
-      <SelectTrigger className='w-full h-14'>
+      <SelectTrigger className='w-full h-14 hover:bg-accent'>
         <SelectValue placeholder='Selecciona un alfabetos' />
       </SelectTrigger>
       <SelectContent>
