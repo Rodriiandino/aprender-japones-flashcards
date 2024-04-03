@@ -1,4 +1,4 @@
-import * as React from 'react'
+'use client'
 
 import {
   Select,
@@ -9,18 +9,19 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { useStore } from '@nanostores/react'
-import { alphabetType } from '@/store/learnStore'
+
+import { useAlphabet } from '@/store/learn-store'
+import { alphabetType } from '@/types/alphabetType'
 
 export default function HeaderSelect() {
-  const config = useStore(alphabetType)
+  const { alphabet, setAlphabet } = useAlphabet()
 
-  const handleCharacterChange = (value: string) => {
-    alphabetType.set(value as 'hiragana' | 'katakana')
+  const handleCharacterChange = (value: alphabetType) => {
+    setAlphabet(value)
   }
 
   return (
-    <Select defaultValue={config} onValueChange={handleCharacterChange}>
+    <Select value={alphabet} onValueChange={handleCharacterChange}>
       <SelectTrigger className='w-full h-14 hover:bg-accent'>
         <SelectValue placeholder='Selecciona un alfabetos' />
       </SelectTrigger>

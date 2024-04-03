@@ -7,7 +7,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Heart } from 'lucide-react'
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
 
 export default function CardSymbol({
   symbol,

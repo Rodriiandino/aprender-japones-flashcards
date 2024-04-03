@@ -1,5 +1,5 @@
 import { Button } from '../ui/button'
-import HeaderAside from './HeaderAside'
+import HeaderAside from './header-aside'
 import { Separator } from '../ui/separator'
 
 export default function Aside() {
