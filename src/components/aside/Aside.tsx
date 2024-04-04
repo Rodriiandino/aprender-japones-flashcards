@@ -1,6 +1,6 @@
-import { Button } from '../ui/button'
 import HeaderAside from './header-aside'
 import { Separator } from '../ui/separator'
+import Footer from './footer/footer-aside'
 
 export default function Aside() {
   return (
@@ -16,11 +16,7 @@ export default function Aside() {
       <section className='h-full'>Last try</section>
       <Separator />
 
-      <footer>
-        <Button variant='default' className='w-full h-16 sm:text-base'>
-          Estudiar
-        </Button>
-      </footer>
+      <Footer />
     </aside>
   )
 }

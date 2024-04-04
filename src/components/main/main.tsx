@@ -1,4 +1,4 @@
-import Header from './header/header'
+import Header from './header/header-main'
 import Section from './section/section'
 
 export default function Main() {
