@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { alphabetType } from '@/types/alphabetType'
 import { CharacterType } from '@/data/characters'
 
@@ -15,8 +15,7 @@ export const useAlphabet = create<alphabetStoreType>(
       setAlphabet: (alphabet: alphabetType) => set({ alphabet })
     }),
     {
-      name: 'alphabet-storage',
-      storage: createJSONStorage(() => sessionStorage)
+      name: 'alphabet-storage'
     }
   )
 )
