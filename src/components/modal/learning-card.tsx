@@ -2,7 +2,7 @@ import { alphabetType } from '@/types/alphabetType'
 import { Card, CardContent, CardTitle } from '../ui/card'
 import { CharacterType } from '@/data/characters'
 
-export default function CardToStudy({
+export default function LearningCard({
   character,
   primary
 }: {

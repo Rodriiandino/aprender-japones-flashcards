@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useModalStore, useLearnStore, useAlphabet } from '@/store/learn-store'
+import { useModalStore, useLearnStore } from '@/store/learn-store'
 import {
   Dialog,
   DialogContent,
@@ -13,13 +13,19 @@ import {
 import { Input } from '../ui/input'
 import { Progress } from '@/components/ui/progress'
 import { Button } from '../ui/button'
-import CardToStudy from './cardToStudy'
+import LearningCard from './learning-card'
 
-export default function ModalToStudy() {
-  const { isOpen, setIsOpen } = useModalStore()
-  const { cards, cardsCorrect, cardsToLearn, setCardsCorrect } = useLearnStore()
-  const { alphabet } = useAlphabet()
-  const [currentCard, setCurrentCard] = useState(106)
+export default function LearningModal() {
+  const { learningModal: isOpen, setLearningModal: setIsOpen } = useModalStore()
+  const {
+    learningCards: cards,
+    cardsCorrect,
+    learningCardsToLearn: cardsToLearn,
+    setCardsCorrect,
+    learningAlphabet: alphabet,
+    currentCard,
+    setCurrentCard
+  } = useLearnStore()
   const [inputValue, setInputValue] = useState('')
   const [percentage, setPercentage] = useState(0)
   const [finished, setFinished] = useState(false)
@@ -57,7 +63,7 @@ export default function ModalToStudy() {
           <Progress value={currentCard + 1} max={cards.length} />
         </DialogHeader>
         <form className='flex flex-col items-center gap-4'>
-          <CardToStudy primary={alphabet} character={cards[currentCard]} />
+          <LearningCard primary={alphabet} character={cards[currentCard]} />
           <Input
             placeholder='Insert your answer'
             onChange={e => setInputValue(e.target.value)}

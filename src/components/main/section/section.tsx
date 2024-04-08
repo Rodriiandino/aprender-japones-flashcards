@@ -3,11 +3,10 @@
 import { useEffect } from 'react'
 import CardSymbol from './card'
 import { CharacterType, AllCharacters } from '@/data/characters'
-import { useAlphabet, useLearnStore } from '@/store/learn-store'
+import { useConfigLearnStore } from '@/store/learn-store'
 
 export default function Section() {
-  const { alphabet } = useAlphabet()
-  const { cards, setCards, setCardsToLearn } = useLearnStore()
+  const { cards, setCards, setCardsToLearn, alphabet } = useConfigLearnStore()
 
   useEffect(() => {
     const charactersArray: CharacterType[] = []
