@@ -21,7 +21,7 @@ export default function CardSymbol({
   return (
     <Card className='sm:w-[150px] sm:max-w-[150px] min-w-[100px] max-w-[120px] sm:h-[180px] h-[130px] flex flex-col relative'>
       <CardHeader className='p-1 flex items-end absolute w-full'>
-        <Button variant='ghost' size='sm'>
+        <Button variant='ghost' size='sm' disabled>
           <Heart size={16} />
         </Button>
       </CardHeader>

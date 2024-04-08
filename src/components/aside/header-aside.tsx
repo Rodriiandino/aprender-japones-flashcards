@@ -2,6 +2,7 @@ import { Heart, Search, BarChart, BadgeJapaneseYen } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
+import TooltipCustom from '../tooltip-custom'
 
 export default function HeaderAside() {
   return (
@@ -30,19 +31,35 @@ export default function HeaderAside() {
       </div>
       <div>
         <Separator />
-        <nav className='w-full flex justify-center items-center h-10'>
-          <Button variant='ghost' className='w-full'>
-            <Heart size={24} />
-          </Button>
-          <Separator orientation='vertical' />
-          <Button variant='ghost' className='w-full'>
-            <Search size={24} />
-          </Button>
-          <Separator orientation='vertical' />
-          <Button variant='ghost' className='w-full'>
-            <BarChart size={24} />
-          </Button>
-        </nav>
+
+        <TooltipCustom text='feature to be implemented'>
+          <nav className='w-full flex justify-center items-center h-10'>
+            <Button
+              variant='ghost'
+              className='w-full h-full rounded-none'
+              disabled
+            >
+              <Heart size={24} />
+            </Button>
+            <Separator orientation='vertical' />
+            <Button
+              variant='ghost'
+              className='w-full h-full rounded-none'
+              disabled
+            >
+              <Search size={24} />
+            </Button>
+            <Separator orientation='vertical' />
+            <Button
+              variant='ghost'
+              className='w-full h-full rounded-none'
+              disabled
+            >
+              <BarChart size={24} />
+            </Button>
+          </nav>
+        </TooltipCustom>
+
         <Separator />
       </div>
     </header>
