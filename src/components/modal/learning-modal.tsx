@@ -35,8 +35,12 @@ export default function LearningModal() {
     if (currentCard < cards.length - 1) {
       setCurrentCard(currentCard + 1)
     }
-    if (inputValue === cards[currentCard].romaji) {
+    if (
+      inputValue === cards[currentCard].romaji ||
+      cards[currentCard].romaji.includes(inputValue)
+    ) {
       setCardsCorrect(cardsCorrect + 1)
+      setInputValue('')
     }
     if (currentCard === cards.length - 1) {
       setFinished(true)
@@ -68,6 +72,7 @@ export default function LearningModal() {
             placeholder='Insert your answer'
             onChange={e => setInputValue(e.target.value)}
             className='sm:w-[200px]'
+            value={inputValue}
           />
           {finished ? (
             <div className='flex flex-col items-center gap-1'>
