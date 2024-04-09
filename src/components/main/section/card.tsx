@@ -32,7 +32,9 @@ export default function CardSymbol({
       </CardContent>
       <CardFooter className='p-0 flex justify-center absolute bottom-0 w-full h-10 gap-2'>
         <CardDescription className='max-sm:text-[11px]'>
-          {character.romaji}
+          {typeof character.romaji === 'string'
+            ? character.romaji
+            : character.romaji.join(', ')}
         </CardDescription>
         |
         <CardDescription className='max-sm:text-[11px]'>
