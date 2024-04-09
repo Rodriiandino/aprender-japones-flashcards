@@ -72,6 +72,10 @@ html {
   font-size: 16px;
 }
 
+body {
+  height: 100dvh;
+}
+
 img,
 video {
   max-width: 100%;
