@@ -12,9 +12,10 @@ type learnStoreType = {
   setCardsCorrect: (cardsCorrect: number) => void
   learningAlphabet: alphabetType
   setAlphabet: (learningAlphabet: alphabetType) => void
-
   currentCard: number
   setCurrentCard: (currentCard: number) => void
+  percentCorrect: number
+  setPercentCorrect: (percentCorrect: number) => void
   isLearned: boolean
   setIsLearned: (isLearned: boolean) => void
 }
@@ -34,6 +35,8 @@ export const useLearnStore = create<learnStoreType>(
         set({ learningAlphabet }),
       currentCard: 0,
       setCurrentCard: (currentCard: number) => set({ currentCard }),
+      percentCorrect: 0,
+      setPercentCorrect: (percentCorrect: number) => set({ percentCorrect }),
       isLearned: false,
       setIsLearned: (isLearned: boolean) => set({ isLearned })
     }),

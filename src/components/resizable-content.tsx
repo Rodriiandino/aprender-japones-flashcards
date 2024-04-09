@@ -10,13 +10,13 @@ export function ResizableContent() {
   return (
     <ResizablePanelGroup
       direction='horizontal'
-      className='min-h-[200px] rounded-lg border max-h-screen'
+      className='rounded-lg border max-h-screen'
     >
       <ResizablePanel
         defaultSize={20}
         minSize={15}
         maxSize={30}
-        className='p-2'
+        className='p-3'
       >
         <Aside />
       </ResizablePanel>
@@ -25,7 +25,7 @@ export function ResizableContent() {
         defaultSize={80}
         maxSize={85}
         minSize={70}
-        className='p-2'
+        className='p-3'
       >
         <Main />
       </ResizablePanel>

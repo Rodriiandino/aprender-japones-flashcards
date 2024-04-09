@@ -1,5 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
+import { Progress } from '@/components/ui/progress'
 import { useModalStore, useLearnStore } from '@/store/learn-store'
 import { useState } from 'react'
 
@@ -12,7 +13,9 @@ export default function Footer() {
     cardsCorrect,
     learningCardsToLearn,
     learningAlphabet,
-    setCurrentCard
+    setCurrentCard,
+    currentCard,
+    setPercentCorrect
   } = useLearnStore()
   const [configIsChanged, setConfigIsChanged] = useState(false)
 
@@ -28,27 +31,31 @@ export default function Footer() {
     setIsLearned(false)
     setCardsCorrect(0)
     setCurrentCard(0)
+    setPercentCorrect(0)
   }
 
   return (
     <footer>
       {isLearned && (
-        <>
-          <h2 className='text-2xl font-bold'>Learning progress</h2>
+        <div className='flex flex-col gap-1'>
+          <h2 className='text-xl font-bold'>Learning progress</h2>
           <p className='text-sm text-gray-500'>Start learning the alphabet</p>
-          <div className='flex justify-between mt-4'>
-            <p className='text-sm text-gray-500'>Correct:</p>
-            <p className='text-sm text-gray-500'>{cardsCorrect}</p>
+          <div className='flex justify-between mt-2'>
+            <p className='text-sm text-muted-foreground'>Correct:</p>
+            <p className='text-sm text-muted-foreground'>{cardsCorrect}</p>
           </div>
           <div className='flex justify-between'>
-            <p className='text-sm text-gray-500'>To learn:</p>
-            <p className='text-sm text-gray-500'>{learningCardsToLearn}</p>
+            <p className='text-sm text-muted-foreground'>To learn:</p>
+            <p className='text-sm text-muted-foreground'>
+              {learningCardsToLearn} cards
+            </p>
           </div>
           <div className='flex justify-between'>
-            <p className='text-sm text-gray-500'>Alphabet:</p>
-            <p className='text-sm text-gray-500'>{learningAlphabet}</p>
+            <p className='text-sm text-muted-foreground'>Alphabet:</p>
+            <p className='text-sm text-muted-foreground'>{learningAlphabet}</p>
           </div>
-        </>
+          <Progress value={currentCard + 1} max={learningCardsToLearn} />
+        </div>
       )}
       <div className='mt-2 flex gap-2'>
         <Button
@@ -62,7 +69,7 @@ export default function Footer() {
         {isLearned && (
           <Button
             variant='secondary'
-            className='w-2/6 h-16 sm:text-sm'
+            className='w-2/6 h-16 sm:text-xs'
             onClick={resetProgress}
           >
             Reset progress

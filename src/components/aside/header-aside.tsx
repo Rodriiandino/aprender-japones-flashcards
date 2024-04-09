@@ -25,7 +25,14 @@ export default function HeaderAside() {
         </a>
 
         <div className='flex flex-col gap-1'>
-          <span className='text-sm text-gray-700'>@RodriiAndino</span>
+          <a
+            href='https://github.com/rodriiandino'
+            target='_blank'
+            rel='noreferrer'
+            className='text-sm text-primary'
+          >
+            @RodriiAndino
+          </a>
           <span className='text-xs text-gray-500'>Rodrigo Andino</span>
         </div>
       </div>

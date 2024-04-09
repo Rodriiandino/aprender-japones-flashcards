@@ -24,28 +24,35 @@ export default function LearningModal() {
     setCardsCorrect,
     learningAlphabet: alphabet,
     currentCard,
-    setCurrentCard
+    setCurrentCard,
+    percentCorrect: percentage,
+    setPercentCorrect: setPercentage
   } = useLearnStore()
   const [inputValue, setInputValue] = useState('')
-  const [percentage, setPercentage] = useState(0)
   const [finished, setFinished] = useState(false)
 
   const handleNextCard = (e: React.FormEvent) => {
     e.preventDefault()
-    if (currentCard < cards.length - 1) {
+
+    const lowerCasedInput = inputValue.toLowerCase()
+    const isMatch =
+      lowerCasedInput === cards[currentCard].romaji ||
+      (cards[currentCard].romaji.includes(lowerCasedInput) &&
+        lowerCasedInput.length > 0)
+
+    if (currentCard < cardsToLearn - 1) {
       setCurrentCard(currentCard + 1)
     }
-    if (
-      inputValue === cards[currentCard].romaji ||
-      cards[currentCard].romaji.includes(inputValue)
-    ) {
+    if (isMatch) {
       setCardsCorrect(cardsCorrect + 1)
       setInputValue('')
     }
-    if (currentCard === cards.length - 1) {
+    if (currentCard === cardsToLearn - 1) {
       setFinished(true)
     }
-    setPercentage(Math.round((cardsCorrect / cardsToLearn) * 100))
+
+    const percentage = Math.round((cardsCorrect / cardsToLearn) * 100)
+    setPercentage(percentage)
   }
 
   const handleReset = (e: React.FormEvent) => {
@@ -62,9 +69,9 @@ export default function LearningModal() {
         <DialogHeader>
           <DialogTitle>Learning {alphabet}</DialogTitle>
           <DialogDescription>
-            {currentCard + 1} / {cards.length}
+            {currentCard + 1} / {cardsToLearn}
           </DialogDescription>
-          <Progress value={currentCard + 1} max={cards.length} />
+          <Progress value={currentCard + 1} max={cardsToLearn} />
         </DialogHeader>
         <form className='flex flex-col items-center gap-4'>
           <LearningCard primary={alphabet} character={cards[currentCard]} />
