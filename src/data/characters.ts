@@ -323,12 +323,12 @@ export const AllCharactersGroup: {
       di: {
         hiragana: 'ぢ',
         katakana: 'ヂ',
-        romaji: ['di', 'ji', 'dji', 'dzi']
+        romaji: ['dj', 'di', 'ji', 'dji']
       },
       du: {
         hiragana: 'づ',
         katakana: 'ヅ',
-        romaji: ['du', 'zu', 'dzu']
+        romaji: ['dzu', 'du', 'zu']
       },
       de: {
         hiragana: 'で',
@@ -418,34 +418,34 @@ export const AllCharactersGroup: {
       sya: {
         hiragana: 'しゃ',
         katakana: 'シャ',
-        romaji: ['sha', 'sya']
+        romaji: ['sya', 'sha']
       },
       syu: {
         hiragana: 'しゅ',
         katakana: 'シュ',
-        romaji: ['shu', 'syu']
+        romaji: ['syu', 'shu']
       },
       syo: {
         hiragana: 'しょ',
         katakana: 'ショ',
-        romaji: ['sho', 'syo']
+        romaji: ['syo', 'sho']
       }
     },
     t_special: {
       tya: {
         hiragana: 'ちゃ',
         katakana: 'チャ',
-        romaji: ['cha', 'tya']
+        romaji: ['tya', 'cha']
       },
       tyu: {
         hiragana: 'ちゅ',
         katakana: 'チュ',
-        romaji: ['chu', 'tyu']
+        romaji: ['tyu', 'chu']
       },
       tyo: {
         hiragana: 'ちょ',
         katakana: 'チョ',
-        romaji: ['cho', 'tyo']
+        romaji: ['tyo', 'cho']
       }
     },
     n_special: {
@@ -537,17 +537,17 @@ export const AllCharactersGroup: {
       zya: {
         hiragana: 'じゃ',
         katakana: 'ジャ',
-        romaji: ['ja', 'zya']
+        romaji: ['zya', 'ja']
       },
       zyu: {
         hiragana: 'じゅ',
         katakana: 'ジュ',
-        romaji: ['ju', 'zyu']
+        romaji: ['zyu', 'ju']
       },
       zyo: {
         hiragana: 'じょ',
         katakana: 'ジョ',
-        romaji: ['jo', 'zyo']
+        romaji: ['zyo', 'jo']
       }
     },
     b_special: {
@@ -897,12 +897,12 @@ export const AllCharacters: AllCharactersType = {
   di: {
     hiragana: 'ぢ',
     katakana: 'ヂ',
-    romaji: ['di', 'ji', 'dji', 'dzi']
+    romaji: ['dji', 'di', 'ji', 'dzi']
   },
   du: {
     hiragana: 'づ',
     katakana: 'ヅ',
-    romaji: ['du', 'zu', 'dzu']
+    romaji: ['dzu', 'du', 'zu']
   },
   de: {
     hiragana: 'で',
@@ -982,32 +982,32 @@ export const AllCharacters: AllCharactersType = {
   sya: {
     hiragana: 'しゃ',
     katakana: 'シャ',
-    romaji: ['sha', 'sya']
+    romaji: ['sya', 'sha']
   },
   syu: {
     hiragana: 'しゅ',
     katakana: 'シュ',
-    romaji: ['shu', 'syu']
+    romaji: ['syu', 'shu']
   },
   syo: {
     hiragana: 'しょ',
     katakana: 'ショ',
-    romaji: ['sho', 'syo']
+    romaji: ['syo', 'sho']
   },
   tya: {
     hiragana: 'ちゃ',
     katakana: 'チャ',
-    romaji: ['cha', 'tya']
+    romaji: ['tya', 'cha']
   },
   tyu: {
     hiragana: 'ちゅ',
     katakana: 'チュ',
-    romaji: ['chu', 'tyu']
+    romaji: ['tyu', 'chu']
   },
   tyo: {
     hiragana: 'ちょ',
     katakana: 'チョ',
-    romaji: ['cho', 'tyo']
+    romaji: ['tyo', 'cho']
   },
   nya: {
     hiragana: 'にゃ',
@@ -1087,17 +1087,17 @@ export const AllCharacters: AllCharactersType = {
   zya: {
     hiragana: 'じゃ',
     katakana: 'ジャ',
-    romaji: ['ja', 'zya']
+    romaji: ['zya', 'ja']
   },
   zyu: {
     hiragana: 'じゅ',
     katakana: 'ジュ',
-    romaji: ['ju', 'zyu']
+    romaji: ['zyu', 'ju']
   },
   zyo: {
     hiragana: 'じょ',
     katakana: 'ジョ',
-    romaji: ['jo', 'zyo']
+    romaji: ['zyo', 'jo']
   },
   bya: {
     hiragana: 'びゃ',

@@ -7,7 +7,7 @@ import TooltipCustom from '../tooltip-custom'
 export default function HeaderAside() {
   return (
     <header className='w-full flex flex-col gap-2'>
-      <div className='w-full h-14 p-2 flex gap-2  items-center'>
+      <div className='w-full h-14 flex gap-2  items-center'>
         <a
           href='https://github.com/rodriiandino'
           target='_blank'
@@ -29,7 +29,7 @@ export default function HeaderAside() {
             href='https://github.com/rodriiandino'
             target='_blank'
             rel='noreferrer'
-            className='text-sm text-primary'
+            className='text-sm  text-primary'
           >
             @RodriiAndino
           </a>

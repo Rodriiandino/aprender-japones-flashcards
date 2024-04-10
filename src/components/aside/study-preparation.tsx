@@ -7,7 +7,7 @@ export default function StudyPreparation() {
 
   return (
     <section className='flex flex-col gap-1'>
-      <h2 className='text-xl font-bold'>Study preparation</h2>
+      <h2 className='sm:text-xl text-lg font-bold'>Study preparation</h2>
       <p className='text-sm text-gray-500'>Start learning the alphabet</p>
       <div className='flex justify-between mt-2'>
         <p className='text-sm text-muted-foreground'>To learn:</p>

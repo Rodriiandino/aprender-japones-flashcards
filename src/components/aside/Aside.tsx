@@ -5,7 +5,7 @@ import StudyPreparation from './study-preparation'
 
 export default function Aside() {
   return (
-    <aside className='w-full h-full flex flex-col gap-4'>
+    <aside className='w-full h-full flex flex-col gap-4 lg:min-w-[320px] sm:min-w-[220px] min-w-[170px] border-r p-3'>
       <HeaderAside />
 
       <StudyPreparation />
