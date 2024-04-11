@@ -38,7 +38,7 @@ export default function ConfirmModal() {
 
   return (
     <Dialog open={confirmModal} onOpenChange={setConfirmModal}>
-      <DialogContent>
+      <DialogContent className='w-5/6'>
         <DialogHeader>
           <DialogTitle>Confirm</DialogTitle>
 

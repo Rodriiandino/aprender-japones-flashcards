@@ -19,25 +19,30 @@ export default function CardSymbol({
   primary: alphabetType
 }) {
   return (
-    <Card className='lg:w-[120px] md:w-[110px] sm:w-[100px] xs:w-[95px] w-[85px] lg:h-[150px] md:h-[140px] sm:h-[130px] xs:h-[125px] h-[110px] flex flex-col relative'>
-      <CardHeader className='p-1 flex items-end absolute w-full'>
-        <Button variant='ghost' size='sm' disabled>
-          <Heart size={16} />
+    <Card className='lg:w-[110px] md:w-[100px] w-auto lg:h-[140px] md:h-[130px] sm:h-[125px] h-[100px] flex flex-col relative'>
+      <CardHeader className='p-0 flex items-end absolute w-full'>
+        <Button
+          variant='ghost'
+          size='sm'
+          className='p-0 absolute right-2'
+          disabled
+        >
+          <Heart size={15} />
         </Button>
       </CardHeader>
       <CardContent className='p-0 flex items-center justify-center h-full'>
-        <CardTitle className='lg:text-5xl md:text-4xl text-3xl '>
+        <CardTitle className='lg:text-5xl md:text-4xl sm:text-3xl text-2xl'>
           {primary === 'hiragana' ? character.hiragana : character.katakana}
         </CardTitle>
       </CardContent>
       <CardFooter className='p-0 flex justify-center absolute bottom-0 w-full h-10 sm:gap-2 gap-1'>
-        <CardDescription className='text-sm'>
+        <CardDescription className='md:text-sm xs:text-xs text-[11px]'>
           {typeof character.romaji === 'string'
             ? character.romaji
             : character.romaji[0]}
         </CardDescription>
         |
-        <CardDescription className='text-sm'>
+        <CardDescription className='md:text-sm xs:text-xs text-[11px]'>
           {primary === 'hiragana' ? character.katakana : character.hiragana}
         </CardDescription>
       </CardFooter>

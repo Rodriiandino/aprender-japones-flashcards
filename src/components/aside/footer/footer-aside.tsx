@@ -60,7 +60,7 @@ export default function Footer() {
       <div className='mt-2 flex gap-2 lg:flex-row flex-col'>
         <Button
           variant='default'
-          className='w-full h-16 sm:text-base'
+          className='w-full sm:h-16 h-10 sm:text-base'
           onClick={handleStartLearning}
         >
           {isLearned ? 'Continue learning' : 'Start learning'}
@@ -69,7 +69,7 @@ export default function Footer() {
         {isLearned && (
           <Button
             variant='secondary'
-            className='lg:w-2/5 w-full h-16 sm:text-xs'
+            className='lg:w-2/5 w-full sm:h-16 h-10 sm:text-xs'
             onClick={resetProgress}
           >
             Cancel learning

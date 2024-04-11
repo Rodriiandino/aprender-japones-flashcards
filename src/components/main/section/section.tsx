@@ -19,7 +19,7 @@ export default function Section() {
   }, [setCards, setCardsToLearn])
 
   return (
-    <section className='w-full h-full flex flex-wrap sm:gap-3 gap-1 overflow-y-auto overflow-x-hidden'>
+    <section className='w-full h-full md:flex md:flex-wrap md:gap-3 gap-1 overflow-y-auto overflow-x-hidden grid grid-cols-5 pr-2'>
       {cards.map((char, index) => (
         <CardSymbol key={index} character={char} primary={alphabet} />
       ))}
