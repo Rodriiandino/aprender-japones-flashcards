@@ -43,7 +43,7 @@ export const useLearnStore = create<learnStoreType>(
     {
       name: 'learn-storage'
     }
-  )
+  ) as any
 )
 
 type configLearnStoreType = {
