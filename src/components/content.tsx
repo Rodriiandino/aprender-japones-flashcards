@@ -1,5 +1,5 @@
-import Aside from './aside/aside'
-import Main from './main/main'
+import Aside from './aside/aside-content'
+import Main from './main/main-content'
 
 export default function Content() {
   return (
