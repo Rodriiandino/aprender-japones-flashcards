@@ -19,7 +19,7 @@ export default function CardSymbol({
   primary: alphabetType
 }) {
   return (
-    <Card className='lg:w-[110px] md:w-[100px] w-auto lg:h-[140px] md:h-[130px] sm:h-[125px] h-[100px] flex flex-col relative'>
+    <Card className='lg:w-[105px] md:w-[95px] w-auto lg:h-[130px] md:h-[120px] sm:h-[125px] h-[110px] flex flex-col relative'>
       <CardHeader className='p-0 flex items-end absolute w-full'>
         <Button
           variant='ghost'
