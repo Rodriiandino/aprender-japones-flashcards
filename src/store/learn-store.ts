@@ -55,14 +55,21 @@ type configLearnStoreType = {
   setAlphabet: (alphabet: alphabetType) => void
 }
 
-export const useConfigLearnStore = create<configLearnStoreType>(set => ({
-  cards: [],
-  setCards: (cards: CharacterType[]) => set({ cards }),
-  cardsToLearn: 0,
-  setCardsToLearn: (cardsToLearn: number) => set({ cardsToLearn }),
-  alphabet: 'hiragana',
-  setAlphabet: (alphabet: alphabetType) => set({ alphabet })
-}))
+export const useConfigLearnStore = create<configLearnStoreType>(
+  persist(
+    set => ({
+      cards: [],
+      setCards: (cards: CharacterType[]) => set({ cards }),
+      cardsToLearn: 0,
+      setCardsToLearn: (cardsToLearn: number) => set({ cardsToLearn }),
+      alphabet: 'hiragana',
+      setAlphabet: (alphabet: alphabetType) => set({ alphabet })
+    }),
+    {
+      name: 'config-learn-storage'
+    }
+  ) as any
+)
 
 type modalStoreType = {
   learningModal: boolean
