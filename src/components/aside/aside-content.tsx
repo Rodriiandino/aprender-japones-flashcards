@@ -19,8 +19,6 @@ export default function Aside() {
     const aside = document.getElementById(asideId)
     const background = document.getElementById(backgroundId)
     background?.classList.toggle('hidden')
-    aside?.classList.toggle('w-60')
-    aside?.classList.toggle('w-full')
     aside?.classList.toggle('-translate-x-60')
     setIsAsideOpen(!isAsideOpen)
   }
@@ -28,7 +26,7 @@ export default function Aside() {
   return (
     <>
       <aside
-        className='sm:relative absolute top-0 left-0 h-full flex flex-row sm:gap-0 gap-4 w-full lg:w-96 lg:min-w-80 sm:w-80 sm:min-w-52 z-50 -translate-x-60 sm:-translate-x-0 transition-transform'
+        className='sm:relative absolute top-0 left-0 h-full flex flex-row sm:gap-0 gap-4 w-64 lg:w-96 lg:min-w-80 sm:w-80 sm:min-w-52 z-50 -translate-x-60 sm:-translate-x-0 transition-transform'
         id={asideId}
       >
         <div className='bg-background sm:w-full h-full p-3 border-r w-60 relative flex flex-col gap-4 z-50'>
