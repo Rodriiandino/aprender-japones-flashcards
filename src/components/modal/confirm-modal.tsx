@@ -16,22 +16,28 @@ import {
 } from '@/store/learn-store'
 
 export default function ConfirmModal() {
-  const { cardsToLearn, alphabet, cards } = useConfigLearnStore()
+  const { cardsToLearn, alphabet, cards, howToStudy } = useConfigLearnStore()
   const { confirmModal, setConfirmModal, setLearningModal } = useModalStore()
   const {
     setIsLearned,
     setCardsToLearn,
     setCards,
     setAlphabet,
-    setCardsCorrect
+    setCardsCorrect,
+    setHowToStudy,
+    setCurrentCard,
+    setPercentCorrect
   } = useLearnStore()
 
   const handleStartLearning = () => {
+    setIsLearned(true)
     setCards(cards)
     setCardsToLearn(cardsToLearn)
     setAlphabet(alphabet)
-    setIsLearned(true)
     setCardsCorrect(0)
+    setHowToStudy(howToStudy)
+    setCurrentCard(0)
+    setPercentCorrect(0)
     setLearningModal(true)
     setConfirmModal(false)
   }
@@ -48,8 +54,9 @@ export default function ConfirmModal() {
         </DialogHeader>
 
         <p>
-          You going to learn {cardsToLearn} characters from the {alphabet}{' '}
+          You going to learn {cardsToLearn} characters from the {alphabet}
         </p>
+        <p>You will learn in {howToStudy} mode.</p>
         <DialogFooter className='gap-2 flex-col'>
           <Button size='lg' onClick={handleStartLearning}>
             Yes

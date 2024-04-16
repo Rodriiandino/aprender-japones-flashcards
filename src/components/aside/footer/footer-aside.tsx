@@ -2,7 +2,6 @@
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { useModalStore, useLearnStore } from '@/store/learn-store'
-import { useState } from 'react'
 
 export default function Footer() {
   const { setLearningModal, setConfirmModal } = useModalStore()
@@ -15,9 +14,9 @@ export default function Footer() {
     learningAlphabet,
     setCurrentCard,
     currentCard,
-    setPercentCorrect
+    setPercentCorrect,
+    howToStudy
   } = useLearnStore()
-  const [configIsChanged, setConfigIsChanged] = useState(false)
 
   const handleStartLearning = () => {
     if (!isLearned) {
@@ -53,6 +52,10 @@ export default function Footer() {
           <div className='flex justify-between'>
             <p className='text-sm text-muted-foreground'>Alphabet:</p>
             <p className='text-sm text-muted-foreground'>{learningAlphabet}</p>
+          </div>
+          <div className='flex justify-between'>
+            <p className='text-sm text-muted-foreground'>Study method:</p>
+            <p className='text-sm text-muted-foreground'>{howToStudy}</p>
           </div>
           <Progress value={currentCard + 1} max={learningCardsToLearn} />
         </div>

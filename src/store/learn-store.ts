@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { alphabetType } from '@/types/alphabetType'
+import { alphabetType, howToStudyType } from '@/types/alphabetType'
 import { CharacterType } from '@/data/characters'
 
 type learnStoreType = {
@@ -16,6 +16,8 @@ type learnStoreType = {
   setCurrentCard: (currentCard: number) => void
   percentCorrect: number
   setPercentCorrect: (percentCorrect: number) => void
+  howToStudy: howToStudyType
+  setHowToStudy: (howToStudy: howToStudyType) => void
   isLearned: boolean
   setIsLearned: (isLearned: boolean) => void
 }
@@ -37,6 +39,9 @@ export const useLearnStore = create<learnStoreType>(
       setCurrentCard: (currentCard: number) => set({ currentCard }),
       percentCorrect: 0,
       setPercentCorrect: (percentCorrect: number) => set({ percentCorrect }),
+      howToStudy: 'order',
+      setHowToStudy: (howToStudy: howToStudyType) => set({ howToStudy }),
+
       isLearned: false,
       setIsLearned: (isLearned: boolean) => set({ isLearned })
     }),
@@ -53,6 +58,8 @@ type configLearnStoreType = {
   setCardsToLearn: (cardsToLearn: number) => void
   alphabet: alphabetType
   setAlphabet: (alphabet: alphabetType) => void
+  howToStudy: howToStudyType
+  setHowToStudy: (howToStudy: howToStudyType) => void
 }
 
 export const useConfigLearnStore = create<configLearnStoreType>(
@@ -63,7 +70,9 @@ export const useConfigLearnStore = create<configLearnStoreType>(
       cardsToLearn: 0,
       setCardsToLearn: (cardsToLearn: number) => set({ cardsToLearn }),
       alphabet: 'hiragana',
-      setAlphabet: (alphabet: alphabetType) => set({ alphabet })
+      setAlphabet: (alphabet: alphabetType) => set({ alphabet }),
+      howToStudy: 'order',
+      setHowToStudy: (howToStudy: howToStudyType) => set({ howToStudy })
     }),
     {
       name: 'config-learn-storage'

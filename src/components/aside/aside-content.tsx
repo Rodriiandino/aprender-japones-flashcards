@@ -29,7 +29,7 @@ export default function Aside() {
         className='sm:relative absolute top-0 left-0 h-full flex flex-row sm:gap-0 gap-4 w-64 lg:w-96 lg:min-w-80 sm:w-80 sm:min-w-52 z-50 -translate-x-60 sm:-translate-x-0 transition-transform'
         id={asideId}
       >
-        <div className='bg-background sm:w-full h-full p-3 border-r w-60 relative flex flex-col gap-4 z-50'>
+        <div className='bg-background sm:w-full h-full p-3 pr-1 border-r w-60 relative flex flex-col gap-4 z-50'>
           <Button
             size={'sm'}
             className='absolute p-0 -right-5 w-5 h-full top-0 rounded-r-full sm:hidden'
@@ -40,24 +40,32 @@ export default function Aside() {
           </Button>
           <HeaderAside />
 
-          <StudyPreparation />
-          <Separator />
+          <div className='flex flex-col gap-4 pr-2 h-full overflow-y-auto'>
+            <StudyPreparation />
+            <Separator />
 
-          <TooltipCustom text='Feature in development'>
-            <section className='h-full flex justify-center items-center select-none opacity-60'>
-              Custom
-            </section>
-          </TooltipCustom>
+            <TooltipCustom text='Feature in development'>
+              <section className='h-full flex flex-col justify-center items-center select-none opacity-60'>
+                Custom
+                <small className='text-xs text-center opacity-60'>
+                  This feature is in development and will be available soon.
+                </small>
+              </section>
+            </TooltipCustom>
 
-          <Separator />
-          <TooltipCustom text='Feature in development'>
-            <section className='h-full flex justify-center items-center select-none opacity-60'>
-              Last try
-            </section>
-          </TooltipCustom>
-          <Separator />
+            <Separator />
+            <TooltipCustom text='Feature in development'>
+              <section className='h-full flex flex-col justify-center items-center select-none opacity-60'>
+                Last try
+                <small className='text-xs text-center opacity-60'>
+                  This feature is in development and will be available soon.
+                </small>
+              </section>
+            </TooltipCustom>
+            <Separator />
 
-          <Footer />
+            <Footer />
+          </div>
         </div>
       </aside>
 
