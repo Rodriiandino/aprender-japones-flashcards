@@ -21,8 +21,8 @@ export default function LearningModal() {
   const {
     learningCards: cards,
     cardsCorrect,
-    cardsLength,
     setCardsCorrect,
+    cardsLength,
     learningAlphabet: alphabet,
     currentCard,
     setCurrentCard,
@@ -68,13 +68,13 @@ export default function LearningModal() {
 
   const handleReset = (e: React.FormEvent) => {
     e.preventDefault()
-    setCurrentCard(0)
-    setFinished(false)
+    setCardsCorrect(0)
     setPercentage(0)
     setCardsAlreadyPracticed([])
     setCurrentCard(
       learningMode === 'random' ? generateRandomNumber(cardsLength) : 0
     )
+    setFinished(false)
   }
 
   return (
