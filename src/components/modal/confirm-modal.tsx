@@ -14,32 +14,37 @@ import {
   useModalStore,
   useLearnStore
 } from '@/store/learn-store'
+import { generateRandomNumber } from '@/lib/utils'
 
 export default function ConfirmModal() {
-  const { cardsToLearn, alphabet, cards, howToStudy } = useConfigLearnStore()
+  const { alphabet, cards, howToStudy } = useConfigLearnStore()
   const { confirmModal, setConfirmModal, setLearningModal } = useModalStore()
   const {
     setIsLearned,
-    setCardsToLearn,
+    setCardsLength,
     setCards,
     setAlphabet,
     setCardsCorrect,
     setHowToStudy,
     setCurrentCard,
-    setPercentCorrect
+    setPercentCorrect,
+    setCardsAlreadyPracticed
   } = useLearnStore()
 
   const handleStartLearning = () => {
-    setIsLearned(true)
     setCards(cards)
-    setCardsToLearn(cardsToLearn)
+    setCardsLength(cards.length)
     setAlphabet(alphabet)
     setCardsCorrect(0)
     setHowToStudy(howToStudy)
-    setCurrentCard(0)
     setPercentCorrect(0)
     setLearningModal(true)
     setConfirmModal(false)
+    setCardsAlreadyPracticed([])
+    setCurrentCard(
+      howToStudy === 'random' ? generateRandomNumber(cards.length) : 0
+    )
+    setIsLearned(true)
   }
 
   return (
@@ -54,7 +59,7 @@ export default function ConfirmModal() {
         </DialogHeader>
 
         <p>
-          You going to learn {cardsToLearn} characters from the {alphabet}
+          You going to learn {cards.length} characters from the {alphabet}
         </p>
         <p>You will learn in {howToStudy} mode.</p>
         <DialogFooter className='gap-2 flex-col'>

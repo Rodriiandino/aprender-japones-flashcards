@@ -6,7 +6,7 @@ import { CharacterType, AllCharacters } from '@/data/characters'
 import { useConfigLearnStore } from '@/store/learn-store'
 
 export default function Section() {
-  const { cards, setCards, setCardsToLearn, alphabet } = useConfigLearnStore()
+  const { cards, setCards, alphabet } = useConfigLearnStore()
 
   useEffect(() => {
     const charactersArray: CharacterType[] = []
@@ -15,8 +15,7 @@ export default function Section() {
       charactersArray.push(AllCharacters[key])
     })
     setCards(charactersArray)
-    setCardsToLearn(charactersArray.length)
-  }, [setCards, setCardsToLearn])
+  }, [setCards])
 
   return (
     <section className='w-full h-full md:flex md:flex-wrap md:gap-3 gap-1 overflow-y-auto overflow-x-hidden grid grid-cols-5 pr-2'>

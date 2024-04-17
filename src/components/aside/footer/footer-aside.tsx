@@ -10,12 +10,14 @@ export default function Footer() {
     isLearned,
     setCardsCorrect,
     cardsCorrect,
-    learningCardsToLearn,
+    cardsLength,
     learningAlphabet,
     setCurrentCard,
-    currentCard,
     setPercentCorrect,
-    howToStudy
+    howToStudy,
+    setCardsAlreadyPracticed,
+    cardsAlreadyPracticed,
+    percentCorrect
   } = useLearnStore()
 
   const handleStartLearning = () => {
@@ -31,6 +33,7 @@ export default function Footer() {
     setCardsCorrect(0)
     setCurrentCard(0)
     setPercentCorrect(0)
+    setCardsAlreadyPracticed([])
   }
 
   return (
@@ -44,10 +47,14 @@ export default function Footer() {
             <p className='text-sm text-muted-foreground'>{cardsCorrect}</p>
           </div>
           <div className='flex justify-between'>
-            <p className='text-sm text-muted-foreground'>To learn:</p>
             <p className='text-sm text-muted-foreground'>
-              {learningCardsToLearn} cards
+              Percentage correct:{' '}
             </p>
+            <p className='text-sm text-muted-foreground'>{percentCorrect}%</p>
+          </div>
+          <div className='flex justify-between'>
+            <p className='text-sm text-muted-foreground'>To learn:</p>
+            <p className='text-sm text-muted-foreground'>{cardsLength} cards</p>
           </div>
           <div className='flex justify-between'>
             <p className='text-sm text-muted-foreground'>Alphabet:</p>
@@ -57,7 +64,10 @@ export default function Footer() {
             <p className='text-sm text-muted-foreground'>Study method:</p>
             <p className='text-sm text-muted-foreground'>{howToStudy}</p>
           </div>
-          <Progress value={currentCard + 1} max={learningCardsToLearn} />
+          <Progress
+            value={cardsAlreadyPracticed.length + 1}
+            max={cardsLength}
+          />
         </div>
       )}
       <div className='mt-2 flex gap-2 lg:flex-row flex-col'>

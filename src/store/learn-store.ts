@@ -6,14 +6,16 @@ import { CharacterType } from '@/data/characters'
 type learnStoreType = {
   learningCards: CharacterType[]
   setCards: (learningCards: CharacterType[]) => void
-  learningCardsToLearn: number
-  setCardsToLearn: (learningCardsToLearn: number) => void
+  cardsLength: number
+  setCardsLength: (cardsLength: number) => void
   cardsCorrect: number
   setCardsCorrect: (cardsCorrect: number) => void
   learningAlphabet: alphabetType
   setAlphabet: (learningAlphabet: alphabetType) => void
   currentCard: number
   setCurrentCard: (currentCard: number) => void
+  cardsAlreadyPracticed: number[]
+  setCardsAlreadyPracticed: (cardsAlreadyPracticed: number[]) => void
   percentCorrect: number
   setPercentCorrect: (percentCorrect: number) => void
   howToStudy: howToStudyType
@@ -27,9 +29,8 @@ export const useLearnStore = create<learnStoreType>(
     set => ({
       learningCards: [],
       setCards: (learningCards: CharacterType[]) => set({ learningCards }),
-      learningCardsToLearn: 0,
-      setCardsToLearn: (learningCardsToLearn: number) =>
-        set({ learningCardsToLearn }),
+      cardsLength: 0,
+      setCardsLength: (cardsLength: number) => set({ cardsLength }),
       cardsCorrect: 0,
       setCardsCorrect: (cardsCorrect: number) => set({ cardsCorrect }),
       learningAlphabet: 'hiragana',
@@ -37,11 +38,13 @@ export const useLearnStore = create<learnStoreType>(
         set({ learningAlphabet }),
       currentCard: 0,
       setCurrentCard: (currentCard: number) => set({ currentCard }),
+      cardsAlreadyPracticed: [],
+      setCardsAlreadyPracticed: (cardsAlreadyPracticed: number[]) =>
+        set({ cardsAlreadyPracticed }),
       percentCorrect: 0,
       setPercentCorrect: (percentCorrect: number) => set({ percentCorrect }),
       howToStudy: 'order',
       setHowToStudy: (howToStudy: howToStudyType) => set({ howToStudy }),
-
       isLearned: false,
       setIsLearned: (isLearned: boolean) => set({ isLearned })
     }),
@@ -54,8 +57,6 @@ export const useLearnStore = create<learnStoreType>(
 type configLearnStoreType = {
   cards: CharacterType[]
   setCards: (cards: CharacterType[]) => void
-  cardsToLearn: number
-  setCardsToLearn: (cardsToLearn: number) => void
   alphabet: alphabetType
   setAlphabet: (alphabet: alphabetType) => void
   howToStudy: howToStudyType
@@ -67,8 +68,6 @@ export const useConfigLearnStore = create<configLearnStoreType>(
     set => ({
       cards: [],
       setCards: (cards: CharacterType[]) => set({ cards }),
-      cardsToLearn: 0,
-      setCardsToLearn: (cardsToLearn: number) => set({ cardsToLearn }),
       alphabet: 'hiragana',
       setAlphabet: (alphabet: alphabetType) => set({ alphabet }),
       howToStudy: 'order',

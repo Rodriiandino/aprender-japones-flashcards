@@ -6,8 +6,7 @@ import { Label } from '../ui/label'
 import { howToStudyType } from '@/types/alphabetType'
 
 export default function StudyPreparation() {
-  const { alphabet, cardsToLearn, setHowToStudy, howToStudy } =
-    useConfigLearnStore()
+  const { alphabet, cards, setHowToStudy, howToStudy } = useConfigLearnStore()
 
   const handleHowToStudy = (value: howToStudyType) => {
     setHowToStudy(value)
@@ -19,7 +18,7 @@ export default function StudyPreparation() {
       <p className='text-sm text-gray-500'>Start learning the alphabet</p>
       <div className='flex justify-between mt-2'>
         <p className='text-sm text-muted-foreground'>To learn:</p>
-        <p className='text-sm text-muted-foreground'>{cardsToLearn} cards</p>
+        <p className='text-sm text-muted-foreground'>{cards.length} cards</p>
       </div>
       <div className='flex justify-between'>
         <p className='text-sm text-muted-foreground'>Alphabet:</p>
