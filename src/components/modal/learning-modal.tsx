@@ -38,7 +38,7 @@ export default function LearningModal() {
     howToStudy: learningMode
   } = useLearnStore()
   const [inputValue, setInputValue] = useState('')
-  const [finished, setFinished] = useState(true)
+  const [finished, setFinished] = useState(false)
   const [isAnswerCorrect, setIsAnsweredCorrect] = useState<boolean | null>(null)
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
