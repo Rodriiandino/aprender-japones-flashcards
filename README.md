@@ -1,7 +1,7 @@
 # Aprende Japones con esta Web
 ## Puedes aprender Hiragana y Katakana
 
-Esta es una aplicación web desarrollada con Next.js que te permite aprender los alfabetos japoneses Hiragana y Katakana a través de una serie de preguntas y respuestas.
+Esta es una aplicación web desarrollada con Next.js que te brinda una experiencia de aprendizaje interactiva para los alfabetos japoneses Hiragana y Katakana.
 
 ![533shots_so](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/0cf2b42a-7d4b-4bc2-af7e-977f4597a131)
 
@@ -13,6 +13,7 @@ Esta es una aplicación web desarrollada con Next.js que te permite aprender los
 - Next.js
 - Tailwind CSS
 - TypeScript
+- Zustand
 - Componenste UI de shadcn/ui
 
 <hr>
@@ -23,11 +24,11 @@ Esta es una aplicación web desarrollada con Next.js que te permite aprender los
 
 ### Funcionalidades
 
-- Pudes elegir que alfabeto aprender, hiragana o katakana y proximamente kanjis!
-- Puedes visualizar en cards todos los caracteres y su contraparte y su respectiva pronunciacion con romaji
-- Modo de aprendizaje aleatorio o secuencial
-- Progreso y estadísticas de las respuestas correctas
-- Animaciones para indicar si la respuesta es correcta o incorrecta
+- Elige entre aprender Hiragana, Katakana o próximamente, Kanji
+- Visualiza tarjetas con los caracteres, su pronunciación en Romaji y su contraparte
+- Selecciona entre modo de aprendizaje aleatorio o secuencial
+- Sigue tu progreso y estadísticas de respuestas correctas
+- Disfruta de animaciones que indican si tu respuesta es correcta o incorrecta
 
 <hr>
 
