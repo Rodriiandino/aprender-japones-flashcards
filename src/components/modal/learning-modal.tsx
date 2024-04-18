@@ -122,7 +122,7 @@ export default function LearningModal() {
                 <CardTitle className='text-4xl sm:text-6xl'>
                   {typeof cards[currentCard].romaji === 'string'
                     ? cards[currentCard].romaji
-                    : cards[currentCard].romaji.join(', ')}
+                    : (cards[currentCard].romaji as string[]).join(', ')}
                 </CardTitle>
               </CardContent>
             </Card>
