@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { Heart } from 'lucide-react'
+import { Heart, Circle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CharacterType } from '@/data/characters'
 import { alphabetType } from '@/types/alphabetType'
@@ -27,7 +27,7 @@ export default function CardSymbol({
           className='p-0 absolute right-2'
           disabled
         >
-          <Heart size={15} />
+          <Circle size={10} />
         </Button>
       </CardHeader>
       <CardContent className='p-0 flex items-center justify-center h-full'>

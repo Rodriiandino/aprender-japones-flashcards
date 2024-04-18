@@ -38,7 +38,7 @@ export default function HeaderAside() {
       </div>
       <div>
         <Separator />
-
+        {/* 
         <TooltipCustom text='feature to be implemented'>
           <nav className='w-full flex justify-center items-center h-10'>
             <Button
@@ -67,7 +67,7 @@ export default function HeaderAside() {
           </nav>
         </TooltipCustom>
 
-        <Separator />
+        <Separator /> */}
       </div>
     </header>
   )
