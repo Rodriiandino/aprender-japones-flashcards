@@ -14,7 +14,12 @@ import { Input } from '../ui/input'
 import { Progress } from '@/components/ui/progress'
 import { Button } from '../ui/button'
 import LearningCard from './learning-card'
-import { generateRandomNumber, generateRandomNumberExcluded } from '@/lib/utils'
+import {
+  generateRandomNumber,
+  generateRandomNumberExcluded,
+  cn
+} from '@/lib/utils'
+import { Card, CardContent, CardTitle } from '../ui/card'
 
 export default function LearningModal() {
   const { learningModal: isOpen, setLearningModal: setIsOpen } = useModalStore()
@@ -33,9 +38,11 @@ export default function LearningModal() {
     howToStudy: learningMode
   } = useLearnStore()
   const [inputValue, setInputValue] = useState('')
-  const [finished, setFinished] = useState(false)
+  const [finished, setFinished] = useState(true)
+  const [isAnswerCorrect, setIsAnsweredCorrect] = useState<boolean | null>(null)
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
-  const handleNextCard = (e: React.FormEvent) => {
+  const handleNextCard = async (e: React.FormEvent) => {
     e.preventDefault()
 
     const lowerCasedInput = inputValue.toLowerCase()
@@ -44,6 +51,17 @@ export default function LearningModal() {
       (cards[currentCard].romaji.includes(lowerCasedInput) &&
         lowerCasedInput.length > 0)
 
+    if (isMatch) {
+      setCardsCorrect(cardsCorrect + 1)
+      setIsAnsweredCorrect(true)
+    } else {
+      setIsAnsweredCorrect(false)
+    }
+
+    setIsSubmitDisabled(true)
+    await new Promise(resolve => setTimeout(resolve, 500))
+    setIsSubmitDisabled(false)
+
     if (cardsAlreadyPracticed.length < cardsLength - 1) {
       setCardsAlreadyPracticed([...cardsAlreadyPracticed, currentCard])
       setCurrentCard(
@@ -51,10 +69,7 @@ export default function LearningModal() {
           ? generateRandomNumberExcluded(cardsLength, cardsAlreadyPracticed)
           : currentCard + 1
       )
-    }
-
-    if (isMatch) {
-      setCardsCorrect(cardsCorrect + 1)
+      setIsAnsweredCorrect(null)
     }
 
     if (cardsAlreadyPracticed.length === cardsLength - 1) {
@@ -74,12 +89,22 @@ export default function LearningModal() {
     setCurrentCard(
       learningMode === 'random' ? generateRandomNumber(cardsLength) : 0
     )
+    setInputValue('')
+    setIsAnsweredCorrect(null)
+    setIsSubmitDisabled(false)
     setFinished(false)
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className='sm:max-w-[600px] w-5/6'>
+      <DialogContent
+        className={cn('sm:max-w-[600px] w-5/6', {
+          'border-2 border-red-950 shadow-xl shadow-red-950':
+            isAnswerCorrect === false,
+          'border-2 border-green-950 shadow-xl shadow-green-950':
+            isAnswerCorrect
+        })}
+      >
         <DialogHeader>
           <DialogTitle>Learning {alphabet}</DialogTitle>
           <DialogDescription>
@@ -90,8 +115,21 @@ export default function LearningModal() {
             max={cardsLength}
           />
         </DialogHeader>
-        <form className='flex flex-col items-center gap-4'>
-          <LearningCard primary={alphabet} character={cards[currentCard]} />
+        <form className='flex flex-col items-center gap-4 p-1'>
+          {isAnswerCorrect === true || isAnswerCorrect === false ? (
+            <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none'>
+              <CardContent className='p-0 flex items-center justify-center h-full animate-fade-in duration-150'>
+                <CardTitle className='text-4xl sm:text-6xl'>
+                  {typeof cards[currentCard].romaji === 'string'
+                    ? cards[currentCard].romaji
+                    : cards[currentCard].romaji.join(', ')}
+                </CardTitle>
+              </CardContent>
+            </Card>
+          ) : (
+            <LearningCard primary={alphabet} character={cards[currentCard]} />
+          )}
+
           <Input
             placeholder='Insert your answer'
             onChange={e => setInputValue(e.target.value)}
@@ -109,7 +147,12 @@ export default function LearningModal() {
             </div>
           ) : (
             <div className='flex flex-col items-center gap-1'>
-              <Button variant='default' size='lg' onClick={handleNextCard}>
+              <Button
+                variant='default'
+                size='lg'
+                onClick={handleNextCard}
+                disabled={isSubmitDisabled}
+              >
                 Submit
               </Button>
               <DialogDescription className='text-xs'>
