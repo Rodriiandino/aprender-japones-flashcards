@@ -1,13 +1,11 @@
 'use client'
 
-import HeaderAside from './header-aside'
-import { Separator } from '../ui/separator'
-import Footer from './footer/footer-aside'
-import StudyPreparation from './study-preparation'
-import TooltipCustom from '../tooltip-custom'
+import HeaderAside from './header/header-aside'
+import FooterAside from './footer/footer-aside'
 import { Button } from '../ui/button'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { useState, useId } from 'react'
+import SectionsAside from './sections/sections-aside'
 
 export default function Aside() {
   const [isAsideOpen, setIsAsideOpen] = useState(false)
@@ -38,33 +36,11 @@ export default function Aside() {
           >
             {isAsideOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </Button>
-          <HeaderAside />
 
           <div className='flex flex-col gap-4 pr-2 h-full overflow-y-auto'>
-            <StudyPreparation />
-            <Separator />
-
-            <TooltipCustom text='Feature in development'>
-              <section className='h-full flex flex-col justify-center items-center select-none opacity-60'>
-                Custom
-                <small className='text-xs text-center opacity-60'>
-                  This feature is in development and will be available soon.
-                </small>
-              </section>
-            </TooltipCustom>
-
-            <Separator />
-            <TooltipCustom text='Feature in development'>
-              <section className='h-full flex flex-col justify-center items-center select-none opacity-60'>
-                Last try
-                <small className='text-xs text-center opacity-60'>
-                  This feature is in development and will be available soon.
-                </small>
-              </section>
-            </TooltipCustom>
-            <Separator />
-
-            <Footer />
+            <HeaderAside />
+            <SectionsAside />
+            <FooterAside />
           </div>
         </div>
       </aside>

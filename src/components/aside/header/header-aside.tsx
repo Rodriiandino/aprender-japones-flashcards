@@ -1,8 +1,8 @@
 import { Heart, Search, BarChart, BadgeJapaneseYen } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { Button } from '../ui/button'
-import { Separator } from '../ui/separator'
-import TooltipCustom from '../tooltip-custom'
+import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
+import { Button } from '../../ui/button'
+import { Separator } from '../../ui/separator'
+import TooltipCustom from '../../tooltip-custom'
 
 export default function HeaderAside() {
   return (

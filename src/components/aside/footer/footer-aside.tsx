@@ -2,8 +2,9 @@
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { useModalStore, useLearnStore } from '@/store/learn-store'
+import StatsLearning from './stats-learning'
 
-export default function Footer() {
+export default function FooterAside() {
   const { setLearningModal, setConfirmModal } = useModalStore()
   const {
     setIsLearned,
@@ -42,28 +43,13 @@ export default function Footer() {
         <div className='flex flex-col gap-1'>
           <h2 className='sm:text-xl text-lg font-bold'>Learning progress</h2>
           <p className='text-sm text-gray-500'>Start learning the alphabet</p>
-          <div className='flex justify-between mt-2'>
-            <p className='text-sm text-muted-foreground'>Correct:</p>
-            <p className='text-sm text-muted-foreground'>{cardsCorrect}</p>
-          </div>
-          <div className='flex justify-between'>
-            <p className='text-sm text-muted-foreground'>
-              Percentage correct:{' '}
-            </p>
-            <p className='text-sm text-muted-foreground'>{percentCorrect}%</p>
-          </div>
-          <div className='flex justify-between'>
-            <p className='text-sm text-muted-foreground'>To learn:</p>
-            <p className='text-sm text-muted-foreground'>{cardsLength} cards</p>
-          </div>
-          <div className='flex justify-between'>
-            <p className='text-sm text-muted-foreground'>Alphabet:</p>
-            <p className='text-sm text-muted-foreground'>{learningAlphabet}</p>
-          </div>
-          <div className='flex justify-between'>
-            <p className='text-sm text-muted-foreground'>Study method:</p>
-            <p className='text-sm text-muted-foreground'>{howToStudy}</p>
-          </div>
+          <StatsLearning
+            cardsCorrect={cardsCorrect}
+            percentCorrect={percentCorrect}
+            cardsLength={cardsLength}
+            learningAlphabet={learningAlphabet}
+            howToStudy={howToStudy}
+          />
           <Progress
             value={cardsAlreadyPracticed.length + 1}
             max={cardsLength}

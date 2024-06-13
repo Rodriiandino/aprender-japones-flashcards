@@ -1,9 +1,10 @@
 'use client'
 
 import { useConfigLearnStore } from '@/store/learn-store'
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
-import { Label } from '../ui/label'
+import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+import { Label } from '../../ui/label'
 import { howToStudyType } from '@/types/alphabetType'
+import { StatItem } from '@/components/ui/stat-item'
 
 export default function StudyPreparation() {
   const { alphabet, cards, setHowToStudy, howToStudy } = useConfigLearnStore()
@@ -16,14 +17,13 @@ export default function StudyPreparation() {
     <section className='flex flex-col gap-1'>
       <h2 className='sm:text-xl text-lg font-bold'>Study preparation</h2>
       <p className='text-sm text-gray-500'>Start learning the alphabet</p>
-      <div className='flex justify-between mt-2'>
-        <p className='text-sm text-muted-foreground'>To learn:</p>
-        <p className='text-sm text-muted-foreground'>{cards.length} cards</p>
-      </div>
-      <div className='flex justify-between'>
-        <p className='text-sm text-muted-foreground'>Alphabet:</p>
-        <p className='text-sm text-muted-foreground'>{alphabet}</p>
-      </div>
+      <StatItem
+        label='To learn'
+        value={`${cards.length} cards`}
+        className='mt-2'
+      />
+      <StatItem label='Alphabet' value={alphabet} />
+
       <div className='flex flex-col gap-2'>
         <p className='text-sm text-muted-foreground'>Study method:</p>
         <RadioGroup value={howToStudy} onValueChange={handleHowToStudy}>
