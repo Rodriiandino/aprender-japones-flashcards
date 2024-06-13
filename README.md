@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Aprende Japones con esta Web
+## Puedes aprender Hiragana y Katakana
 
-## Getting Started
+Esta es una aplicación web desarrollada con Next.js que te brinda una experiencia de aprendizaje interactiva para los alfabetos japoneses Hiragana y Katakana.
 
-First, run the development server:
+![533shots_so](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/0cf2b42a-7d4b-4bc2-af7e-977f4597a131)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<hr>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Tecnologías
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- React.js
+- Next.js
+- Tailwind CSS
+- TypeScript
+- Zustand
+- Componenste UI de shadcn/ui
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<hr>
 
-## Learn More
+![395shots_so](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/33906ac2-87f5-43a2-bc2d-2b5e4e51258b)
 
-To learn more about Next.js, take a look at the following resources:
+<hr>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Funcionalidades
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Elige entre aprender Hiragana, Katakana o próximamente, Kanji
+- Visualiza tarjetas con los caracteres, su pronunciación en Romaji y su contraparte
+- Selecciona entre modo de aprendizaje aleatorio o secuencial
+- Sigue tu progreso y estadísticas de respuestas correctas
+- Disfruta de animaciones que indican si tu respuesta es correcta o incorrecta
 
-## Deploy on Vercel
+<hr>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![73shots_so](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/93eb6631-db3d-4067-af48-df4f196c1c13)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+<hr>
+
+### Cómo Utilizar
+1.  Puedes acceder a la aplicación en línea en esta URL: https://aprender-japones-flashcards.vercel.app/
+2.  O bien, clona este repositorio en tu máquina local:
+  - Ejecuta `npm install` para instalar las dependencias.
+  - Ejecuta `npm run dev` para iniciar la aplicación en modo de desarrollo.
+  - Abre tu navegador y visita `localhost` en el puerto donde se levantó la aplicación.
+3.  ¡Y disfruta aprendiendo los alfabetos japoneses!
+
+![31shots_so (1)](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/39685c0b-7853-490e-a045-cce69a9a131c)
