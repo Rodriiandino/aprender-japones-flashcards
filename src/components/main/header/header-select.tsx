@@ -11,12 +11,12 @@ import {
 } from '@/components/ui/select'
 
 import { useConfigLearnStore } from '@/store/learn-store'
-import { alphabetType } from '@/types/alphabetType'
+import { AlphabetCategory } from '@/types/alphabet-type'
 
 export default function HeaderSelect() {
   const { alphabet, setAlphabet } = useConfigLearnStore()
 
-  const handleCharacterChange = (value: alphabetType) => {
+  const handleCharacterChange = (value: AlphabetCategory) => {
     setAlphabet(value)
   }
 

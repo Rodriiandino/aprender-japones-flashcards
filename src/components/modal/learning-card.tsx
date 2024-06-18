@@ -1,4 +1,4 @@
-import { alphabetType } from '@/types/alphabetType'
+import { AlphabetCategory } from '@/types/alphabet-type'
 import { Card, CardContent, CardTitle } from '../ui/card'
 import { CharacterType } from '@/data/characters'
 
@@ -7,7 +7,7 @@ export default function LearningCard({
   primary
 }: {
   character: CharacterType
-  primary: alphabetType
+  primary: AlphabetCategory
 }) {
   return (
     <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none'>

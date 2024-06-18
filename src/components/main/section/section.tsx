@@ -2,18 +2,15 @@
 
 import { useEffect } from 'react'
 import CardSymbol from './card'
-import { CharacterType, AllCharacters } from '@/data/characters'
+import { AllCharacters } from '@/data/characters'
 import { useConfigLearnStore } from '@/store/learn-store'
+import { CharacterDetails } from '@/types/card-type'
 
 export default function Section() {
   const { cards, setCards, alphabet } = useConfigLearnStore()
 
   useEffect(() => {
-    const charactersArray: CharacterType[] = []
-
-    Object.keys(AllCharacters).forEach(key => {
-      charactersArray.push(AllCharacters[key])
-    })
+    const charactersArray: CharacterDetails[] = Object.values(AllCharacters)
     setCards(charactersArray)
   }, [setCards])
 

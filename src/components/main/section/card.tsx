@@ -6,29 +6,21 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { Heart, Circle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { CharacterType } from '@/data/characters'
-import { alphabetType } from '@/types/alphabetType'
+import { AlphabetCategory } from '@/types/alphabet-type'
+import FavoriteButton from './favorite-button'
+import { CharacterCard, CharacterDetails } from '@/types/card-type'
 
 export default function CardSymbol({
   character,
   primary
 }: {
-  character: CharacterType
-  primary: alphabetType
+  character: CharacterDetails | CharacterCard
+  primary: AlphabetCategory
 }) {
   return (
     <Card className='lg:w-[105px] md:w-[95px] w-auto lg:h-[130px] md:h-[120px] sm:h-[125px] h-[110px] flex flex-col relative'>
       <CardHeader className='p-0 flex items-end absolute w-full'>
-        <Button
-          variant='ghost'
-          size='sm'
-          className='p-0 absolute right-2'
-          disabled
-        >
-          <Circle size={10} />
-        </Button>
+        <FavoriteButton character={character} primary={primary} />
       </CardHeader>
       <CardContent className='p-0 flex items-center justify-center h-full'>
         <CardTitle className='lg:text-5xl md:text-4xl sm:text-3xl text-2xl'>

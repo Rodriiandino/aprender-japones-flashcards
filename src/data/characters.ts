@@ -1,11 +1,7 @@
-export type CharacterType = {
-  hiragana: string
-  katakana: string
-  romaji: string | string[]
-}
+import { CharacterDetails } from '@/types/card-type'
 
 export const AllCharactersGroup: {
-  [group: string]: { [key: string]: { [key: string]: CharacterType } }
+  [group: string]: { [key: string]: { [key: string]: CharacterDetails } }
 } = {
   voicedConsonants: {
     vowels: {
@@ -605,7 +601,7 @@ export const AllCharactersGroup: {
 }
 
 export type AllCharactersType = {
-  [key: string]: CharacterType
+  [key: string]: CharacterDetails
 }
 
 export const AllCharacters: AllCharactersType = {

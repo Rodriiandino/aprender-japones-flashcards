@@ -38,36 +38,30 @@ export default function HeaderAside() {
       </div>
       <div>
         <Separator />
-        {/* 
-        <TooltipCustom text='feature to be implemented'>
-          <nav className='w-full flex justify-center items-center h-10'>
-            <Button
-              variant='ghost'
-              className='w-full h-full rounded-none'
-              disabled
-            >
-              <Heart size={24} />
-            </Button>
-            <Separator orientation='vertical' />
-            <Button
-              variant='ghost'
-              className='w-full h-full rounded-none'
-              disabled
-            >
-              <Search size={24} />
-            </Button>
-            <Separator orientation='vertical' />
-            <Button
-              variant='ghost'
-              className='w-full h-full rounded-none'
-              disabled
-            >
-              <BarChart size={24} />
-            </Button>
-          </nav>
-        </TooltipCustom>
 
-        <Separator /> */}
+        <nav className='w-full flex justify-center items-center h-10'>
+          <Button variant='ghost' className='w-full h-full rounded-none'>
+            <Heart size={24} />
+          </Button>
+
+          <Separator orientation='vertical' />
+          <Button
+            variant='ghost'
+            className='w-full h-full rounded-none'
+            disabled
+          >
+            <Search size={24} />
+          </Button>
+          <Separator orientation='vertical' />
+          <Button
+            variant='ghost'
+            className='w-full h-full rounded-none'
+            disabled
+          >
+            <BarChart size={24} />
+          </Button>
+        </nav>
+        <Separator />
       </div>
     </header>
   )
