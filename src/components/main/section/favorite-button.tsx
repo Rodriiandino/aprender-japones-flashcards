@@ -1,38 +1,38 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { CharacterDetails } from '@/types/card-type'
+import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { Heart } from 'lucide-react'
 import { useFavoriteStore } from '@/store/learn-store'
-import { useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { AlphabetCategory } from '@/types/alphabet-type'
 
-export default function FavoriteButton({
-  character,
-  primary
-}: {
-  character: CharacterDetails
-  primary: AlphabetCategory
-}) {
+interface FavoriteButtonProps {
+  character: CharacterDetails | CharacterCard
+  category: AlphabetCategory
+}
+
+function FavoriteButton({ character, category }: FavoriteButtonProps) {
   const { favoriteCards, setFavoriteCards } = useFavoriteStore()
   const [isFavorite, setIsFavorite] = useState(false)
 
+  const card: CharacterCard = {
+    character: 'character' in character ? character.character : character,
+    type: category
+  }
+
+  const isCardFavorite = useCallback(
+    (favCard: CharacterCard) =>
+      favCard.character.romaji === card.character.romaji &&
+      favCard.type === card.type,
+    [card.character.romaji, card.type]
+  )
+
   const handleFavorite = () => {
-    const card = { character, type: primary }
-    if (
-      favoriteCards.some(
-        favCard =>
-          favCard.character.romaji === character.romaji &&
-          favCard.type === primary
-      )
-    ) {
+    if (favoriteCards.some(isCardFavorite)) {
       const newFavoriteCards = favoriteCards.filter(
-        favCard =>
-          !(
-            favCard.character.romaji === character.romaji &&
-            favCard.type === primary
-          )
+        favCard => !isCardFavorite(favCard)
       )
       setFavoriteCards(newFavoriteCards)
     } else {
@@ -41,14 +41,8 @@ export default function FavoriteButton({
   }
 
   useEffect(() => {
-    setIsFavorite(
-      favoriteCards.some(
-        favCard =>
-          favCard.character.romaji === character.romaji &&
-          favCard.type === primary
-      )
-    )
-  }, [character, primary, favoriteCards])
+    setIsFavorite(favoriteCards.some(isCardFavorite))
+  }, [favoriteCards, isCardFavorite])
 
   return (
     <Button
@@ -59,10 +53,10 @@ export default function FavoriteButton({
     >
       <Heart
         size={14}
-        className={cn('transition-colors', {
-          'text-red': isFavorite
-        })}
+        className={cn('transition-colors', { 'text-red': isFavorite })}
       />
     </Button>
   )
 }
+
+export default memo(FavoriteButton)

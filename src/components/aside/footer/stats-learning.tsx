@@ -1,6 +1,6 @@
 import { StatItem } from '@/components/ui/stat-item'
 
-interface StatsLearning {
+interface StatsLearningProps {
   cardsCorrect: number
   percentCorrect: number
   cardsLength: number
@@ -14,7 +14,7 @@ export default function StatsLearning({
   cardsLength,
   learningAlphabet,
   howToStudy
-}: StatsLearning) {
+}: StatsLearningProps) {
   return (
     <>
       <StatItem label='Correct' value={`${cardsCorrect}`} className='mt-2' />

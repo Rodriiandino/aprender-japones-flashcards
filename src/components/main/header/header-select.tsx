@@ -10,7 +10,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 
-import { useConfigLearnStore } from '@/store/learn-store'
+import { useConfigLearnStore, useFavoriteStore } from '@/store/learn-store'
 import { AlphabetCategory } from '@/types/alphabet-type'
 
 export default function HeaderSelect() {
@@ -30,7 +30,7 @@ export default function HeaderSelect() {
           <SelectLabel>Tipo de Letras</SelectLabel>
           <SelectItem value='hiragana'>Hiragana</SelectItem>
           <SelectItem value='katakana'>Katakana</SelectItem>
-          {/* <SelectItem value='kanji'>Kanji</SelectItem> */}
+          <SelectItem value='favorite'>Favorite</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

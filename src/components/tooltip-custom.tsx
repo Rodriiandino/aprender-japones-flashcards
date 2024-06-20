@@ -5,13 +5,12 @@ import {
   TooltipTrigger
 } from './ui/tooltip'
 
-export default function TooltipCustom({
-  children,
-  text
-}: {
+interface TooltipCustomProps {
   children: React.ReactNode
   text: string
-}) {
+}
+
+export default function TooltipCustom({ children, text }: TooltipCustomProps) {
   return (
     <TooltipProvider>
       <Tooltip>

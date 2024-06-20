@@ -3,13 +3,13 @@
 import { useConfigLearnStore } from '@/store/learn-store'
 import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
 import { Label } from '../../ui/label'
-import { howToStudyType } from '@/types/alphabetType'
+import { StudyMode } from '@/types/alphabet-type'
 import { StatItem } from '@/components/ui/stat-item'
 
 export default function StudyPreparation() {
   const { alphabet, cards, setHowToStudy, howToStudy } = useConfigLearnStore()
 
-  const handleHowToStudy = (value: howToStudyType) => {
+  const handleHowToStudy = (value: StudyMode) => {
     setHowToStudy(value)
   }
 
