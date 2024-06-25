@@ -17,38 +17,42 @@ import {
 import { generateRandomNumber } from '@/lib/utils'
 
 export default function ConfirmModal() {
-  const { alphabet, cards, howToStudy } = useConfigLearnStore()
-  const { confirmModal, setConfirmModal, setLearningModal } = useModalStore()
+  const { selectedAlphabet, configCards, selectedStudyMode } =
+    useConfigLearnStore()
+  const { isConfirmModalOpen, toggleConfirmModal, toggleLearningModal } =
+    useModalStore()
   const {
-    setIsLearned,
-    setCardsLength,
-    setCards,
-    setAlphabet,
-    setCardsCorrect,
-    setHowToStudy,
-    setCurrentCard,
-    setPercentCorrect,
-    setCardsAlreadyPracticed
+    setIsLearning,
+    setLearningCards,
+    setTotalCards,
+    setCurrentAlphabet,
+    setCorrectAnswers,
+    setStudyMode,
+    setCorrectPercentage,
+    setPracticedCardsIndices,
+    setCurrentCardIndex
   } = useLearnStore()
 
   const handleStartLearning = () => {
-    setCards(cards)
-    setCardsLength(cards.length)
-    setAlphabet(alphabet)
-    setCardsCorrect(0)
-    setHowToStudy(howToStudy)
-    setPercentCorrect(0)
-    setLearningModal(true)
-    setConfirmModal(false)
-    setCardsAlreadyPracticed([])
-    setCurrentCard(
-      howToStudy === 'random' ? generateRandomNumber(cards.length) : 0
+    setLearningCards(configCards)
+    setTotalCards(configCards.length)
+    setCurrentAlphabet(selectedAlphabet)
+    setCorrectAnswers(0)
+    setStudyMode(selectedStudyMode)
+    setCorrectPercentage(0)
+    toggleLearningModal(true)
+    toggleConfirmModal(false)
+    setPracticedCardsIndices([])
+    setCurrentCardIndex(
+      selectedStudyMode === 'random'
+        ? generateRandomNumber(configCards.length)
+        : 0
     )
-    setIsLearned(true)
+    setIsLearning(true)
   }
 
   return (
-    <Dialog open={confirmModal} onOpenChange={setConfirmModal}>
+    <Dialog open={isConfirmModalOpen} onOpenChange={toggleConfirmModal}>
       <DialogContent className='w-5/6'>
         <DialogHeader>
           <DialogTitle>Confirm</DialogTitle>
@@ -59,9 +63,10 @@ export default function ConfirmModal() {
         </DialogHeader>
 
         <p>
-          You going to learn {cards.length} characters from the {alphabet}
+          You going to learn {configCards.length} characters from the{' '}
+          {selectedAlphabet}
         </p>
-        <p>You will learn in {howToStudy} mode.</p>
+        <p>You will learn in {selectedStudyMode} mode.</p>
         <DialogFooter className='gap-2 flex-col'>
           <Button size='lg' onClick={handleStartLearning}>
             Yes

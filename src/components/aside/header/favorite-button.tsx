@@ -6,18 +6,18 @@ import { useConfigLearnStore } from '@/store/learn-store'
 import { cn } from '@/lib/utils'
 
 export default function FavoriteButton() {
-  const { alphabet, setAlphabet } = useConfigLearnStore()
+  const { selectedAlphabet, setSelectedAlphabet } = useConfigLearnStore()
 
   const handleFavorite = () => {
-    if (alphabet !== 'favorite') setAlphabet('favorite')
-    if (alphabet === 'favorite') setAlphabet('hiragana')
+    if (selectedAlphabet !== 'favorite') setSelectedAlphabet('favorite')
+    if (selectedAlphabet === 'favorite') setSelectedAlphabet('hiragana')
   }
 
   return (
     <Button
       variant='ghost'
       className={cn('w-full h-full rounded-none', {
-        'text-red hover:text-red': alphabet === 'favorite'
+        'text-red hover:text-red': selectedAlphabet === 'favorite'
       })}
       onClick={handleFavorite}
     >

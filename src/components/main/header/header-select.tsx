@@ -10,18 +10,18 @@ import {
   SelectValue
 } from '@/components/ui/select'
 
-import { useConfigLearnStore, useFavoriteStore } from '@/store/learn-store'
+import { useConfigLearnStore } from '@/store/learn-store'
 import { AlphabetCategory } from '@/types/alphabet-type'
 
 export default function HeaderSelect() {
-  const { alphabet, setAlphabet } = useConfigLearnStore()
+  const { selectedAlphabet, setSelectedAlphabet } = useConfigLearnStore()
 
   const handleCharacterChange = (value: AlphabetCategory) => {
-    setAlphabet(value)
+    setSelectedAlphabet(value)
   }
 
   return (
-    <Select value={alphabet} onValueChange={handleCharacterChange}>
+    <Select value={selectedAlphabet} onValueChange={handleCharacterChange}>
       <SelectTrigger className='w-full h-14 hover:bg-accent'>
         <SelectValue placeholder='Selecciona un alfabetos' />
       </SelectTrigger>

@@ -10,6 +10,7 @@ import { AlphabetCategory } from '@/types/alphabet-type'
 import FavoriteButton from './favorite-button'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { memo } from 'react'
+import { getCharacterDetails, getEffectiveCategory } from '@/lib/utils'
 
 interface CardSymbolProps {
   character: CharacterDetails | CharacterCard
@@ -17,25 +18,8 @@ interface CardSymbolProps {
 }
 
 function CardSymbol({ character, category }: CardSymbolProps) {
-  const isCharacterCard = (
-    character: CharacterDetails | CharacterCard
-  ): character is CharacterCard => {
-    return 'character' in character
-  }
-
-  const hiragana = isCharacterCard(character)
-    ? character.character.hiragana
-    : character.hiragana
-  const katakana = isCharacterCard(character)
-    ? character.character.katakana
-    : character.katakana
-  const romaji = isCharacterCard(character)
-    ? character.character.romaji
-    : character.romaji
-
-  const effectiveCategory = isCharacterCard(character)
-    ? character.type
-    : category
+  const { hiragana, katakana, romaji } = getCharacterDetails(character)
+  const effectiveCategory = getEffectiveCategory(character, category)
 
   return (
     <Card className='lg:w-[105px] md:w-[95px] w-auto lg:h-[130px] md:h-[120px] sm:h-[125px] h-[110px] flex flex-col relative'>

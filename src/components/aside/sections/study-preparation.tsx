@@ -7,10 +7,15 @@ import { StudyMode } from '@/types/alphabet-type'
 import { StatItem } from '@/components/ui/stat-item'
 
 export default function StudyPreparation() {
-  const { alphabet, cards, setHowToStudy, howToStudy } = useConfigLearnStore()
+  const {
+    selectedAlphabet,
+    configCards,
+    selectedStudyMode,
+    setSelectedStudyMode
+  } = useConfigLearnStore()
 
   const handleHowToStudy = (value: StudyMode) => {
-    setHowToStudy(value)
+    setSelectedStudyMode(value)
   }
 
   return (
@@ -19,14 +24,14 @@ export default function StudyPreparation() {
       <p className='text-sm text-gray-500'>Start learning the alphabet</p>
       <StatItem
         label='To learn'
-        value={`${cards.length} cards`}
+        value={`${configCards.length} cards`}
         className='mt-2'
       />
-      <StatItem label='Alphabet' value={alphabet} />
+      <StatItem label='Alphabet' value={selectedAlphabet} />
 
       <div className='flex flex-col gap-2'>
         <p className='text-sm text-muted-foreground'>Study method:</p>
-        <RadioGroup value={howToStudy} onValueChange={handleHowToStudy}>
+        <RadioGroup value={selectedStudyMode} onValueChange={handleHowToStudy}>
           <div className='flex items-center space-x-2'>
             <RadioGroupItem value='order' id='r-order' />
             <Label htmlFor='r-order'>Order</Label>

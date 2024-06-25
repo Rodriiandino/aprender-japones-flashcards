@@ -1,3 +1,5 @@
+import { AlphabetCategory } from '@/types/alphabet-type'
+import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
@@ -20,4 +22,19 @@ export const generateRandomNumberExcluded = (
   } while (excludedNumbers.includes(randomNumber))
 
   return randomNumber
+}
+
+export function getCharacterDetails(
+  character: CharacterDetails | CharacterCard
+): CharacterDetails {
+  if ('character' in character) return character.character
+  return character
+}
+
+export function getEffectiveCategory(
+  character: CharacterDetails | CharacterCard,
+  category: AlphabetCategory
+): AlphabetCategory {
+  if ('type' in character) return character.type
+  return category
 }

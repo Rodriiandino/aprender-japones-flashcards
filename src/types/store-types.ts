@@ -4,23 +4,23 @@ import { CharacterCard } from './card-type'
 
 export type LearnStoreState = {
   learningCards: CharacterDetails[] | CharacterCard[]
-  setCards: (learningCards: CharacterDetails[] | CharacterCard[]) => void
-  cardsLength: number
-  setCardsLength: (cardsLength: number) => void
-  cardsCorrect: number
-  setCardsCorrect: (cardsCorrect: number) => void
-  learningAlphabet: AlphabetCategory
-  setAlphabet: (learningAlphabet: AlphabetCategory) => void
-  currentCard: number
-  setCurrentCard: (currentCard: number) => void
-  cardsAlreadyPracticed: number[]
-  setCardsAlreadyPracticed: (cardsAlreadyPracticed: number[]) => void
-  percentCorrect: number
-  setPercentCorrect: (percentCorrect: number) => void
-  howToStudy: StudyMode
-  setHowToStudy: (howToStudy: StudyMode) => void
-  isLearned: boolean
-  setIsLearned: (isLearned: boolean) => void
+  setLearningCards: (cards: CharacterDetails[] | CharacterCard[]) => void
+  totalCards: number
+  setTotalCards: (count: number) => void
+  correctAnswers: number
+  setCorrectAnswers: (count: number) => void
+  currentAlphabet: AlphabetCategory
+  setCurrentAlphabet: (alphabet: AlphabetCategory) => void
+  currentCardIndex: number
+  setCurrentCardIndex: (index: number) => void
+  practicedCardsIndices: number[]
+  setPracticedCardsIndices: (indices: number[]) => void
+  correctPercentage: number
+  setCorrectPercentage: (percentage: number) => void
+  studyMode: StudyMode
+  setStudyMode: (mode: StudyMode) => void
+  isLearning: boolean
+  setIsLearning: (isLearned: boolean) => void
 }
 
 export type FavoriteStoreState = {
@@ -29,19 +29,19 @@ export type FavoriteStoreState = {
 }
 
 export type ConfigLearnStoreState = {
-  cards: CharacterDetails[] | CharacterCard[]
-  setCards: (cards: CharacterDetails[] | CharacterCard[]) => void
-  alphabet: AlphabetCategory
-  setAlphabet: (alphabet: AlphabetCategory) => void
-  howToStudy: StudyMode
-  setHowToStudy: (howToStudy: StudyMode) => void
+  configCards: CharacterDetails[] | CharacterCard[]
+  setConfigCards: (cards: CharacterDetails[] | CharacterCard[]) => void
+  selectedAlphabet: AlphabetCategory
+  setSelectedAlphabet: (alphabet: AlphabetCategory) => void
+  selectedStudyMode: StudyMode
+  setSelectedStudyMode: (mode: StudyMode) => void
 }
 
 export type ModalStoreState = {
-  learningModal: boolean
-  setLearningModal: (learningModal: boolean) => void
-  confirmModal: boolean
-  setConfirmModal: (confirmModal: boolean) => void
-  changeLearnModal: boolean
-  setChangeLearnModal: (changeLearnModal: boolean) => void
+  isLearningModalOpen: boolean
+  toggleLearningModal: (isOpen: boolean) => void
+  isConfirmModalOpen: boolean
+  toggleConfirmModal: (isOpen: boolean) => void
+  isChangeLearnModalOpen: boolean
+  toggleChangeLearnModal: (isOpen: boolean) => void
 }

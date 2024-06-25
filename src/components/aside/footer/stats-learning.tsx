@@ -1,27 +1,27 @@
 import { StatItem } from '@/components/ui/stat-item'
 
 interface StatsLearningProps {
-  cardsCorrect: number
-  percentCorrect: number
-  cardsLength: number
-  learningAlphabet: string
-  howToStudy: string
+  correctAnswers: number
+  correctPercentage: number
+  totalCards: number
+  currentAlphabet: string
+  studyMode: string
 }
 
 export default function StatsLearning({
-  cardsCorrect,
-  percentCorrect,
-  cardsLength,
-  learningAlphabet,
-  howToStudy
+  correctAnswers,
+  correctPercentage,
+  totalCards,
+  currentAlphabet,
+  studyMode
 }: StatsLearningProps) {
   return (
     <>
-      <StatItem label='Correct' value={`${cardsCorrect}`} className='mt-2' />
-      <StatItem label='Percentage correct' value={`${percentCorrect}%`} />
-      <StatItem label='Learning' value={`${cardsLength} cards`} />
-      <StatItem label='Alphabet' value={learningAlphabet} />
-      <StatItem label='Study method' value={howToStudy} />
+      <StatItem label='Correct' value={`${correctAnswers}`} className='mt-2' />
+      <StatItem label='Percentage correct' value={`${correctPercentage}%`} />
+      <StatItem label='Learning' value={`${totalCards} cards`} />
+      <StatItem label='Alphabet' value={currentAlphabet} />
+      <StatItem label='Study method' value={studyMode} />
     </>
   )
 }

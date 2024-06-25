@@ -11,24 +11,25 @@ export const useLearnStore = create<LearnStoreState>()(
   persist(
     set => ({
       learningCards: [],
-      setCards: learningCards => set({ learningCards }),
-      cardsLength: 0,
-      setCardsLength: cardsLength => set({ cardsLength }),
-      cardsCorrect: 0,
-      setCardsCorrect: cardsCorrect => set({ cardsCorrect }),
-      learningAlphabet: 'hiragana',
-      setAlphabet: learningAlphabet => set({ learningAlphabet }),
-      currentCard: 0,
-      setCurrentCard: currentCard => set({ currentCard }),
-      cardsAlreadyPracticed: [],
-      setCardsAlreadyPracticed: cardsAlreadyPracticed =>
-        set({ cardsAlreadyPracticed }),
-      percentCorrect: 0,
-      setPercentCorrect: percentCorrect => set({ percentCorrect }),
-      howToStudy: 'order',
-      setHowToStudy: howToStudy => set({ howToStudy }),
-      isLearned: false,
-      setIsLearned: isLearned => set({ isLearned })
+      setLearningCards: cards => set({ learningCards: cards }),
+      totalCards: 0,
+      setTotalCards: count => set({ totalCards: count }),
+      correctAnswers: 0,
+      setCorrectAnswers: count => set({ correctAnswers: count }),
+      currentAlphabet: 'hiragana',
+      setCurrentAlphabet: alphabet => set({ currentAlphabet: alphabet }),
+      currentCardIndex: 0,
+      setCurrentCardIndex: index => set({ currentCardIndex: index }),
+      practicedCardsIndices: [],
+      setPracticedCardsIndices: indices =>
+        set({ practicedCardsIndices: indices }),
+      correctPercentage: 0,
+      setCorrectPercentage: percentage =>
+        set({ correctPercentage: percentage }),
+      studyMode: 'order',
+      setStudyMode: mode => set({ studyMode: mode }),
+      isLearning: false,
+      setIsLearning: isLearned => set({ isLearning: isLearned })
     }),
     {
       name: 'learn-storage'
@@ -51,12 +52,12 @@ export const useFavoriteStore = create<FavoriteStoreState>()(
 export const useConfigLearnStore = create<ConfigLearnStoreState>()(
   persist(
     set => ({
-      cards: [],
-      setCards: cards => set({ cards }),
-      alphabet: 'hiragana',
-      setAlphabet: alphabet => set({ alphabet }),
-      howToStudy: 'order',
-      setHowToStudy: howToStudy => set({ howToStudy })
+      configCards: [],
+      setConfigCards: configCards => set({ configCards }),
+      selectedAlphabet: 'hiragana',
+      setSelectedAlphabet: selectedAlphabet => set({ selectedAlphabet }),
+      selectedStudyMode: 'order',
+      setSelectedStudyMode: selectedStudyMode => set({ selectedStudyMode })
     }),
     {
       name: 'config-learn-storage'
@@ -65,10 +66,10 @@ export const useConfigLearnStore = create<ConfigLearnStoreState>()(
 )
 
 export const useModalStore = create<ModalStoreState>()(set => ({
-  learningModal: false,
-  setLearningModal: learningModal => set({ learningModal }),
-  confirmModal: false,
-  setConfirmModal: confirmModal => set({ confirmModal }),
-  changeLearnModal: false,
-  setChangeLearnModal: changeLearnModal => set({ changeLearnModal })
+  isLearningModalOpen: false,
+  toggleLearningModal: isOpen => set({ isLearningModalOpen: isOpen }),
+  isConfirmModalOpen: false,
+  toggleConfirmModal: isOpen => set({ isConfirmModalOpen: isOpen }),
+  isChangeLearnModalOpen: false,
+  toggleChangeLearnModal: isOpen => set({ isChangeLearnModalOpen: isOpen })
 }))
