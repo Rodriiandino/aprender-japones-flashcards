@@ -28,6 +28,7 @@ export default function HeaderSelect() {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Tipo de Letras</SelectLabel>
+          <SelectItem value='hiragana+katakana'>Hiragana + Katakana</SelectItem>
           <SelectItem value='hiragana'>Hiragana</SelectItem>
           <SelectItem value='katakana'>Katakana</SelectItem>
           <SelectItem value='favorite'>Favorite</SelectItem>

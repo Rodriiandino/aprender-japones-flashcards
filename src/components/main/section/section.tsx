@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import CardSymbol from './card'
 import { AllCharacters } from '@/data/characters'
 import { useConfigLearnStore, useFavoriteStore } from '@/store/learn-store'
-import { CharacterDetails } from '@/types/card-type'
+import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { cn } from '@/lib/utils'
 
 export default function Section() {
@@ -15,6 +15,26 @@ export default function Section() {
   useEffect(() => {
     if (selectedAlphabet === 'favorite') {
       setConfigCards(favoriteCards)
+      return
+    }
+
+    if (selectedAlphabet === 'hiragana+katakana') {
+      let charactersArray: CharacterCard[]
+
+      charactersArray = Object.values(AllCharacters).flatMap(char => {
+        return [
+          {
+            character: char,
+            type: 'hiragana'
+          },
+          {
+            character: char,
+            type: 'katakana'
+          }
+        ]
+      })
+
+      setConfigCards(charactersArray)
       return
     }
 

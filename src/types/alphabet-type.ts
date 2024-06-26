@@ -4,5 +4,6 @@ export type AlphabetCategory =
   | 'kanji'
   | 'custom'
   | 'favorite'
+  | 'hiragana+katakana'
 
 export type StudyMode = 'order' | 'random'

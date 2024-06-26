@@ -25,8 +25,9 @@ export const generateRandomNumberExcluded = (
 }
 
 export function getCharacterDetails(
-  character: CharacterDetails | CharacterCard
+  character: CharacterDetails | CharacterCard | null
 ): CharacterDetails {
+  if (!character) return { hiragana: '', katakana: '', romaji: '' }
   if ('character' in character) return character.character
   return character
 }
