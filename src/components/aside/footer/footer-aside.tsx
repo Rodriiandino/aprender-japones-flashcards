@@ -7,6 +7,7 @@ import {
   useConfigLearnStore
 } from '@/store/learn-store'
 import StatsLearning from './stats-learning'
+import { toast } from 'sonner'
 
 export default function FooterAside() {
   const { configCards } = useConfigLearnStore()
@@ -27,6 +28,14 @@ export default function FooterAside() {
   } = useLearnStore()
 
   const handleStartLearning = () => {
+    if (configCards.length < 10) {
+      toast.info('Not enough cards to start learning', {
+        description: 'Minimum of 10 cards required',
+        action: { label: 'undo', onClick: () => {} }
+      })
+      return
+    }
+
     if (!isLearning) {
       toggleConfirmModal(true)
       return
@@ -63,7 +72,6 @@ export default function FooterAside() {
           variant='default'
           className='w-full sm:h-16 h-10 sm:text-base'
           onClick={handleStartLearning}
-          disabled={configCards.length < 10 && !isLearning}
         >
           {isLearning ? 'Continue learning' : 'Start learning'}
         </Button>
