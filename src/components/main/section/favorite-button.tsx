@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { Heart } from 'lucide-react'
 import { useFavoriteStore } from '@/store/learn-store'
-import { memo, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { AlphabetCategory } from '@/types/alphabet-type'
 
@@ -13,7 +13,10 @@ interface FavoriteButtonProps {
   category: AlphabetCategory
 }
 
-function FavoriteButton({ character, category }: FavoriteButtonProps) {
+export default function FavoriteButton({
+  character,
+  category
+}: FavoriteButtonProps) {
   const { favoriteCards, setFavoriteCards } = useFavoriteStore()
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -58,5 +61,3 @@ function FavoriteButton({ character, category }: FavoriteButtonProps) {
     </Button>
   )
 }
-
-export default memo(FavoriteButton)

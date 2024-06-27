@@ -9,15 +9,15 @@ import {
 import { AlphabetCategory } from '@/types/alphabet-type'
 import FavoriteButton from './favorite-button'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
-import { memo } from 'react'
 import { getCharacterDetails, getEffectiveCategory } from '@/lib/utils'
+import Link from 'next/link'
 
 interface CardSymbolProps {
   character: CharacterDetails | CharacterCard
   category: AlphabetCategory
 }
 
-function CardSymbol({ character, category }: CardSymbolProps) {
+export default function CardSymbol({ character, category }: CardSymbolProps) {
   const { hiragana, katakana, romaji } = getCharacterDetails(character)
   const effectiveCategory = getEffectiveCategory(character, category)
 
@@ -28,7 +28,12 @@ function CardSymbol({ character, category }: CardSymbolProps) {
       </CardHeader>
       <CardContent className='p-0 flex items-center justify-center h-full'>
         <CardTitle className='lg:text-5xl md:text-4xl sm:text-3xl text-2xl'>
-          {effectiveCategory === 'hiragana' ? hiragana : katakana}
+          <Link
+            href={`/?category=${effectiveCategory}&character=${romaji}`}
+            passHref
+          >
+            {effectiveCategory === 'hiragana' ? hiragana : katakana}
+          </Link>
         </CardTitle>
       </CardContent>
       <CardFooter className='p-0 flex justify-center absolute bottom-0 w-full h-10 sm:gap-2 gap-1'>
@@ -43,5 +48,3 @@ function CardSymbol({ character, category }: CardSymbolProps) {
     </Card>
   )
 }
-
-export default memo(CardSymbol)

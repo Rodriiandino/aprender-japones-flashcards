@@ -31,12 +31,16 @@ export default function StudyPreparation() {
 
       <div className='flex flex-col gap-2'>
         <p className='text-sm text-muted-foreground'>Study method:</p>
-        <RadioGroup value={selectedStudyMode} onValueChange={handleHowToStudy}>
-          <div className='flex items-center space-x-2'>
+        <RadioGroup
+          value={selectedStudyMode}
+          onValueChange={handleHowToStudy}
+          className='flex'
+        >
+          <div className='flex flex-col items-center gap-1'>
             <RadioGroupItem value='order' id='r-order' />
             <Label htmlFor='r-order'>Order</Label>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex flex-col items-center gap-1'>
             <RadioGroupItem value='random' id='r-random' />
             <Label htmlFor='r-random'>Random</Label>
           </div>
