@@ -10,6 +10,7 @@ import { AlphabetCategory } from '@/types/alphabet-type'
 import FavoriteButton from './favorite-button'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { getCharacterDetails, getEffectiveCategory } from '@/lib/utils'
+import { useModalStore } from '@/store/learn-store'
 import Link from 'next/link'
 
 interface CardSymbolProps {
@@ -20,6 +21,16 @@ interface CardSymbolProps {
 export default function CardSymbol({ character, category }: CardSymbolProps) {
   const { hiragana, katakana, romaji } = getCharacterDetails(character)
   const effectiveCategory = getEffectiveCategory(character, category)
+  const { toggleCardModal, isCardModal } = useModalStore()
+
+  const handleOpenModal = () => {
+    if (!isCardModal) {
+      toggleCardModal(true)
+    }
+  }
+
+  const onlyRomaji = typeof romaji === 'string' ? romaji : romaji[0]
+  const url = `/?category=${effectiveCategory}&character=${onlyRomaji}`
 
   return (
     <Card className='lg:w-[105px] md:w-[95px] w-auto lg:h-[130px] md:h-[120px] sm:h-[125px] h-[110px] flex flex-col relative'>
@@ -28,10 +39,7 @@ export default function CardSymbol({ character, category }: CardSymbolProps) {
       </CardHeader>
       <CardContent className='p-0 flex items-center justify-center h-full'>
         <CardTitle className='lg:text-5xl md:text-4xl sm:text-3xl text-2xl'>
-          <Link
-            href={`/?category=${effectiveCategory}&character=${romaji}`}
-            passHref
-          >
+          <Link href={url} passHref onClick={handleOpenModal}>
             {effectiveCategory === 'hiragana' ? hiragana : katakana}
           </Link>
         </CardTitle>
