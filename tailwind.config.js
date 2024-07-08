@@ -79,6 +79,14 @@ const config = {
       screens: {
         xs: '475px',
         md: '768px'
+      },
+      fontFamily: {
+        noto: ['var(--font-noto-sans-jp)'],
+        kosugi: ['var(--font-kosugi-maru)'],
+        zen: ['var(--font-zen-antique)'],
+        yuji: ['var(--font-yuji-syuku)'],
+        mochiy: ['var(--font-mochiy-pop-one)'],
+        shippori: ['var(--font-shippori-mincho)']
       }
     }
   },

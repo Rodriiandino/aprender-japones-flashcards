@@ -1,9 +1,14 @@
 import type { Metadata } from 'next'
-import { Noto_Sans_JP } from 'next/font/google'
 import '@/styles/globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
-
-const noto_sans_jp = Noto_Sans_JP({ subsets: ['latin'] })
+import {
+  noto_sans_jp,
+  kosugi_maru,
+  mochiy_pop_one,
+  shippori_mincho,
+  yuji_syuku,
+  zen_antique
+} from './fonts'
 
 export const metadata: Metadata = {
   title: 'Learn japanese',
@@ -18,7 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={noto_sans_jp.className}>
+      <body
+        className={`
+        ${noto_sans_jp.variable}
+        ${kosugi_maru.variable}
+        ${zen_antique.variable}
+        ${yuji_syuku.variable}
+        ${mochiy_pop_one.variable}
+        ${shippori_mincho.variable}
+
+        font-noto
+        `}
+      >
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
