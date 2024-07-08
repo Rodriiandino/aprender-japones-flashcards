@@ -71,5 +71,7 @@ export const useModalStore = create<ModalStoreState>()(set => ({
   isConfirmModalOpen: false,
   toggleConfirmModal: isOpen => set({ isConfirmModalOpen: isOpen }),
   isChangeLearnModalOpen: false,
-  toggleChangeLearnModal: isOpen => set({ isChangeLearnModalOpen: isOpen })
+  toggleChangeLearnModal: isOpen => set({ isChangeLearnModalOpen: isOpen }),
+  isCardModal: false,
+  toggleCardModal: isOpen => set({ isCardModal: isOpen })
 }))
