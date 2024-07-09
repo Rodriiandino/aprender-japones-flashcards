@@ -11,11 +11,13 @@ import { AlphabetCategory } from '@/types/alphabet-type'
 interface FavoriteButtonProps {
   character: CharacterDetails | CharacterCard
   category: AlphabetCategory
+  className?: string
 }
 
 export default function FavoriteButton({
   character,
-  category
+  category,
+  className
 }: FavoriteButtonProps) {
   const { favoriteCards, setFavoriteCards } = useFavoriteStore()
   const [isFavorite, setIsFavorite] = useState(false)
@@ -51,7 +53,7 @@ export default function FavoriteButton({
     <Button
       variant='ghost'
       size='sm'
-      className='p-0 absolute top-2 right-2 w-fit h-fit'
+      className={cn('p-0 absolute top-2 right-2 w-fit h-fit', className)}
       onClick={handleFavorite}
     >
       <Heart

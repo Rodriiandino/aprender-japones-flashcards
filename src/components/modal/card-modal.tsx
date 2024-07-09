@@ -1,20 +1,19 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useModalStore } from '@/store/learn-store'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle
 } from '../ui/dialog'
 import { CharacterDetails } from '@/types/card-type'
 import { AllCharacters } from '@/data/characters'
-import { Heart } from 'lucide-react'
 import { Card, CardTitle } from '../ui/card'
+import FavoriteButton from '../main/section/favorite-button'
 
 export default function CardModal() {
   const [card, setCard] = useState<CharacterDetails>({
@@ -28,29 +27,70 @@ export default function CardModal() {
   const pathname = usePathname()
   const { replace } = useRouter()
 
-  const fetchCardDetails = useCallback(() => {
+  const validateParams = useCallback(() => {
     const params = new URLSearchParams(searchParams)
     const categoryParam = params.get('category')
     const characterParam = params.get('character')
 
-    if (categoryParam) {
-      setCategory(categoryParam as 'hiragana' | 'katakana')
+    const isValidCategory =
+      categoryParam === 'hiragana' || categoryParam === 'katakana'
+    const isValidCharacter = characterParam && AllCharacters[characterParam]
+
+    if (!isValidCategory || !isValidCharacter) {
+      params.delete('category')
+      params.delete('character')
+      const url = `${pathname}?${params.toString()}`
+      replace(url)
+      return false
     }
 
-    if (characterParam) {
-      const cardDetails = AllCharacters[characterParam]
-      setCard(cardDetails)
-    }
-  }, [searchParams])
+    return { categoryParam, characterParam }
+  }, [pathname, replace, searchParams])
+
+  const fetchCardDetails = useCallback(() => {
+    const result = validateParams()
+    if (!result) return
+
+    const { categoryParam, characterParam } = result
+
+    setCategory(categoryParam as 'hiragana' | 'katakana')
+    setCard(AllCharacters[characterParam])
+  }, [validateParams])
 
   useEffect(() => {
     fetchCardDetails()
   }, [fetchCardDetails])
 
-  const renderCardDetails = useCallback(() => {
-    const oppositeCategory = category === 'hiragana' ? 'katakana' : 'hiragana'
+  useEffect(() => {
+    const initializeModal = () => {
+      const result = validateParams()
+      if (!result) return
 
-    return (
+      if (result) {
+        toggleCardModal(true)
+      }
+    }
+
+    initializeModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleModalClose = useCallback(() => {
+    toggleCardModal(false)
+    const params = new URLSearchParams(searchParams)
+    params.delete('category')
+    params.delete('character')
+    const url = `${pathname}?${params.toString()}`
+    replace(url)
+  }, [pathname, replace, searchParams, toggleCardModal])
+
+  const oppositeCategory = useMemo(
+    () => (category === 'hiragana' ? 'katakana' : 'hiragana'),
+    [category]
+  )
+
+  const renderCardDetails = useCallback(
+    () => (
       <div className='flex'>
         <div className='w-full flex flex-col justify-center items-center gap-2'>
           <DialogTitle className='text-5xl sm:text-7xl'>
@@ -73,8 +113,9 @@ export default function CardModal() {
           </div>
         </div>
       </div>
-    )
-  }, [card, category])
+    ),
+    [card, category, oppositeCategory]
+  )
 
   const renderVariations = useCallback(
     () => (
@@ -113,11 +154,15 @@ export default function CardModal() {
   )
 
   return (
-    <Dialog open={isCardModal} onOpenChange={toggleCardModal}>
+    <Dialog open={isCardModal} onOpenChange={handleModalClose}>
       <DialogContent className='w-5/6'>
         <div className='flex flex-col justify-center mt-5'>
           <DialogHeader className='h-fit flex items-end'>
-            <Heart size={15} />
+            <FavoriteButton
+              character={card}
+              category={category}
+              className='static'
+            />
           </DialogHeader>
           {renderCardDetails()}
         </div>
