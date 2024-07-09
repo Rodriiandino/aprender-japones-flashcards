@@ -105,10 +105,8 @@ export default function LearningModal() {
     <Dialog open={isLearningModalOpen} onOpenChange={toggleLearningModal}>
       <DialogContent
         className={cn('sm:max-w-[600px] w-5/6', {
-          'border-2 border-red-950 shadow-xl shadow-red-950':
-            isAnswerCorrect === false,
-          'border-2 border-green-950 shadow-xl shadow-green-950':
-            isAnswerCorrect
+          'border-2 border-red shadow-xl shadow-red': isAnswerCorrect === false,
+          'border-2 border-green shadow-xl shadow-green': isAnswerCorrect
         })}
       >
         <DialogHeader>
@@ -120,7 +118,7 @@ export default function LearningModal() {
         </DialogHeader>
         <form className='flex flex-col items-center gap-4 p-1'>
           {isAnswerCorrect === true || isAnswerCorrect === false ? (
-            <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none'>
+            <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none shadow-none'>
               <CardContent className='p-0 flex items-center justify-center h-full animate-fade-in duration-150'>
                 <CardTitle className='text-4xl sm:text-6xl'>
                   {typeof romaji === 'string'

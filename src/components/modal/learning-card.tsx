@@ -16,7 +16,7 @@ export default function LearningCard({
   const effectiveCategory = getEffectiveCategory(character, category)
 
   return (
-    <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none'>
+    <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none shadow-none'>
       <CardContent className='p-0 flex items-center justify-center h-full animate-fade-in duration-150'>
         <CardTitle className='text-6xl sm:text-8xl'>
           {effectiveCategory === 'hiragana' ? hiragana : katakana}

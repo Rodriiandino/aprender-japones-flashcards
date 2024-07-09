@@ -55,6 +55,9 @@ const config = {
         },
         red: {
           DEFAULT: 'hsl(var(--red))'
+        },
+        green: {
+          DEFAULT: 'hsl(var(--green))'
         }
       },
       borderRadius: {
