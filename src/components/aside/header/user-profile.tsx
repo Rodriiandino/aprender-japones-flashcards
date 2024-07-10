@@ -1,9 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { BadgeJapaneseYen } from 'lucide-react'
+import BetaBadge from './beta-badge'
 
 export default function UserProfile() {
   return (
-    <div className='w-full h-14 flex gap-2 items-center mb-2'>
+    <div className='relative w-full h-14 flex gap-2 items-center mb-2'>
       <a
         href='https://github.com/rodriiandino'
         target='_blank'
@@ -31,6 +32,7 @@ export default function UserProfile() {
         </a>
         <span className='text-xs text-gray-500'>Rodrigo Andino</span>
       </div>
+      <BetaBadge className='absolute right-0 bottom-0' />
     </div>
   )
 }
