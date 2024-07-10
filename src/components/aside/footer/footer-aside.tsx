@@ -13,16 +13,11 @@ export default function FooterAside() {
   const { configCards } = useConfigLearnStore()
   const { toggleLearningModal, toggleConfirmModal } = useModalStore()
   const {
-    setIsLearning,
     isLearning,
-    setCorrectAnswers,
     correctAnswers,
     totalCards,
     currentAlphabet,
-    setCurrentCardIndex,
-    setCorrectPercentage,
     studyMode,
-    setPracticedCardsIndices,
     practicedCardsIndices,
     correctPercentage
   } = useLearnStore()
@@ -43,12 +38,8 @@ export default function FooterAside() {
     toggleLearningModal(true)
   }
 
-  const resetProgress = () => {
-    setIsLearning(false)
-    setCorrectAnswers(0)
-    setCurrentCardIndex(0)
-    setCorrectPercentage(0)
-    setPracticedCardsIndices([])
+  const handleCancelLearning = () => {
+    toggleConfirmModal(true)
   }
 
   return (
@@ -80,7 +71,7 @@ export default function FooterAside() {
           <Button
             variant='secondary'
             className='lg:w-2/5 w-full sm:h-16 h-10 sm:text-xs'
-            onClick={resetProgress}
+            onClick={handleCancelLearning}
           >
             Cancel learning
           </Button>
