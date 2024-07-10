@@ -142,7 +142,12 @@ export default function LearningModal() {
           />
           {finished ? (
             <div className='flex flex-col items-center gap-1'>
-              <Button variant='default' size='lg' onClick={handleReset}>
+              <Button
+                variant='default'
+                size='lg'
+                onClick={handleReset}
+                className='select-none'
+              >
                 Reset
               </Button>
               <DialogDescription className='text-xs'>
@@ -156,6 +161,7 @@ export default function LearningModal() {
                 size='lg'
                 onClick={handleNextCard}
                 disabled={isSubmitDisabled}
+                className='select-none'
               >
                 Submit
               </Button>
