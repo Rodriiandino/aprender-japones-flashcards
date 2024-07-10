@@ -14,7 +14,7 @@ export default function StudyPreparation() {
     setSelectedStudyMode
   } = useConfigLearnStore()
 
-  const handleHowToStudy = (value: StudyMode) => {
+  const handleStudyMode = (value: StudyMode) => {
     setSelectedStudyMode(value)
   }
 
@@ -33,7 +33,7 @@ export default function StudyPreparation() {
         <p className='text-sm text-muted-foreground'>Study method:</p>
         <RadioGroup
           value={selectedStudyMode}
-          onValueChange={handleHowToStudy}
+          onValueChange={handleStudyMode}
           className='flex'
         >
           <div className='flex flex-col items-center gap-1'>
