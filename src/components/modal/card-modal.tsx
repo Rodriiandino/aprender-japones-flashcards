@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback, useMemo } from 'react'
+import { useEffect, useState, useCallback, useMemo, Suspense } from 'react'
 import { useModalStore } from '@/store/learn-store'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import {
@@ -154,20 +154,22 @@ export default function CardModal() {
   )
 
   return (
-    <Dialog open={isCardModal} onOpenChange={handleModalClose}>
-      <DialogContent className='w-5/6'>
-        <div className='flex flex-col justify-center mt-5'>
-          <DialogHeader className='h-fit flex items-end'>
-            <FavoriteButton
-              character={card}
-              category={category}
-              className='static'
-            />
-          </DialogHeader>
-          {renderCardDetails()}
-        </div>
-        {renderVariations()}
-      </DialogContent>
-    </Dialog>
+    <Suspense>
+      <Dialog open={isCardModal} onOpenChange={handleModalClose}>
+        <DialogContent className='w-5/6'>
+          <div className='flex flex-col justify-center mt-5'>
+            <DialogHeader className='h-fit flex items-end'>
+              <FavoriteButton
+                character={card}
+                category={category}
+                className='static'
+              />
+            </DialogHeader>
+            {renderCardDetails()}
+          </div>
+          {renderVariations()}
+        </DialogContent>
+      </Dialog>
+    </Suspense>
   )
 }
