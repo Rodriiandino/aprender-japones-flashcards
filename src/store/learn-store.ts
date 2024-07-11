@@ -29,7 +29,9 @@ export const useLearnStore = create<LearnStoreState>()(
       studyMode: 'order',
       setStudyMode: mode => set({ studyMode: mode }),
       isLearning: false,
-      setIsLearning: isLearned => set({ isLearning: isLearned })
+      setIsLearning: isLearned => set({ isLearning: isLearned }),
+      isFinished: false,
+      setIsFinished: isFinished => set({ isFinished: isFinished })
     }),
     {
       name: 'learn-storage'

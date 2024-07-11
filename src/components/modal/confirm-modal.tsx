@@ -32,7 +32,8 @@ export default function ConfirmModal() {
     setCorrectPercentage,
     setPracticedCardsIndices,
     setCurrentCardIndex,
-    isLearning
+    isLearning,
+    setIsFinished
   } = useLearnStore()
 
   const resetProgress = () => {
@@ -43,6 +44,7 @@ export default function ConfirmModal() {
     setCurrentCardIndex(0)
     setCorrectPercentage(0)
     setPracticedCardsIndices([])
+    setIsFinished(false)
   }
 
   const handleLearning = () => {
@@ -65,6 +67,7 @@ export default function ConfirmModal() {
         ? generateRandomNumber(configCards.length)
         : 0
     )
+    setIsFinished(false)
     setIsLearning(true)
   }
 

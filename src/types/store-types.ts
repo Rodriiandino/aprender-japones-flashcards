@@ -21,6 +21,8 @@ export type LearnStoreState = {
   setStudyMode: (mode: StudyMode) => void
   isLearning: boolean
   setIsLearning: (isLearned: boolean) => void
+  isFinished: boolean
+  setIsFinished: (isFinished: boolean) => void
 }
 
 export type FavoriteStoreState = {

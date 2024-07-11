@@ -36,10 +36,11 @@ export default function LearningModal() {
     setCorrectPercentage,
     practicedCardsIndices,
     setPracticedCardsIndices,
-    studyMode
+    studyMode,
+    isFinished,
+    setIsFinished
   } = useLearnStore()
   const [inputValue, setInputValue] = useState('')
-  const [finished, setFinished] = useState(false)
   const [isAnswerCorrect, setIsAnsweredCorrect] = useState<boolean | null>(null)
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
 
@@ -65,18 +66,28 @@ export default function LearningModal() {
     await new Promise(resolve => setTimeout(resolve, 500))
     setIsSubmitDisabled(false)
 
-    if (practicedCardsIndices.length < totalCards - 1) {
-      setPracticedCardsIndices([...practicedCardsIndices, currentCardIndex])
-      setCurrentCardIndex(
-        studyMode === 'random'
-          ? generateRandomNumberExcluded(totalCards, practicedCardsIndices)
-          : currentCardIndex + 1
-      )
-      setIsAnsweredCorrect(null)
+    const updatedPracticedCardsIndices = [
+      ...practicedCardsIndices,
+      currentCardIndex
+    ]
+
+    if (updatedPracticedCardsIndices.length < totalCards) {
+      setPracticedCardsIndices(updatedPracticedCardsIndices)
     }
 
-    if (practicedCardsIndices.length === totalCards - 1) {
-      setFinished(true)
+    if (updatedPracticedCardsIndices.length < totalCards) {
+      const nextIndex =
+        studyMode === 'random'
+          ? generateRandomNumberExcluded(
+              totalCards,
+              updatedPracticedCardsIndices
+            )
+          : currentCardIndex + 1
+
+      setCurrentCardIndex(nextIndex)
+      setIsAnsweredCorrect(null)
+    } else {
+      setIsFinished(true)
     }
 
     setInputValue('')
@@ -98,8 +109,14 @@ export default function LearningModal() {
     setInputValue('')
     setIsAnsweredCorrect(null)
     setIsSubmitDisabled(false)
-    setFinished(false)
+    setIsFinished(false)
   }
+
+  useEffect(() => {
+    setInputValue('')
+    setIsAnsweredCorrect(null)
+    setIsSubmitDisabled(false)
+  }, [isFinished])
 
   return (
     <Dialog open={isLearningModalOpen} onOpenChange={toggleLearningModal}>
@@ -117,7 +134,7 @@ export default function LearningModal() {
           <Progress value={practicedCardsIndices.length + 1} max={totalCards} />
         </DialogHeader>
         <form className='flex flex-col items-center gap-4 p-1'>
-          {isAnswerCorrect === true || isAnswerCorrect === false ? (
+          {isAnswerCorrect !== null && (
             <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none shadow-none'>
               <CardContent className='p-0 flex items-center justify-center h-full animate-fade-in duration-150'>
                 <CardTitle className='text-4xl sm:text-6xl'>
@@ -127,20 +144,20 @@ export default function LearningModal() {
                 </CardTitle>
               </CardContent>
             </Card>
-          ) : (
+          )}
+          {isAnswerCorrect === null && (
             <LearningCard
               category={currentAlphabet}
               character={learningCards[currentCardIndex]}
             />
           )}
-
           <Input
             placeholder='Insert your answer'
             onChange={e => setInputValue(e.target.value)}
             className='sm:w-[200px]'
             value={inputValue}
           />
-          {finished ? (
+          {isFinished ? (
             <div className='flex flex-col items-center gap-1'>
               <Button
                 variant='default'
