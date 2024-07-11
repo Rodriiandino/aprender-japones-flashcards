@@ -15,7 +15,7 @@ import { AllCharacters } from '@/data/characters'
 import { Card, CardTitle } from '../ui/card'
 import FavoriteButton from '../main/section/favorite-button'
 
-export default function CardModal() {
+function Modal() {
   const [card, setCard] = useState<CharacterDetails>({
     hiragana: '',
     katakana: '',
@@ -154,22 +154,28 @@ export default function CardModal() {
   )
 
   return (
+    <Dialog open={isCardModal} onOpenChange={handleModalClose}>
+      <DialogContent className='w-5/6'>
+        <div className='flex flex-col justify-center mt-5'>
+          <DialogHeader className='h-fit flex items-end'>
+            <FavoriteButton
+              character={card}
+              category={category}
+              className='static'
+            />
+          </DialogHeader>
+          {renderCardDetails()}
+        </div>
+        {renderVariations()}
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+export default function CardModal() {
+  return (
     <Suspense>
-      <Dialog open={isCardModal} onOpenChange={handleModalClose}>
-        <DialogContent className='w-5/6'>
-          <div className='flex flex-col justify-center mt-5'>
-            <DialogHeader className='h-fit flex items-end'>
-              <FavoriteButton
-                character={card}
-                category={category}
-                className='static'
-              />
-            </DialogHeader>
-            {renderCardDetails()}
-          </div>
-          {renderVariations()}
-        </DialogContent>
-      </Dialog>
+      <Modal />
     </Suspense>
   )
 }
