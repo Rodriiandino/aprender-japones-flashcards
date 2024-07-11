@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useModalStore, useLearnStore } from '@/store/learn-store'
 import {
   Dialog,
@@ -17,42 +17,46 @@ import LearningCard from './learning-card'
 import {
   generateRandomNumber,
   generateRandomNumberExcluded,
-  cn
+  cn,
+  getCharacterDetails
 } from '@/lib/utils'
 import { Card, CardContent, CardTitle } from '../ui/card'
 
 export default function LearningModal() {
-  const { learningModal: isOpen, setLearningModal: setIsOpen } = useModalStore()
+  const { isLearningModalOpen, toggleLearningModal } = useModalStore()
   const {
-    learningCards: cards,
-    cardsCorrect,
-    setCardsCorrect,
-    cardsLength,
-    learningAlphabet: alphabet,
-    currentCard,
-    setCurrentCard,
-    percentCorrect: percentage,
-    setPercentCorrect: setPercentage,
-    cardsAlreadyPracticed,
-    setCardsAlreadyPracticed,
-    howToStudy: learningMode
+    learningCards,
+    correctAnswers,
+    setCorrectAnswers,
+    totalCards,
+    currentAlphabet,
+    currentCardIndex,
+    setCurrentCardIndex,
+    correctPercentage,
+    setCorrectPercentage,
+    practicedCardsIndices,
+    setPracticedCardsIndices,
+    studyMode,
+    isFinished,
+    setIsFinished
   } = useLearnStore()
   const [inputValue, setInputValue] = useState('')
-  const [finished, setFinished] = useState(false)
   const [isAnswerCorrect, setIsAnsweredCorrect] = useState<boolean | null>(null)
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
+
+  const { romaji } = getCharacterDetails(learningCards[currentCardIndex])
 
   const handleNextCard = async (e: React.FormEvent) => {
     e.preventDefault()
 
     const lowerCasedInput = inputValue.toLowerCase()
+
     const isMatch =
-      lowerCasedInput === cards[currentCard].romaji ||
-      (cards[currentCard].romaji.includes(lowerCasedInput) &&
-        lowerCasedInput.length > 0)
+      lowerCasedInput === romaji ||
+      (romaji.includes(lowerCasedInput) && lowerCasedInput.length > 0)
 
     if (isMatch) {
-      setCardsCorrect(cardsCorrect + 1)
+      setCorrectAnswers(correctAnswers + 1)
       setIsAnsweredCorrect(true)
     } else {
       setIsAnsweredCorrect(false)
@@ -62,87 +66,109 @@ export default function LearningModal() {
     await new Promise(resolve => setTimeout(resolve, 500))
     setIsSubmitDisabled(false)
 
-    if (cardsAlreadyPracticed.length < cardsLength - 1) {
-      setCardsAlreadyPracticed([...cardsAlreadyPracticed, currentCard])
-      setCurrentCard(
-        learningMode === 'random'
-          ? generateRandomNumberExcluded(cardsLength, cardsAlreadyPracticed)
-          : currentCard + 1
-      )
+    const updatedPracticedCardsIndices = [
+      ...practicedCardsIndices,
+      currentCardIndex
+    ]
+
+    if (updatedPracticedCardsIndices.length < totalCards) {
+      setPracticedCardsIndices(updatedPracticedCardsIndices)
+    }
+
+    if (updatedPracticedCardsIndices.length < totalCards) {
+      const nextIndex =
+        studyMode === 'random'
+          ? generateRandomNumberExcluded(
+              totalCards,
+              updatedPracticedCardsIndices
+            )
+          : currentCardIndex + 1
+
+      setCurrentCardIndex(nextIndex)
       setIsAnsweredCorrect(null)
+    } else {
+      setIsFinished(true)
     }
 
-    if (cardsAlreadyPracticed.length === cardsLength - 1) {
-      setFinished(true)
-    }
-
-    const percentage = Math.round((cardsCorrect / cardsLength) * 100)
-    setPercentage(percentage)
     setInputValue('')
   }
 
+  useEffect(() => {
+    const percentage = Math.round((correctAnswers / totalCards) * 100)
+    setCorrectPercentage(percentage)
+  }, [correctAnswers, setCorrectPercentage, totalCards])
+
   const handleReset = (e: React.FormEvent) => {
     e.preventDefault()
-    setCardsCorrect(0)
-    setPercentage(0)
-    setCardsAlreadyPracticed([])
-    setCurrentCard(
-      learningMode === 'random' ? generateRandomNumber(cardsLength) : 0
+    setCorrectAnswers(0)
+    setCorrectPercentage(0)
+    setPracticedCardsIndices([])
+    setCurrentCardIndex(
+      studyMode === 'random' ? generateRandomNumber(totalCards) : 0
     )
     setInputValue('')
     setIsAnsweredCorrect(null)
     setIsSubmitDisabled(false)
-    setFinished(false)
+    setIsFinished(false)
   }
 
+  useEffect(() => {
+    setInputValue('')
+    setIsAnsweredCorrect(null)
+    setIsSubmitDisabled(false)
+  }, [isFinished])
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isLearningModalOpen} onOpenChange={toggleLearningModal}>
       <DialogContent
         className={cn('sm:max-w-[600px] w-5/6', {
-          'border-2 border-red-950 shadow-xl shadow-red-950':
-            isAnswerCorrect === false,
-          'border-2 border-green-950 shadow-xl shadow-green-950':
-            isAnswerCorrect
+          'border-2 border-red shadow-xl shadow-red': isAnswerCorrect === false,
+          'border-2 border-green shadow-xl shadow-green': isAnswerCorrect
         })}
       >
         <DialogHeader>
-          <DialogTitle>Learning {alphabet}</DialogTitle>
+          <DialogTitle>Learning {currentAlphabet}</DialogTitle>
           <DialogDescription>
-            {cardsAlreadyPracticed.length + 1} / {cardsLength}
+            {practicedCardsIndices.length + 1} / {totalCards}
           </DialogDescription>
-          <Progress
-            value={cardsAlreadyPracticed.length + 1}
-            max={cardsLength}
-          />
+          <Progress value={practicedCardsIndices.length + 1} max={totalCards} />
         </DialogHeader>
         <form className='flex flex-col items-center gap-4 p-1'>
-          {isAnswerCorrect === true || isAnswerCorrect === false ? (
-            <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none'>
+          {isAnswerCorrect !== null && (
+            <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none shadow-none'>
               <CardContent className='p-0 flex items-center justify-center h-full animate-fade-in duration-150'>
                 <CardTitle className='text-4xl sm:text-6xl'>
-                  {typeof cards[currentCard].romaji === 'string'
-                    ? cards[currentCard].romaji
-                    : (cards[currentCard].romaji as string[]).join(', ')}
+                  {typeof romaji === 'string'
+                    ? romaji
+                    : (romaji as string[]).join(', ')}
                 </CardTitle>
               </CardContent>
             </Card>
-          ) : (
-            <LearningCard primary={alphabet} character={cards[currentCard]} />
           )}
-
+          {isAnswerCorrect === null && (
+            <LearningCard
+              category={currentAlphabet}
+              character={learningCards[currentCardIndex]}
+            />
+          )}
           <Input
             placeholder='Insert your answer'
             onChange={e => setInputValue(e.target.value)}
             className='sm:w-[200px]'
             value={inputValue}
           />
-          {finished ? (
+          {isFinished ? (
             <div className='flex flex-col items-center gap-1'>
-              <Button variant='default' size='lg' onClick={handleReset}>
+              <Button
+                variant='default'
+                size='lg'
+                onClick={handleReset}
+                className='select-none'
+              >
                 Reset
               </Button>
               <DialogDescription className='text-xs'>
-                You have finished learning {alphabet}
+                You have finished learning {currentAlphabet}
               </DialogDescription>
             </div>
           ) : (
@@ -152,6 +178,7 @@ export default function LearningModal() {
                 size='lg'
                 onClick={handleNextCard}
                 disabled={isSubmitDisabled}
+                className='select-none'
               >
                 Submit
               </Button>
@@ -164,16 +191,16 @@ export default function LearningModal() {
         <DialogFooter className='sm:flex sm:flex-col flex-col gap-1 sm:space-x-0'>
           <div className='flex items-center gap-2'>
             <DialogDescription>Total questions: </DialogDescription>
-            <strong>{cardsLength}</strong>
+            <strong>{totalCards}</strong>
           </div>
           <div className='flex items-center gap-2'>
             <DialogDescription>Correct answers: </DialogDescription>
-            <strong>{cardsCorrect}</strong>
+            <strong>{correctAnswers}</strong>
           </div>
 
           <div className='flex items-center gap-2'>
             <DialogDescription>Percentage correct: </DialogDescription>
-            <strong>{percentage}%</strong>
+            <strong>{correctPercentage}%</strong>
           </div>
         </DialogFooter>
       </DialogContent>

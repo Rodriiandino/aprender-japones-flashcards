@@ -1,14 +1,15 @@
 'use client'
 
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogDescription,
-  DialogTitle
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogDescription,
+  AlertDialogTitle,
+  AlertDialogAction,
+  AlertDialogCancel
+} from '@/components/ui/alert-dialog'
 import {
   useConfigLearnStore,
   useModalStore,
@@ -17,57 +18,93 @@ import {
 import { generateRandomNumber } from '@/lib/utils'
 
 export default function ConfirmModal() {
-  const { alphabet, cards, howToStudy } = useConfigLearnStore()
-  const { confirmModal, setConfirmModal, setLearningModal } = useModalStore()
+  const { selectedAlphabet, configCards, selectedStudyMode } =
+    useConfigLearnStore()
+  const { isConfirmModalOpen, toggleConfirmModal, toggleLearningModal } =
+    useModalStore()
   const {
-    setIsLearned,
-    setCardsLength,
-    setCards,
-    setAlphabet,
-    setCardsCorrect,
-    setHowToStudy,
-    setCurrentCard,
-    setPercentCorrect,
-    setCardsAlreadyPracticed
+    setIsLearning,
+    setLearningCards,
+    setTotalCards,
+    setCurrentAlphabet,
+    setCorrectAnswers,
+    setStudyMode,
+    setCorrectPercentage,
+    setPracticedCardsIndices,
+    setCurrentCardIndex,
+    isLearning,
+    setIsFinished
   } = useLearnStore()
 
-  const handleStartLearning = () => {
-    setCards(cards)
-    setCardsLength(cards.length)
-    setAlphabet(alphabet)
-    setCardsCorrect(0)
-    setHowToStudy(howToStudy)
-    setPercentCorrect(0)
-    setLearningModal(true)
-    setConfirmModal(false)
-    setCardsAlreadyPracticed([])
-    setCurrentCard(
-      howToStudy === 'random' ? generateRandomNumber(cards.length) : 0
-    )
-    setIsLearned(true)
+  const resetProgress = () => {
+    setIsLearning(false)
+    setTotalCards(0)
+    setLearningCards([])
+    setCorrectAnswers(0)
+    setCurrentCardIndex(0)
+    setCorrectPercentage(0)
+    setPracticedCardsIndices([])
+    setIsFinished(false)
   }
 
+  const handleLearning = () => {
+    if (isLearning) {
+      resetProgress()
+      return
+    }
+
+    setLearningCards(configCards)
+    setTotalCards(configCards.length)
+    setCurrentAlphabet(selectedAlphabet)
+    setCorrectAnswers(0)
+    setStudyMode(selectedStudyMode)
+    setCorrectPercentage(0)
+    toggleLearningModal(true)
+    toggleConfirmModal(false)
+    setPracticedCardsIndices([])
+    setCurrentCardIndex(
+      selectedStudyMode === 'random'
+        ? generateRandomNumber(configCards.length)
+        : 0
+    )
+    setIsFinished(false)
+    setIsLearning(true)
+  }
+
+  const learningDescription = isLearning
+    ? `You are currently learning "${configCards.length}" characters from the "${selectedAlphabet}".`
+    : `You are going to learn "${configCards.length}" characters from the "${selectedAlphabet}".`
+
+  const leaningDescriptionPart2 = isLearning
+    ? `You are learning in "${selectedStudyMode}" mode.`
+    : `You will learn in "${selectedStudyMode}" mode.`
+
+  const confirmMessage = isLearning
+    ? 'Are you sure you want to finish learning?'
+    : 'Are you sure you want to start learning?'
+
+  const actionLabel = isLearning ? 'Finish learning' : 'Start learning'
+
   return (
-    <Dialog open={confirmModal} onOpenChange={setConfirmModal}>
-      <DialogContent className='w-5/6'>
-        <DialogHeader>
-          <DialogTitle>Confirm</DialogTitle>
+    <AlertDialog open={isConfirmModalOpen} onOpenChange={toggleConfirmModal}>
+      <AlertDialogContent className='w-5/6'>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Confirm</AlertDialogTitle>
+          <AlertDialogDescription>{confirmMessage}</AlertDialogDescription>
+        </AlertDialogHeader>
 
-          <DialogDescription>
-            Are you sure you want to start learning?
-          </DialogDescription>
-        </DialogHeader>
+        <div className='text-center sm:text-left'>
+          <p>{learningDescription}</p>
+          <p className='mt-1'>{leaningDescriptionPart2}</p>
+        </div>
 
-        <p>
-          You going to learn {cards.length} characters from the {alphabet}
-        </p>
-        <p>You will learn in {howToStudy} mode.</p>
-        <DialogFooter className='gap-2 flex-col'>
-          <Button size='lg' onClick={handleStartLearning}>
-            Yes
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleLearning}>
+            {actionLabel}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

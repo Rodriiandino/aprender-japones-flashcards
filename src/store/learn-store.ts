@@ -1,98 +1,79 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { alphabetType, howToStudyType } from '@/types/alphabetType'
-import { CharacterType } from '@/data/characters'
+import {
+  ConfigLearnStoreState,
+  FavoriteStoreState,
+  LearnStoreState,
+  ModalStoreState
+} from '@/types/store-types'
 
-type learnStoreType = {
-  learningCards: CharacterType[]
-  setCards: (learningCards: CharacterType[]) => void
-  cardsLength: number
-  setCardsLength: (cardsLength: number) => void
-  cardsCorrect: number
-  setCardsCorrect: (cardsCorrect: number) => void
-  learningAlphabet: alphabetType
-  setAlphabet: (learningAlphabet: alphabetType) => void
-  currentCard: number
-  setCurrentCard: (currentCard: number) => void
-  cardsAlreadyPracticed: number[]
-  setCardsAlreadyPracticed: (cardsAlreadyPracticed: number[]) => void
-  percentCorrect: number
-  setPercentCorrect: (percentCorrect: number) => void
-  howToStudy: howToStudyType
-  setHowToStudy: (howToStudy: howToStudyType) => void
-  isLearned: boolean
-  setIsLearned: (isLearned: boolean) => void
-}
-
-export const useLearnStore = create<learnStoreType>(
+export const useLearnStore = create<LearnStoreState>()(
   persist(
     set => ({
       learningCards: [],
-      setCards: (learningCards: CharacterType[]) => set({ learningCards }),
-      cardsLength: 0,
-      setCardsLength: (cardsLength: number) => set({ cardsLength }),
-      cardsCorrect: 0,
-      setCardsCorrect: (cardsCorrect: number) => set({ cardsCorrect }),
-      learningAlphabet: 'hiragana',
-      setAlphabet: (learningAlphabet: alphabetType) =>
-        set({ learningAlphabet }),
-      currentCard: 0,
-      setCurrentCard: (currentCard: number) => set({ currentCard }),
-      cardsAlreadyPracticed: [],
-      setCardsAlreadyPracticed: (cardsAlreadyPracticed: number[]) =>
-        set({ cardsAlreadyPracticed }),
-      percentCorrect: 0,
-      setPercentCorrect: (percentCorrect: number) => set({ percentCorrect }),
-      howToStudy: 'order',
-      setHowToStudy: (howToStudy: howToStudyType) => set({ howToStudy }),
-      isLearned: false,
-      setIsLearned: (isLearned: boolean) => set({ isLearned })
+      setLearningCards: cards => set({ learningCards: cards }),
+      totalCards: 0,
+      setTotalCards: count => set({ totalCards: count }),
+      correctAnswers: 0,
+      setCorrectAnswers: count => set({ correctAnswers: count }),
+      currentAlphabet: 'hiragana',
+      setCurrentAlphabet: alphabet => set({ currentAlphabet: alphabet }),
+      currentCardIndex: 0,
+      setCurrentCardIndex: index => set({ currentCardIndex: index }),
+      practicedCardsIndices: [],
+      setPracticedCardsIndices: indices =>
+        set({ practicedCardsIndices: indices }),
+      correctPercentage: 0,
+      setCorrectPercentage: percentage =>
+        set({ correctPercentage: percentage }),
+      studyMode: 'order',
+      setStudyMode: mode => set({ studyMode: mode }),
+      isLearning: false,
+      setIsLearning: isLearned => set({ isLearning: isLearned }),
+      isFinished: false,
+      setIsFinished: isFinished => set({ isFinished: isFinished })
     }),
     {
       name: 'learn-storage'
     }
-  ) as any
+  )
 )
 
-type configLearnStoreType = {
-  cards: CharacterType[]
-  setCards: (cards: CharacterType[]) => void
-  alphabet: alphabetType
-  setAlphabet: (alphabet: alphabetType) => void
-  howToStudy: howToStudyType
-  setHowToStudy: (howToStudy: howToStudyType) => void
-}
-
-export const useConfigLearnStore = create<configLearnStoreType>(
+export const useFavoriteStore = create<FavoriteStoreState>()(
   persist(
     set => ({
-      cards: [],
-      setCards: (cards: CharacterType[]) => set({ cards }),
-      alphabet: 'hiragana',
-      setAlphabet: (alphabet: alphabetType) => set({ alphabet }),
-      howToStudy: 'order',
-      setHowToStudy: (howToStudy: howToStudyType) => set({ howToStudy })
+      favoriteCards: [],
+      setFavoriteCards: cards => set({ favoriteCards: cards })
+    }),
+    {
+      name: 'favorite-storage'
+    }
+  )
+)
+
+export const useConfigLearnStore = create<ConfigLearnStoreState>()(
+  persist(
+    set => ({
+      configCards: [],
+      setConfigCards: configCards => set({ configCards }),
+      selectedAlphabet: 'hiragana',
+      setSelectedAlphabet: selectedAlphabet => set({ selectedAlphabet }),
+      selectedStudyMode: 'order',
+      setSelectedStudyMode: selectedStudyMode => set({ selectedStudyMode })
     }),
     {
       name: 'config-learn-storage'
     }
-  ) as any
+  )
 )
 
-type modalStoreType = {
-  learningModal: boolean
-  setLearningModal: (learningModal: boolean) => void
-  confirmModal: boolean
-  setConfirmModal: (confirmModal: boolean) => void
-  changeLearnModal: boolean
-  setChangeLearnModal: (changeLearnModal: boolean) => void
-}
-
-export const useModalStore = create<modalStoreType>(set => ({
-  learningModal: false,
-  setLearningModal: (learningModal: boolean) => set({ learningModal }),
-  confirmModal: false,
-  setConfirmModal: (confirmModal: boolean) => set({ confirmModal }),
-  changeLearnModal: false,
-  setChangeLearnModal: (changeLearnModal: boolean) => set({ changeLearnModal })
+export const useModalStore = create<ModalStoreState>()(set => ({
+  isLearningModalOpen: false,
+  toggleLearningModal: isOpen => set({ isLearningModalOpen: isOpen }),
+  isConfirmModalOpen: false,
+  toggleConfirmModal: isOpen => set({ isConfirmModalOpen: isOpen }),
+  isChangeLearnModalOpen: false,
+  toggleChangeLearnModal: isOpen => set({ isChangeLearnModalOpen: isOpen }),
+  isCardModal: false,
+  toggleCardModal: isOpen => set({ isCardModal: isOpen })
 }))

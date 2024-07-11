@@ -3,14 +3,19 @@
 import { useConfigLearnStore } from '@/store/learn-store'
 import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
 import { Label } from '../../ui/label'
-import { howToStudyType } from '@/types/alphabetType'
+import { StudyMode } from '@/types/alphabet-type'
 import { StatItem } from '@/components/ui/stat-item'
 
 export default function StudyPreparation() {
-  const { alphabet, cards, setHowToStudy, howToStudy } = useConfigLearnStore()
+  const {
+    selectedAlphabet,
+    configCards,
+    selectedStudyMode,
+    setSelectedStudyMode
+  } = useConfigLearnStore()
 
-  const handleHowToStudy = (value: howToStudyType) => {
-    setHowToStudy(value)
+  const handleStudyMode = (value: StudyMode) => {
+    setSelectedStudyMode(value)
   }
 
   return (
@@ -19,19 +24,23 @@ export default function StudyPreparation() {
       <p className='text-sm text-gray-500'>Start learning the alphabet</p>
       <StatItem
         label='To learn'
-        value={`${cards.length} cards`}
+        value={`${configCards.length} cards`}
         className='mt-2'
       />
-      <StatItem label='Alphabet' value={alphabet} />
+      <StatItem label='Alphabet' value={selectedAlphabet} />
 
       <div className='flex flex-col gap-2'>
         <p className='text-sm text-muted-foreground'>Study method:</p>
-        <RadioGroup value={howToStudy} onValueChange={handleHowToStudy}>
-          <div className='flex items-center space-x-2'>
+        <RadioGroup
+          value={selectedStudyMode}
+          onValueChange={handleStudyMode}
+          className='flex'
+        >
+          <div className='flex flex-col items-center gap-1'>
             <RadioGroupItem value='order' id='r-order' />
             <Label htmlFor='r-order'>Order</Label>
           </div>
-          <div className='flex items-center space-x-2'>
+          <div className='flex flex-col items-center gap-1'>
             <RadioGroupItem value='random' id='r-random' />
             <Label htmlFor='r-random'>Random</Label>
           </div>

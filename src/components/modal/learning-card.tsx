@@ -1,19 +1,25 @@
-import { alphabetType } from '@/types/alphabetType'
+import { AlphabetCategory } from '@/types/alphabet-type'
 import { Card, CardContent, CardTitle } from '../ui/card'
-import { CharacterType } from '@/data/characters'
+import { CharacterCard, CharacterDetails } from '@/types/card-type'
+import { getCharacterDetails, getEffectiveCategory } from '@/lib/utils'
+
+interface LearningCardProps {
+  character: CharacterDetails | CharacterCard
+  category: AlphabetCategory
+}
 
 export default function LearningCard({
   character,
-  primary
-}: {
-  character: CharacterType
-  primary: alphabetType
-}) {
+  category
+}: LearningCardProps) {
+  const { hiragana, katakana } = getCharacterDetails(character)
+  const effectiveCategory = getEffectiveCategory(character, category)
+
   return (
-    <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none'>
+    <Card className='sm:h-[180px] h-[130px] flex flex-col relative border-none shadow-none'>
       <CardContent className='p-0 flex items-center justify-center h-full animate-fade-in duration-150'>
         <CardTitle className='text-6xl sm:text-8xl'>
-          {primary === 'hiragana' ? character.hiragana : character.katakana}
+          {effectiveCategory === 'hiragana' ? hiragana : katakana}
         </CardTitle>
       </CardContent>
     </Card>
