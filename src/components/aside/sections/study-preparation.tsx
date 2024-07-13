@@ -21,7 +21,7 @@ export default function StudyPreparation() {
   return (
     <section className='flex flex-col gap-1'>
       <h2 className='sm:text-xl text-lg font-bold'>Study preparation</h2>
-      <p className='text-sm text-gray-500'>Start learning the alphabet</p>
+      <p className='text-sm text-gray-500'>Configure your study session</p>
       <StatItem
         label='To learn'
         value={`${configCards.length} cards`}

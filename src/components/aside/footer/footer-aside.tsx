@@ -47,7 +47,7 @@ export default function FooterAside() {
       {isLearning && (
         <div className='flex flex-col gap-1'>
           <h2 className='sm:text-xl text-lg font-bold'>Learning progress</h2>
-          <p className='text-sm text-gray-500'>Start learning the alphabet</p>
+          <p className='text-sm text-gray-500'>Stats for current session</p>
           <StatsLearning
             correctAnswers={correctAnswers}
             correctPercentage={correctPercentage}
