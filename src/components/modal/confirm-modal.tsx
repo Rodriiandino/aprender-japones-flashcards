@@ -33,7 +33,10 @@ export default function ConfirmModal() {
     setPracticedCardsIndices,
     setCurrentCardIndex,
     isLearning,
-    setIsFinished
+    setIsFinished,
+    studyMode,
+    totalCards,
+    currentAlphabet
   } = useLearnStore()
 
   const resetProgress = () => {
@@ -72,11 +75,11 @@ export default function ConfirmModal() {
   }
 
   const learningDescription = isLearning
-    ? `You are currently learning "${configCards.length}" characters from the "${selectedAlphabet}".`
+    ? `You are currently learning "${totalCards}" characters from the "${currentAlphabet}".`
     : `You are going to learn "${configCards.length}" characters from the "${selectedAlphabet}".`
 
   const leaningDescriptionPart2 = isLearning
-    ? `You are learning in "${selectedStudyMode}" mode.`
+    ? `You are learning in "${studyMode}" mode.`
     : `You will learn in "${selectedStudyMode}" mode.`
 
   const confirmMessage = isLearning
