@@ -4,7 +4,8 @@ import {
   ConfigLearnStoreState,
   FavoriteStoreState,
   LearnStoreState,
-  ModalStoreState
+  ModalStoreState,
+  UiStoreState
 } from '@/types/store-types'
 
 export const useLearnStore = create<LearnStoreState>()(
@@ -77,3 +78,15 @@ export const useModalStore = create<ModalStoreState>()(set => ({
   isCardModal: false,
   toggleCardModal: isOpen => set({ isCardModal: isOpen })
 }))
+
+export const useUiStore = create<UiStoreState>()(
+  persist(
+    set => ({
+      isSearchBarVisible: false,
+      toggleSearchBar: isVisible => set({ isSearchBarVisible: isVisible })
+    }),
+    {
+      name: 'ui-storage'
+    }
+  )
+)

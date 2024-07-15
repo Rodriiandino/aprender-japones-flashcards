@@ -49,3 +49,8 @@ export type ModalStoreState = {
   isCardModal: boolean
   toggleCardModal: (isOpen: boolean) => void
 }
+
+export type UiStoreState = {
+  isSearchBarVisible: boolean
+  toggleSearchBar: (isVisible: boolean) => void
+}
