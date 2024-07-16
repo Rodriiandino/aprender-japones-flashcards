@@ -39,3 +39,11 @@ export function getEffectiveCategory(
   if ('type' in character) return character.type
   return category
 }
+
+export const getFirstRomaji = (romaji: string | string[]) => {
+  return typeof romaji === 'string' ? romaji : romaji[0]
+}
+
+export const formatRomaji = (romaji: string | string[]) => {
+  return typeof romaji === 'string' ? romaji : romaji.join(', ')
+}
