@@ -17,7 +17,7 @@ export default function FavoriteButton() {
     <Button
       variant='ghost'
       className={cn('w-full h-full rounded-none', {
-        'text-red hover:text-red': selectedAlphabet === 'favorite'
+        'shadow-md shadow-primary/20': selectedAlphabet === 'favorite'
       })}
       onClick={handleFavorite}
     >

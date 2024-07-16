@@ -82,7 +82,7 @@ export const useModalStore = create<ModalStoreState>()(set => ({
 export const useUiStore = create<UiStoreState>()(
   persist(
     set => ({
-      isSearchBarVisible: false,
+      isSearchBarVisible: true,
       toggleSearchBar: isVisible => set({ isSearchBarVisible: isVisible })
     }),
     {

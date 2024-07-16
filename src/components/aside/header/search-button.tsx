@@ -14,7 +14,7 @@ export default function SearchButton() {
     <Button
       variant='ghost'
       className={cn('w-full h-full rounded-none', {
-        'text-primary hover:text-primary': isSearchBarVisible
+        'shadow-md shadow-primary/20': isSearchBarVisible
       })}
       onClick={handleSearch}
     >
