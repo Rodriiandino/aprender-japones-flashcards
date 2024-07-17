@@ -1,7 +1,7 @@
 import { Separator } from '@/components/ui/separator'
 import CustomPreparation from './custom-preparation'
-import LastTry from './last-try'
 import StudyPreparation from './study-preparation'
+import HistorySection from './history/history-section'
 
 export default function SectionsAside() {
   return (
@@ -10,7 +10,7 @@ export default function SectionsAside() {
       <Separator />
       <CustomPreparation />
       <Separator />
-      <LastTry />
+      <HistorySection />
       <Separator />
     </>
   )

@@ -47,3 +47,13 @@ export const getFirstRomaji = (romaji: string | string[]) => {
 export const formatRomaji = (romaji: string | string[]) => {
   return typeof romaji === 'string' ? romaji : romaji.join(', ')
 }
+
+export const formatDate = (date: string | number | Date) => {
+  const d = new Date(date)
+  console.log(d.getDay(), d.getMonth(), d.getFullYear())
+
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const year = String(d.getFullYear()).slice(-2)
+  return `${day}/${month}/${year}`
+}

@@ -1,7 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useModalStore, useLearnStore } from '@/store/learn-store'
+import {
+  useModalStore,
+  useLearnStore,
+  useLearnHistoryStore
+} from '@/store/learn-store'
 import {
   Dialog,
   DialogContent,
@@ -19,7 +23,8 @@ import {
   generateRandomNumberExcluded,
   cn,
   getCharacterDetails,
-  formatRomaji
+  formatRomaji,
+  formatDate
 } from '@/lib/utils'
 import { Card, CardContent, CardTitle } from '../ui/card'
 
@@ -41,6 +46,7 @@ export default function LearningModal() {
     isFinished,
     setIsFinished
   } = useLearnStore()
+  const { addHistoryItem } = useLearnHistoryStore()
   const [inputValue, setInputValue] = useState('')
   const [isAnswerCorrect, setIsAnsweredCorrect] = useState<boolean | null>(null)
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
@@ -88,6 +94,17 @@ export default function LearningModal() {
       setCurrentCardIndex(nextIndex)
       setIsAnsweredCorrect(null)
     } else {
+      const history = {
+        total: totalCards,
+        studyMode: studyMode,
+        correct: correctAnswers,
+        alphabet: currentAlphabet,
+        correctPercentage: correctPercentage,
+        date: formatDate(new Date())
+      }
+      addHistoryItem({
+        ...history
+      })
       setIsFinished(true)
     }
 
