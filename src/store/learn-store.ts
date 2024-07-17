@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware'
 import {
   ConfigLearnStoreState,
   FavoriteStoreState,
+  LearnHistoryStoreState,
   LearnStoreState,
   ModalStoreState,
   UiStoreState
@@ -87,6 +88,20 @@ export const useUiStore = create<UiStoreState>()(
     }),
     {
       name: 'ui-storage'
+    }
+  )
+)
+
+export const useLearnHistoryStore = create<LearnHistoryStoreState>()(
+  persist(
+    set => ({
+      history: [],
+      addHistoryItem: item =>
+        set(state => ({ history: [...state.history, item] })),
+      clearHistory: () => set({ history: [] })
+    }),
+    {
+      name: 'learn-history-storage'
     }
   )
 )

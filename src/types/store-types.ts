@@ -54,3 +54,18 @@ export type UiStoreState = {
   isSearchBarVisible: boolean
   toggleSearchBar: (isVisible: boolean) => void
 }
+
+export type LearnHistoryItem = {
+  total: number
+  date: string
+  correct: number
+  studyMode: StudyMode
+  correctPercentage: number
+  alphabet: AlphabetCategory
+}
+
+export type LearnHistoryStoreState = {
+  history: LearnHistoryItem[]
+  addHistoryItem: (item: LearnHistoryItem) => void
+  clearHistory: () => void
+}
