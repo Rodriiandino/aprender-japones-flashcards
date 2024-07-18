@@ -22,7 +22,7 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
-type HistoryChartProps = {
+interface HistoryChartProps {
   chartData: ChartData[]
 }
 
