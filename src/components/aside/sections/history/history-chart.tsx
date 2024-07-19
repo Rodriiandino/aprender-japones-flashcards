@@ -45,7 +45,7 @@ export function HistoryChart({ chartData }: HistoryChartProps) {
   }, [chartData])
 
   return (
-    <Card className='flex flex-col border-none gap-1 pt-2'>
+    <Card className='flex flex-col border-none gap-1 pt-2 shadow-none'>
       <CardContent className='flex-1 p-0'>
         <ChartContainer
           config={chartConfig}

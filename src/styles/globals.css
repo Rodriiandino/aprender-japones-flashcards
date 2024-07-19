@@ -120,11 +120,7 @@ p {
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f2937;
+  background: hsl(var(--border));
   backdrop-filter: blur(10px);
   border-radius: 5px;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #e5e7eb;
 }
