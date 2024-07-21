@@ -3,8 +3,10 @@ import { persist } from 'zustand/middleware'
 import {
   ConfigLearnStoreState,
   FavoriteStoreState,
+  LearnHistoryStoreState,
   LearnStoreState,
-  ModalStoreState
+  ModalStoreState,
+  UiStoreState
 } from '@/types/store-types'
 
 export const useLearnStore = create<LearnStoreState>()(
@@ -77,3 +79,29 @@ export const useModalStore = create<ModalStoreState>()(set => ({
   isCardModal: false,
   toggleCardModal: isOpen => set({ isCardModal: isOpen })
 }))
+
+export const useUiStore = create<UiStoreState>()(
+  persist(
+    set => ({
+      isSearchBarVisible: true,
+      toggleSearchBar: isVisible => set({ isSearchBarVisible: isVisible })
+    }),
+    {
+      name: 'ui-storage'
+    }
+  )
+)
+
+export const useLearnHistoryStore = create<LearnHistoryStoreState>()(
+  persist(
+    set => ({
+      history: [],
+      addHistoryItem: item =>
+        set(state => ({ history: [...state.history, item] })),
+      clearHistory: () => set({ history: [] })
+    }),
+    {
+      name: 'learn-history-storage'
+    }
+  )
+)

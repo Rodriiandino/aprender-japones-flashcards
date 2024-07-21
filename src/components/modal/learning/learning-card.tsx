@@ -1,5 +1,5 @@
 import { AlphabetCategory } from '@/types/alphabet-type'
-import { Card, CardContent, CardTitle } from '../ui/card'
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { getCharacterDetails, getEffectiveCategory } from '@/lib/utils'
 

@@ -14,14 +14,23 @@ import { CharacterDetails } from '@/types/card-type'
 import { AllCharacters } from '@/data/characters'
 import { Card, CardTitle } from '../ui/card'
 import FavoriteButton from '../main/section/favorite-button'
+import {
+  cn,
+  formatRomaji,
+  getCharacterDetails,
+  getFirstRomaji
+} from '@/lib/utils'
+import Link from 'next/link'
+
+type category = 'hiragana' | 'katakana' | 'romaji'
 
 function Modal() {
-  const [card, setCard] = useState<CharacterDetails>({
+  const [character, setCharacter] = useState<CharacterDetails>({
     hiragana: '',
     katakana: '',
     romaji: ''
   })
-  const [category, setCategory] = useState<'hiragana' | 'katakana'>('hiragana')
+  const [category, setCategory] = useState<category>('hiragana')
   const { isCardModal, toggleCardModal } = useModalStore()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -33,7 +42,9 @@ function Modal() {
     const characterParam = params.get('character')
 
     const isValidCategory =
-      categoryParam === 'hiragana' || categoryParam === 'katakana'
+      categoryParam === 'hiragana' ||
+      categoryParam === 'katakana' ||
+      categoryParam === 'romaji'
     const isValidCharacter = characterParam && AllCharacters[characterParam]
 
     if (!isValidCategory || !isValidCharacter) {
@@ -53,8 +64,8 @@ function Modal() {
 
     const { categoryParam, characterParam } = result
 
-    setCategory(categoryParam as 'hiragana' | 'katakana')
-    setCard(AllCharacters[characterParam])
+    setCategory(categoryParam as category)
+    setCharacter(AllCharacters[characterParam])
   }, [validateParams])
 
   useEffect(() => {
@@ -84,86 +95,170 @@ function Modal() {
     replace(url)
   }, [pathname, replace, searchParams, toggleCardModal])
 
-  const oppositeCategory = useMemo(
-    () => (category === 'hiragana' ? 'katakana' : 'hiragana'),
-    [category]
+  const fonts = useMemo(
+    () => [
+      'font-kosugi',
+      'font-zen',
+      'font-yuji',
+      'font-mochiy',
+      'font-shippori'
+    ],
+    []
   )
 
-  const renderCardDetails = useCallback(
-    () => (
+  const renderCardDetails = useCallback(() => {
+    const { hiragana, katakana, romaji } = getCharacterDetails(character)
+
+    const getMainText = (category: category) => {
+      return typeof character[category] === 'string'
+        ? character[category]
+        : character[category].join(', ')
+    }
+
+    const getSecondaryText = (category: category) => {
+      switch (category) {
+        case 'romaji':
+          return hiragana
+        case 'hiragana':
+          return katakana
+        default:
+          return hiragana
+      }
+    }
+
+    const getTertiaryText = (category: category) => {
+      switch (category) {
+        case 'romaji':
+          return katakana
+        case 'katakana':
+          return formatRomaji(romaji)
+        default:
+          return formatRomaji(romaji)
+      }
+    }
+
+    const getSecondaryDescription = (category: category) => {
+      switch (category) {
+        case 'romaji':
+          return 'hiragana'
+        case 'hiragana':
+          return 'katakana'
+        default:
+          return 'hiragana'
+      }
+    }
+
+    const getTertiaryDescription = (category: category) => {
+      switch (category) {
+        case 'romaji':
+          return 'katakana'
+        case 'katakana':
+          return 'romaji'
+        default:
+          return 'romaji'
+      }
+    }
+
+    const firstRomaji = getFirstRomaji(romaji)
+
+    return (
       <div className='flex'>
         <div className='w-full flex flex-col justify-center items-center gap-2'>
-          <DialogTitle className='text-5xl sm:text-7xl'>
-            {card[category]}
+          <DialogTitle
+            className={cn('text-5xl sm:text-7xl text-center', {
+              'text-2xl sm:text-4xl': category === 'romaji'
+            })}
+          >
+            {getMainText(category)}
           </DialogTitle>
-          <DialogDescription>{category}</DialogDescription>
+          <DialogDescription className='capitalize'>
+            {category}
+          </DialogDescription>
         </div>
         <div className='w-full flex flex-col justify-center items-center gap-2'>
           <div className='flex flex-col justify-center items-center'>
-            <h3 className='text-xl sm:text-2xl'>{card[oppositeCategory]}</h3>
-            <DialogDescription>{oppositeCategory}</DialogDescription>
+            <h3 className='text-xl sm:text-2xl'>
+              <Link
+                href={`/?category=${getSecondaryDescription(
+                  category
+                )}&character=${firstRomaji}`}
+                passHref
+              >
+                {getSecondaryText(category)}
+              </Link>
+            </h3>
+            <DialogDescription className='capitalize'>
+              {getSecondaryDescription(category)}
+            </DialogDescription>
           </div>
           <div className='flex flex-col justify-center items-center'>
-            <h3>
-              {typeof card.romaji === 'string'
-                ? card.romaji
-                : card.romaji.join(', ')}
+            <h3 className='text-xl sm:text-2xl'>
+              <Link
+                href={`/?category=${getTertiaryDescription(
+                  category
+                )}&character=${firstRomaji}`}
+                passHref
+              >
+                {getTertiaryText(category)}
+              </Link>
             </h3>
-            <DialogDescription>Romaji</DialogDescription>
+            <DialogDescription className='capitalize'>
+              {getTertiaryDescription(category)}
+            </DialogDescription>
           </div>
         </div>
       </div>
-    ),
-    [card, category, oppositeCategory]
-  )
+    )
+  }, [character, category])
 
   const renderVariations = useCallback(
     () => (
       <footer className='flex flex-col items-center gap-4'>
         <h3 className='text-lg sm:text-xl text-muted-foreground'>Variations</h3>
         <div className='flex gap-3 flex-wrap justify-center items-center'>
-          <Card className='w-[80px] h-[80px] bg-secondary flex justify-center items-center font-kosugi'>
-            <CardTitle className='text-4xl font-normal'>
-              {card[category]}
-            </CardTitle>
-          </Card>
-          <Card className='w-[80px] h-[80px] bg-secondary flex justify-center items-center font-zen'>
-            <CardTitle className='text-4xl font-normal'>
-              {card[category]}
-            </CardTitle>
-          </Card>
-          <Card className='w-[80px] h-[80px] bg-secondary flex justify-center items-center font-yuji'>
-            <CardTitle className='text-4xl font-normal'>
-              {card[category]}
-            </CardTitle>
-          </Card>
-          <Card className='w-[80px] h-[80px] bg-secondary flex justify-center items-center font-mochiy'>
-            <CardTitle className='text-4xl font-normal'>
-              {card[category]}
-            </CardTitle>
-          </Card>
-          <Card className='w-[80px] h-[80px] bg-secondary flex justify-center items-center font-shippori'>
-            <CardTitle className='text-4xl font-normal'>
-              {card[category]}
-            </CardTitle>
-          </Card>
+          {category === 'romaji'
+            ? (['hiragana', 'katakana'] as Array<keyof CharacterDetails>).map(
+                cat =>
+                  fonts.map(font => (
+                    <Card
+                      key={`${cat}-${font}`}
+                      className={`w-[75px] h-[75px] bg-secondary flex justify-center items-center ${font}`}
+                    >
+                      <CardTitle className='text-3xl font-normal'>
+                        {character[cat]}
+                      </CardTitle>
+                    </Card>
+                  ))
+              )
+            : fonts.map(font => (
+                <Card
+                  key={font}
+                  className={`w-[80px] h-[80px] bg-secondary flex justify-center items-center ${font}`}
+                >
+                  <CardTitle className='text-4xl font-normal'>
+                    {character[category]}
+                  </CardTitle>
+                </Card>
+              ))}
         </div>
       </footer>
     ),
-    [card, category]
+    [character, category, fonts]
   )
 
   return (
     <Dialog open={isCardModal} onOpenChange={handleModalClose}>
       <DialogContent className='w-5/6'>
         <div className='flex flex-col justify-center mt-5'>
-          <DialogHeader className='h-fit flex items-end'>
-            <FavoriteButton
-              character={card}
-              category={category}
-              className='static'
-            />
-          </DialogHeader>
+          {category !== 'romaji' && (
+            <DialogHeader className='h-fit flex items-end'>
+              <FavoriteButton
+                character={character}
+                category={category}
+                className='static'
+              />
+            </DialogHeader>
+          )}
           {renderCardDetails()}
         </div>
         {renderVariations()}

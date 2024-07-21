@@ -37,7 +37,7 @@ export default function Aside() {
             {isAsideOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </Button>
 
-          <div className='flex flex-col gap-4 pr-2 h-full overflow-y-auto'>
+          <div className='flex flex-col h-full'>
             <HeaderAside />
             <SectionsAside />
             <FooterAside />
