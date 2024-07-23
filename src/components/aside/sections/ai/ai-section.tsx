@@ -1,23 +1,24 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useAiStore } from '@/store/learn-store'
 import { useState } from 'react'
 
 export default function AiSection() {
   const [token, setToken] = useState('')
-  const [active, setActive] = useState(false)
+  const { isAiActive, toggleAi } = useAiStore()
 
   const handleActivate = () => {
     console.log('Activate AI')
-    setActive(true)
+    toggleAi(true)
   }
 
   const handleDeactivate = () => {
     console.log('Deactivate AI')
-    setActive(false)
+    toggleAi(false)
   }
 
-  const title = active ? 'Powered' : 'No Powered'
-  const subTitle = active
+  const title = isAiActive ? 'Powered' : 'No Powered'
+  const subTitle = isAiActive
     ? 'AI is activated. You can now use AI features.'
     : 'Activate AI to use AI features'
 
@@ -25,7 +26,7 @@ export default function AiSection() {
     <div className='flex flex-col gap-1'>
       <h2 className='sm:text-xl text-lg font-bold'>AI - {title}</h2>
       <p className='text-sm text-gray-500'>{subTitle}</p>
-      {active ? (
+      {isAiActive ? (
         <Button variant={'secondary'} size={'sm'} onClick={handleDeactivate}>
           Deactivate
         </Button>

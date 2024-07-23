@@ -69,3 +69,8 @@ export type LearnHistoryStoreState = {
   addHistoryItem: (item: LearnHistoryItem) => void
   clearHistory: () => void
 }
+
+export type AiStoreState = {
+  isAiActive: boolean
+  toggleAi: (isActive: boolean) => void
+}

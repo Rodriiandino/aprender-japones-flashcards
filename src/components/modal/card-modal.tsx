@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback, useMemo, Suspense } from 'react'
-import { useModalStore } from '@/store/learn-store'
+import { useAiStore, useModalStore } from '@/store/learn-store'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import {
   Dialog,
@@ -21,6 +21,11 @@ import {
   getFirstRomaji
 } from '@/lib/utils'
 import Link from 'next/link'
+import { Button } from '../ui/button'
+import { Sparkles } from 'lucide-react'
+import TooltipCustom from '../tooltip-custom'
+import { Separator } from '@/components/ui/separator'
+import { StatItem } from '../ui/stat-item'
 
 type category = 'hiragana' | 'katakana' | 'romaji'
 
@@ -35,6 +40,8 @@ function Modal() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
+  const { isAiActive } = useAiStore()
+  const [aiExample, setAiExample] = useState<string>('')
 
   const validateParams = useCallback(() => {
     const params = new URLSearchParams(searchParams)
@@ -106,6 +113,10 @@ function Modal() {
     []
   )
 
+  const handleAiExample = () => {
+    setAiExample('あいしてる (aishiteru) - I love you')
+  }
+
   const renderCardDetails = useCallback(() => {
     const { hiragana, katakana, romaji } = getCharacterDetails(character)
 
@@ -175,6 +186,7 @@ function Modal() {
             {category}
           </DialogDescription>
         </div>
+
         <div className='w-full flex flex-col justify-center items-center gap-2'>
           <div className='flex flex-col justify-center items-center'>
             <h3 className='text-xl sm:text-2xl'>
@@ -261,6 +273,26 @@ function Modal() {
           )}
           {renderCardDetails()}
         </div>
+        {isAiActive && !aiExample && (
+          <div className='flex justify-center items-center'>
+            <TooltipCustom text='Generate a word using this character'>
+              <Button
+                size={'sm'}
+                variant={'ghost'}
+                className='flex gap-1'
+                onClick={handleAiExample}
+              >
+                <Sparkles size={16} /> Example
+              </Button>
+            </TooltipCustom>
+          </div>
+        )}
+        {isAiActive && aiExample && (
+          <>
+            <StatItem label='AI Example' value={aiExample} />
+            <Separator />
+          </>
+        )}
         {renderVariations()}
       </DialogContent>
     </Dialog>
