@@ -6,20 +6,22 @@ const groq = createOpenAI({
   apiKey: process.env.GROQ_API_KEY!,
   baseURL: 'https://api.groq.com/openai/v1'
 })
+const model = groq('llama3-8b-8192')
+const system = `You are an expert speaker in Japanese, dedicated to teaching me how to speak Japanese. 
+Your responses will include examples and hints to aid my learning, strictly adhering to the format specified. 
+For examples, use the format: "Japanese word (romaji) - English translation". 
+For hints, provide practical ways to remember the romaji transliteration of specific characters.`
 
 export async function POST(req: Request) {
   try {
     const { prompt } = await req.json()
-
-    const model = groq('llama3-8b-8192')
 
     const result = await generateText({
       model,
       prompt,
       maxTokens: 50,
       temperature: 0.1,
-      system:
-        'You are a expert speaker in japanese, and you are teaching me how to speak japanese'
+      system
     })
 
     if (!result) {
