@@ -113,9 +113,41 @@ function Modal() {
     []
   )
 
-  const handleAiExample = () => {
-    setAiExample('あいしてる (aishiteru) - I love you')
+  const handleAiExample = async (character: string | string[]) => {
+    const prompt = `Create a word using the character ${character}, 
+    provide its romaji transliteration and English translation in the format: 
+    "Japanese word (romaji) - English translation". 
+    Only respond in this format and provide no additional text.
+    Example of a correct response: "こんにちは (konnichiwa) - Hello".`
+    const res = await apiCall({ prompt })
+    setAiExample(res)
   }
+
+  const apiCall = useCallback(async ({ prompt }: { prompt: string }) => {
+    try {
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt: prompt
+        })
+      })
+
+      if (!res.ok) {
+        const errorResponse = await res.json()
+        throw new Error(errorResponse.error || 'API call failed')
+      }
+
+      const { result } = await res.json()
+
+      return result
+    } catch (error) {
+      console.error('API call error:', error)
+      return 'Error generating text'
+    }
+  }, [])
 
   const renderCardDetails = useCallback(() => {
     const { hiragana, katakana, romaji } = getCharacterDetails(character)
@@ -280,7 +312,7 @@ function Modal() {
                 size={'sm'}
                 variant={'ghost'}
                 className='flex gap-1'
-                onClick={handleAiExample}
+                onClick={() => handleAiExample(character[category])}
               >
                 <Sparkles size={16} /> Example
               </Button>
