@@ -1,7 +1,4 @@
-export async function fetchApiAi(
-  character: string | string[],
-  type: 'example' | 'hint'
-) {
+export async function fetchApiAi(character: string, type: 'example' | 'hint') {
   const examplePrompt = `Create a word using the character ${character}, 
     provide its romaji transliteration and English translation in the format: 
     "Japanese word (romaji) - English translation". 

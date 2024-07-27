@@ -1,21 +1,20 @@
 'use client'
 
 import { useEffect, useState, useCallback, useMemo } from 'react'
-import { useAiStore, useModalStore } from '@/store/learn-store'
+import { useModalStore } from '@/store/learn-store'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { Dialog, DialogContent } from '../../ui/dialog'
 import { CharacterDetails } from '@/types/card-type'
 import { AllCharacters } from '@/data/characters'
-import { Card, CardTitle } from '../../ui/card'
-import { Button } from '../../ui/button'
-import { Sparkles } from 'lucide-react'
-import TooltipCustom from '../../tooltip-custom'
-import { Separator } from '@/components/ui/separator'
-import { StatItem } from '../../ui/stat-item'
-import { fetchApiAi } from '@/lib/fetch-api-ai'
 import CardModalHeader from './card-modal-header'
 import CardModalDetails from './card-modal-details'
-import { category } from '@/types/alphabet-type'
+import { Category } from '@/types/alphabet-type'
+import CardModalVariations from './card-modal-variations'
+import CardModalAiExample from './card-modal-aiExample'
+
+export type AiExample = {
+  [key: string]: { example: string }
+}
 
 export default function ModalContent() {
   const [character, setCharacter] = useState<CharacterDetails>({
@@ -23,13 +22,13 @@ export default function ModalContent() {
     katakana: '',
     romaji: ''
   })
-  const [category, setCategory] = useState<category>('hiragana')
+  const [category, setCategory] = useState<Category>('hiragana')
+  const [aiExample, setAiExample] = useState<AiExample>()
+
   const { isCardModal, toggleCardModal } = useModalStore()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
-  const { isAiActive } = useAiStore()
-  const [aiExample, setAiExample] = useState<string>('')
 
   const validateParams = useCallback(() => {
     const params = new URLSearchParams(searchParams)
@@ -59,7 +58,7 @@ export default function ModalContent() {
 
     const { categoryParam, characterParam } = result
 
-    setCategory(categoryParam as category)
+    setCategory(categoryParam as Category)
     setCharacter(AllCharacters[characterParam])
   }, [validateParams])
 
@@ -70,16 +69,13 @@ export default function ModalContent() {
   useEffect(() => {
     const initializeModal = () => {
       const result = validateParams()
-      if (!result) return
-
       if (result) {
         toggleCardModal(true)
       }
     }
 
     initializeModal()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [validateParams, toggleCardModal])
 
   const handleModalClose = useCallback(() => {
     toggleCardModal(false)
@@ -101,46 +97,6 @@ export default function ModalContent() {
     []
   )
 
-  const handleAiExample = async (character: string | string[]) => {
-    const aiExample = await fetchApiAi(character, 'example')
-    setAiExample(aiExample)
-  }
-
-  const renderVariations = useCallback(
-    () => (
-      <footer className='flex flex-col items-center gap-4'>
-        <h3 className='text-lg sm:text-xl text-muted-foreground'>Variations</h3>
-        <div className='flex gap-3 flex-wrap justify-center items-center'>
-          {category === 'romaji'
-            ? (['hiragana', 'katakana'] as Array<keyof CharacterDetails>).map(
-                cat =>
-                  fonts.map(font => (
-                    <Card
-                      key={`${cat}-${font}`}
-                      className={`w-[75px] h-[75px] bg-secondary flex justify-center items-center ${font}`}
-                    >
-                      <CardTitle className='text-3xl font-normal'>
-                        {character[cat]}
-                      </CardTitle>
-                    </Card>
-                  ))
-              )
-            : fonts.map(font => (
-                <Card
-                  key={font}
-                  className={`w-[80px] h-[80px] bg-secondary flex justify-center items-center ${font}`}
-                >
-                  <CardTitle className='text-4xl font-normal'>
-                    {character[category]}
-                  </CardTitle>
-                </Card>
-              ))}
-        </div>
-      </footer>
-    ),
-    [character, category, fonts]
-  )
-
   return (
     <Dialog open={isCardModal} onOpenChange={handleModalClose}>
       <DialogContent className='w-5/6'>
@@ -150,27 +106,19 @@ export default function ModalContent() {
           )}
           <CardModalDetails character={character} category={category} />
         </div>
-        {isAiActive && !aiExample && (
-          <div className='flex justify-center items-center'>
-            <TooltipCustom text='Generate a word using this character'>
-              <Button
-                size={'sm'}
-                variant={'ghost'}
-                className='flex gap-1'
-                onClick={() => handleAiExample(character[category])}
-              >
-                <Sparkles size={16} /> Example
-              </Button>
-            </TooltipCustom>
-          </div>
-        )}
-        {isAiActive && aiExample && (
-          <>
-            <StatItem label='AI Example' value={aiExample} />
-            <Separator />
-          </>
-        )}
-        {renderVariations()}
+
+        <CardModalAiExample
+          character={character}
+          category={category}
+          aiExample={aiExample}
+          setAiExample={setAiExample}
+        />
+
+        <CardModalVariations
+          character={character}
+          category={category}
+          fonts={fonts}
+        />
       </DialogContent>
     </Dialog>
   )

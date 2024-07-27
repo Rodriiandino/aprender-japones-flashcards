@@ -7,25 +7,28 @@ import {
   getFirstRomaji
 } from '@/lib/utils'
 import { CharacterDetails } from '@/types/card-type'
+import { Category } from '@/types/alphabet-type'
 import { useCallback } from 'react'
-import { category } from '@/types/alphabet-type'
 
-type CardModalDetailsProps = {
+interface CardModalDetailsProps {
   character: CharacterDetails
-  category: category
+  category: Category
 }
 
-function CardModalDetails({ character, category }: CardModalDetailsProps) {
+export default function CardModalDetails({
+  character,
+  category
+}: CardModalDetailsProps) {
   const renderCardDetails = useCallback(() => {
     const { hiragana, katakana, romaji } = getCharacterDetails(character)
 
-    const getMainText = (category: category) => {
+    const getMainText = (category: Category) => {
       return typeof character[category] === 'string'
         ? character[category]
         : character[category].join(', ')
     }
 
-    const getSecondaryText = (category: category) => {
+    const getSecondaryText = (category: Category) => {
       switch (category) {
         case 'romaji':
           return hiragana
@@ -36,7 +39,7 @@ function CardModalDetails({ character, category }: CardModalDetailsProps) {
       }
     }
 
-    const getTertiaryText = (category: category) => {
+    const getTertiaryText = (category: Category) => {
       switch (category) {
         case 'romaji':
           return katakana
@@ -47,7 +50,7 @@ function CardModalDetails({ character, category }: CardModalDetailsProps) {
       }
     }
 
-    const getSecondaryDescription = (category: category) => {
+    const getSecondaryDescription = (category: Category) => {
       switch (category) {
         case 'romaji':
           return 'hiragana'
@@ -58,7 +61,7 @@ function CardModalDetails({ character, category }: CardModalDetailsProps) {
       }
     }
 
-    const getTertiaryDescription = (category: category) => {
+    const getTertiaryDescription = (category: Category) => {
       switch (category) {
         case 'romaji':
           return 'katakana'
@@ -122,7 +125,5 @@ function CardModalDetails({ character, category }: CardModalDetailsProps) {
     )
   }, [character, category])
 
-  return <>{renderCardDetails()}</>
+  return renderCardDetails()
 }
-
-export default CardModalDetails

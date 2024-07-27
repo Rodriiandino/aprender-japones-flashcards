@@ -8,4 +8,4 @@ export type AlphabetCategory =
 
 export type StudyMode = 'order' | 'random'
 
-export type category = 'hiragana' | 'katakana' | 'romaji'
+export type Category = 'hiragana' | 'katakana' | 'romaji'

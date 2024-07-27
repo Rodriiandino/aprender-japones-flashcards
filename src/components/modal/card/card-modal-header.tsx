@@ -8,7 +8,10 @@ type CardModalHeaderProps = {
   category: AlphabetCategory
 }
 
-function CardModalHeader({ character, category }: CardModalHeaderProps) {
+export default function CardModalHeader({
+  character,
+  category
+}: CardModalHeaderProps) {
   return (
     <DialogHeader className='h-fit flex items-end'>
       <FavoriteButton
@@ -19,5 +22,3 @@ function CardModalHeader({ character, category }: CardModalHeaderProps) {
     </DialogHeader>
   )
 }
-
-export default CardModalHeader
