@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import {
+  AiHintStoreState,
   AiStoreState,
   ConfigLearnStoreState,
   FavoriteStoreState,
@@ -110,4 +111,9 @@ export const useLearnHistoryStore = create<LearnHistoryStoreState>()(
 export const useAiStore = create<AiStoreState>()(set => ({
   isAiActive: false,
   toggleAi: isActive => set({ isAiActive: isActive })
+}))
+
+export const useAiHintStore = create<AiHintStoreState>()(set => ({
+  aiHint: '',
+  setAiHint: hint => set({ aiHint: hint })
 }))

@@ -5,7 +5,8 @@ import {
   useModalStore,
   useLearnStore,
   useLearnHistoryStore,
-  useAiStore
+  useAiStore,
+  useAiHintStore
 } from '@/store/learn-store'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
@@ -41,8 +42,7 @@ export default function LearningModal() {
   const [inputValue, setInputValue] = useState('')
   const [isAnswerCorrect, setIsAnsweredCorrect] = useState<boolean | null>(null)
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
-  const { isAiActive } = useAiStore()
-  const [aiHint, setAiHint] = useState<string>('')
+  const { setAiHint } = useAiHintStore()
 
   const { romaji } = getCharacterDetails(learningCards[currentCardIndex])
 
@@ -133,12 +133,6 @@ export default function LearningModal() {
     setInputValue(e.target.value)
   }
 
-  const handleHint = () => {
-    setAiHint(
-      'Remember than "あ" is use in the phrase "あいしてる - aishiteru" which means "I love you"'
-    )
-  }
-
   return (
     <Dialog open={isLearningModalOpen} onOpenChange={toggleLearningModal}>
       <DialogContent
@@ -158,9 +152,6 @@ export default function LearningModal() {
           isFinished={isFinished}
           inputValue={inputValue}
           isSubmitDisabled={isSubmitDisabled}
-          isAiActive={isAiActive}
-          aiHint={aiHint}
-          handleHint={handleHint}
           handleInputChange={handleInputChange}
           handleSubmit={handleNextCard}
           handleReset={handleReset}

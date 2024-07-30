@@ -74,3 +74,8 @@ export type AiStoreState = {
   isAiActive: boolean
   toggleAi: (isActive: boolean) => void
 }
+
+export type AiHintStoreState = {
+  aiHint: string
+  setAiHint: (hint: string) => void
+}

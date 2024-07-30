@@ -10,7 +10,8 @@ import { LeaningResultCard } from './learning-result-card'
 import { Input } from '@/components/ui/input'
 import { AlphabetCategory } from '@/types/alphabet-type'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
-import { Sparkles } from 'lucide-react'
+import { getCharacterDetails, getEffectiveCategory } from '@/lib/utils'
+import LearningModalAiHint from './learning-modal-aiHint'
 
 interface LearningModalContentProps {
   romaji: string | string[]
@@ -23,9 +24,6 @@ interface LearningModalContentProps {
   isFinished: boolean
   inputValue: string
   isSubmitDisabled: boolean
-  isAiActive: boolean
-  aiHint: string
-  handleHint: () => void
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleSubmit: (e: React.FormEvent) => void
   handleReset: (e: React.FormEvent) => void
@@ -42,13 +40,18 @@ export const LearningModalContent = ({
   isFinished,
   inputValue,
   isSubmitDisabled,
-  isAiActive,
-  aiHint,
-  handleHint,
   handleInputChange,
   handleSubmit,
   handleReset
 }: LearningModalContentProps) => {
+  const { hiragana, katakana } = getCharacterDetails(
+    learningCards[currentCardIndex]
+  )
+  const effectiveCategory = getEffectiveCategory(
+    learningCards[currentCardIndex],
+    currentAlphabet
+  )
+
   return (
     <>
       <DialogHeader>
@@ -57,27 +60,21 @@ export const LearningModalContent = ({
           {practicedCardsIndices.length + 1} / {totalCards}
         </DialogDescription>
         <Progress value={practicedCardsIndices.length + 1} max={totalCards} />
-        {isAiActive && !isFinished && !aiHint && (
-          <Button
-            size={'sm'}
-            variant={'ghost'}
-            className='flex gap-1 w-fit'
-            onClick={handleHint}
-          >
-            <Sparkles size={16} /> Hint
-          </Button>
-        )}
-        {isAiActive && aiHint && (
-          <DialogDescription className='text-xs'>{aiHint}</DialogDescription>
-        )}
+        <LearningModalAiHint
+          isFinished={isFinished}
+          effectiveCategory={effectiveCategory}
+          hiragana={hiragana}
+          katakana={katakana}
+        />
       </DialogHeader>
       <form className='flex flex-col items-center gap-4 p-1'>
         {isAnswerCorrect !== null ? (
           <LeaningResultCard romaji={romaji} />
         ) : (
           <LearningCard
-            category={currentAlphabet}
-            character={learningCards[currentCardIndex]}
+            effectiveCategory={effectiveCategory}
+            hiragana={hiragana}
+            katakana={katakana}
           />
         )}
         <Input
