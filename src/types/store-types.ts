@@ -48,6 +48,8 @@ export type ModalStoreState = {
   toggleChangeLearnModal: (isOpen: boolean) => void
   isCardModal: boolean
   toggleCardModal: (isOpen: boolean) => void
+  isAiModalOpen: boolean
+  toggleAiModal: (isOpen: boolean) => void
 }
 
 export type UiStoreState = {

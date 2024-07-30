@@ -79,7 +79,9 @@ export const useModalStore = create<ModalStoreState>()(set => ({
   isChangeLearnModalOpen: false,
   toggleChangeLearnModal: isOpen => set({ isChangeLearnModalOpen: isOpen }),
   isCardModal: false,
-  toggleCardModal: isOpen => set({ isCardModal: isOpen })
+  toggleCardModal: isOpen => set({ isCardModal: isOpen }),
+  isAiModalOpen: false,
+  toggleAiModal: isOpen => set({ isAiModalOpen: isOpen })
 }))
 
 export const useUiStore = create<UiStoreState>()(
