@@ -40,7 +40,7 @@ export default function HistorySection() {
               onClick={clearHistory}
               variant={'ghost'}
               size={'sm'}
-              className='absolute top-0 right-0'
+              className='absolute top-0 right-0 opacity-70 hover:bg-transparent hover:opacity-100'
             >
               <Trash size={16} />
             </Button>
