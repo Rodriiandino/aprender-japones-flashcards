@@ -2,11 +2,6 @@ import { CoreMessage, streamText } from 'ai'
 import { createOpenAI } from '@ai-sdk/openai'
 import { NextResponse } from 'next/server'
 
-const groq = createOpenAI({
-  apiKey: process.env.GROQ_API_KEY!,
-  baseURL: 'https://api.groq.com/openai/v1'
-})
-const model = groq('llama3-8b-8192')
 const system = `You are a highly knowledgeable and experienced Japanese language expert and professor. Your primary role is to assist users with all their questions related to the Japanese language. This includes, but is not limited to, grammar, vocabulary, pronunciation, writing systems (hiragana, katakana, kanji), cultural context, and nuances of the language.
 
 Your responses should be clear, concise, and educational, ensuring that users can easily understand and learn from your explanations. You should provide examples when necessary to illustrate your points and encourage users to ask follow-up questions if they need further clarification.
@@ -23,7 +18,15 @@ Your expertise and guidance are invaluable to those seeking to master the Japane
 
 export async function POST(req: Request) {
   try {
-    const { messages }: { messages: CoreMessage[] } = await req.json()
+    const { messages, token }: { messages: CoreMessage[]; token: string } =
+      await req.json()
+
+    const groq = createOpenAI({
+      apiKey: token,
+      baseURL: 'https://api.groq.com/openai/v1'
+    })
+
+    const model = groq('llama3-8b-8192')
 
     const result = await streamText({
       model,

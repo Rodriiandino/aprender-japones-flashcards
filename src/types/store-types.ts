@@ -75,6 +75,8 @@ export type LearnHistoryStoreState = {
 export type AiStoreState = {
   isAiActive: boolean
   toggleAi: (isActive: boolean) => void
+  iaToken: string
+  setIaToken: (token: string) => void
 }
 
 export type AiHintStoreState = {

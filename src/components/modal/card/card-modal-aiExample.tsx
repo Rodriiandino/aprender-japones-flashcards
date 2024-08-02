@@ -2,14 +2,14 @@ import TooltipCustom from '@/components/tooltip-custom'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { StatItem } from '@/components/ui/stat-item'
-import { fetchApiAi } from '@/lib/fetch-api-ai'
 import { useAiStore } from '@/store/learn-store'
 import { Category } from '@/types/alphabet-type'
 import { CharacterDetails } from '@/types/card-type'
 import { Sparkles } from 'lucide-react'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo } from 'react'
 import { AiExample } from './card-modal-content'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useAiHelper } from '@/components/hooks/useAiHelper'
 
 interface CardModalAiExampleProps {
   character: CharacterDetails
@@ -25,7 +25,7 @@ export default function CardModalAiExample({
   setAiExample
 }: CardModalAiExampleProps) {
   const { isAiActive } = useAiStore()
-  const [isLoading, setIsLoading] = useState(false)
+  const { isLoading, generateAiContent, regenerateAiContent } = useAiHelper()
 
   const aiKey = useMemo(() => {
     return Array.isArray(character[category])
@@ -33,36 +33,31 @@ export default function CardModalAiExample({
       : character[category]
   }, [character, category])
 
-  //? Todo: uncomment this block
-  // const handleAiExample = useCallback(async () => {
-  //   if (isLoading || (aiExample && aiExample[aiKey])) return
-
-  //   setIsLoading(true)
-  //   try {
-  //     const example = await fetchApiAi(aiKey, 'example')
-  //     setAiExample(prev => ({
-  //       ...prev,
-  //       [aiKey]: { example }
-  //     }))
-  //   } catch (error) {
-  //     console.error('Failed to fetch AI example:', error)
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }, [aiExample, aiKey, isLoading, setAiExample])
-
-  //! Todo: remove this block
-  const handleAiExample = useCallback(() => {
-    setIsLoading(true)
-
-    setTimeout(() => {
+  const handleAiExample = useCallback(async () => {
+    const result = await generateAiContent(aiKey, 'example')
+    if (result) {
       setAiExample(prev => ({
         ...prev,
-        [aiKey]: { example: 'Example' }
+        [aiKey]: { example: result }
       }))
-      setIsLoading(false)
-    }, 2000)
-  }, [aiKey, setAiExample])
+    }
+  }, [aiKey, generateAiContent, setAiExample])
+
+  const handleRegenerateAiExample = useCallback(async () => {
+    if (!aiExample || !aiExample[aiKey]) return
+
+    const result = await regenerateAiContent(
+      aiKey,
+      'example',
+      aiExample[aiKey].example
+    )
+    if (result) {
+      setAiExample(prev => ({
+        ...prev,
+        [aiKey]: { example: result }
+      }))
+    }
+  }, [aiKey, regenerateAiContent, setAiExample, aiExample])
 
   if (!isAiActive) return null
 
@@ -74,6 +69,14 @@ export default function CardModalAiExample({
     return (
       <>
         <StatItem label='AI Example' value={aiExample[aiKey].example} />
+        <Button
+          size='sm'
+          variant='ghost'
+          className='flex gap-1'
+          onClick={handleRegenerateAiExample}
+        >
+          <Sparkles size={16} /> Regenerate
+        </Button>
         <Separator />
       </>
     )

@@ -78,7 +78,7 @@ export default function ChatModalMessages({
         <li
           key={index}
           className={cn(
-            'p-2 rounded-md relative w-fit max-w-full',
+            'p-2 rounded-md relative w-fit max-w-full min-w-12',
             m.role === 'user' ? 'ml-auto bg-secondary' : 'mr-auto'
           )}
         >

@@ -5,14 +5,18 @@ import { useState } from 'react'
 
 export default function AiSection() {
   const [token, setToken] = useState('')
-  const { isAiActive, toggleAi } = useAiStore()
+  const { isAiActive, toggleAi, iaToken, setIaToken } = useAiStore()
   const { isAiModalOpen, toggleAiModal } = useModalStore()
 
   const handleActivate = () => {
+    if (token === '') return
+    setIaToken(token)
     toggleAi(true)
   }
 
   const handleDeactivate = () => {
+    if (iaToken === '') return
+    setIaToken('')
     toggleAi(false)
   }
 
@@ -52,6 +56,7 @@ export default function AiSection() {
             variant={'secondary'}
             className='w-full'
             onClick={handleActivate}
+            disabled={!token}
           >
             Activate
           </Button>

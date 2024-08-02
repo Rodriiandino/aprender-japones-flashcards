@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button'
-import { fetchApiAi } from '@/lib/fetch-api-ai'
 import { DialogDescription } from '@/components/ui/dialog'
-import { Sparkles } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { Sparkles, Repeat } from 'lucide-react'
+import { useCallback } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAiHintStore, useAiStore } from '@/store/learn-store'
+import { useAiHelper } from '@/components/hooks/useAiHelper'
 
 interface LearningModalAiHintProps {
   isFinished: boolean
@@ -20,34 +20,28 @@ export default function LearningModalAiHint({
   katakana
 }: LearningModalAiHintProps) {
   const { isAiActive } = useAiStore()
-  const [isLoading, setIsLoading] = useState(false)
   const { aiHint, setAiHint } = useAiHintStore()
+  const { isLoading, generateAiContent, regenerateAiContent } = useAiHelper()
+
   const character = effectiveCategory === 'hiragana' ? hiragana : katakana
 
-  //? Todo: uncomment this block
-  // const handleHint = useCallback(async () => {
-  //   if (isLoading || aiHint) return
+  const handleAiHint = useCallback(async () => {
+    const result = await generateAiContent(character, 'hint')
 
-  //   setIsLoading(true)
-  //   try {
-  //     const example = await fetchApiAi(character, 'hint')
-  //     setAiHint(example)
-  //   } catch (error) {
-  //     console.error('Failed to fetch AI example:', error)
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }, [aiHint, character, isLoading, setAiHint])
+    if (result) {
+      setAiHint(result)
+    }
+  }, [character, generateAiContent, setAiHint])
 
-  //! Todo: remove this block
-  const handleHint = useCallback(() => {
-    setIsLoading(true)
+  const handleRegenerateAiHint = useCallback(async () => {
+    if (!aiHint) return
 
-    setTimeout(() => {
-      setAiHint('Hint')
-      setIsLoading(false)
-    }, 1000)
-  }, [setAiHint])
+    const result = await regenerateAiContent(character, 'hint', aiHint)
+
+    if (result) {
+      setAiHint(result)
+    }
+  }, [aiHint, character, regenerateAiContent, setAiHint])
 
   if (!isAiActive) return null
 
@@ -58,7 +52,19 @@ export default function LearningModalAiHint({
   }
 
   if (aiHint) {
-    return <DialogDescription className='text-xs'>{aiHint}</DialogDescription>
+    return (
+      <div className='flex items-center gap-2'>
+        <Button
+          size={'icon'}
+          variant={'ghost'}
+          className='w-fit opacity-70 hover:bg-transparent hover:opacity-100'
+          onClick={handleRegenerateAiHint}
+        >
+          <Repeat size={16} />
+        </Button>
+        <DialogDescription className='text-xs'>{aiHint}</DialogDescription>
+      </div>
+    )
   }
 
   return (
@@ -66,7 +72,7 @@ export default function LearningModalAiHint({
       size={'sm'}
       variant={'ghost'}
       className='flex gap-1 w-fit'
-      onClick={handleHint}
+      onClick={handleAiHint}
     >
       <Sparkles size={16} /> Hint
     </Button>

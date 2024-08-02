@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogDescription
 } from '@/components/ui/dialog'
-import { useModalStore } from '@/store/learn-store'
+import { useAiStore, useModalStore } from '@/store/learn-store'
 import ChatModalInput from './chat-modal-input'
 import ChatModalMessages from './chat-modal-messages'
 import { useChat } from 'ai/react'
@@ -18,6 +18,8 @@ import { Trash } from 'lucide-react'
 
 export default function ChatModal() {
   const { isAiModalOpen, toggleAiModal } = useModalStore()
+  const { iaToken } = useAiStore()
+
   const {
     messages,
     input,
@@ -29,7 +31,10 @@ export default function ChatModal() {
     reload,
     setMessages
   } = useChat({
-    api: '/api/ai/chat'
+    api: '/api/ai/chat',
+    body: {
+      token: iaToken
+    }
   })
 
   return (

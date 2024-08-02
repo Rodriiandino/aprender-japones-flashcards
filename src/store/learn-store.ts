@@ -112,7 +112,9 @@ export const useLearnHistoryStore = create<LearnHistoryStoreState>()(
 
 export const useAiStore = create<AiStoreState>()(set => ({
   isAiActive: false,
-  toggleAi: isActive => set({ isAiActive: isActive })
+  toggleAi: isActive => set({ isAiActive: isActive }),
+  iaToken: '',
+  setIaToken: token => set({ iaToken: token })
 }))
 
 export const useAiHintStore = create<AiHintStoreState>()(set => ({
