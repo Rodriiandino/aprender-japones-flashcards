@@ -57,7 +57,7 @@ export default function LearningModalAiHint({
         <Button
           size={'icon'}
           variant={'ghost'}
-          className='w-fit opacity-70 hover:bg-transparent hover:opacity-100'
+          className='w-fit opacity-50 hover:bg-transparent hover:opacity-100'
           onClick={handleRegenerateAiHint}
         >
           <Repeat size={16} />

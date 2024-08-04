@@ -49,7 +49,7 @@ export default function ChatModal() {
               <Button
                 variant={'ghost'}
                 size={'sm'}
-                className='absolute top-6 right-1 opacity-70 hover:bg-transparent hover:opacity-100'
+                className='absolute top-6 right-1 opacity-50 hover:bg-transparent hover:opacity-100'
                 onClick={() => setMessages([])}
               >
                 <Trash size={16} />

@@ -81,7 +81,9 @@ export const useModalStore = create<ModalStoreState>()(set => ({
   isCardModal: false,
   toggleCardModal: isOpen => set({ isCardModal: isOpen }),
   isAiModalOpen: false,
-  toggleAiModal: isOpen => set({ isAiModalOpen: isOpen })
+  toggleAiModal: isOpen => set({ isAiModalOpen: isOpen }),
+  isHelpModalOpen: false,
+  toggleHelpModal: isOpen => set({ isHelpModalOpen: isOpen })
 }))
 
 export const useUiStore = create<UiStoreState>()(

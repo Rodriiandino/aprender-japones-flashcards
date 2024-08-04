@@ -50,6 +50,8 @@ export type ModalStoreState = {
   toggleCardModal: (isOpen: boolean) => void
   isAiModalOpen: boolean
   toggleAiModal: (isOpen: boolean) => void
+  isHelpModalOpen: boolean
+  toggleHelpModal: (isOpen: boolean) => void
 }
 
 export type UiStoreState = {
