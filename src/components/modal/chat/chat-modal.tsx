@@ -18,7 +18,7 @@ import { Trash } from 'lucide-react'
 
 export default function ChatModal() {
   const { isAiModalOpen, toggleAiModal } = useModalStore()
-  const { iaToken } = useAiStore()
+  const { iaToken, aiProvider } = useAiStore()
 
   const {
     messages,
@@ -33,7 +33,8 @@ export default function ChatModal() {
   } = useChat({
     api: '/api/ai/chat',
     body: {
-      token: iaToken
+      token: iaToken,
+      provider: aiProvider
     }
   })
 

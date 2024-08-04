@@ -77,6 +77,8 @@ export type AiStoreState = {
   toggleAi: (isActive: boolean) => void
   iaToken: string
   setIaToken: (token: string) => void
+  aiProvider: 'openai' | 'groq'
+  setAiProvider: (provider: 'openai' | 'groq') => void
 }
 
 export type AiHintStoreState = {

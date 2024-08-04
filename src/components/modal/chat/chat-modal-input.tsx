@@ -29,52 +29,59 @@ export default function ChatModalInput({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='w-full p-1 flex items-center bg-secondary rounded-md'
-    >
-      <Textarea
-        placeholder='Type your message here'
-        className='min-h-10 h-10 text resize-none border-none focus-visible:ring-0 shadow-none'
-        value={input}
-        onChange={handleInputChange}
-        disabled={isLoading}
-        onKeyDown={handleKeyDown}
-      />
+    <div className='w-full'>
+      <form
+        onSubmit={handleSubmit}
+        className='w-full p-1 flex items-center bg-secondary rounded-md'
+      >
+        <Textarea
+          placeholder='Type your message here'
+          className='min-h-10 h-10 text resize-none border-none focus-visible:ring-0 shadow-none'
+          value={input}
+          onChange={handleInputChange}
+          disabled={isLoading}
+          onKeyDown={handleKeyDown}
+        />
 
-      {!error && isLoading && (
-        <Button
-          variant='ghost'
-          size='icon'
-          className='h-10 w-10 shadow-none hover:bg-background/70'
-          onClick={stop}
-        >
-          <Square size='20' />
-        </Button>
-      )}
+        {!error && isLoading && (
+          <Button
+            variant='ghost'
+            size='icon'
+            className='h-10 w-10 shadow-none hover:bg-background/70'
+            onClick={stop}
+          >
+            <Square size='20' />
+          </Button>
+        )}
 
-      {!error && !isLoading && (
-        <Button
-          type='submit'
-          variant='ghost'
-          size='icon'
-          className='h-10 w-10 shadow-none hover:bg-background/70'
-          disabled={!input || isLoading}
-        >
-          <Send size='20' />
-        </Button>
-      )}
+        {!isLoading && (
+          <Button
+            type='submit'
+            variant='ghost'
+            size='icon'
+            className='h-10 w-10 shadow-none hover:bg-background/70'
+            disabled={!input || isLoading}
+          >
+            <Send size='20' />
+          </Button>
+        )}
 
+        {error && (
+          <Button
+            variant='ghost'
+            size='icon'
+            className='h-10 w-10 shadow-none hover:bg-background/70'
+            onClick={reload}
+          >
+            <Repeat size='20' />
+          </Button>
+        )}
+      </form>
       {error && (
-        <Button
-          variant='ghost'
-          size='icon'
-          className='h-10 w-10 shadow-none hover:bg-background/70'
-          onClick={reload}
-        >
-          <Repeat size='20' />
-        </Button>
+        <div className='text-red text-xs'>
+          Error occurred. Please try again.
+        </div>
       )}
-    </form>
+    </div>
   )
 }

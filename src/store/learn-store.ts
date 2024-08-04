@@ -114,7 +114,9 @@ export const useAiStore = create<AiStoreState>()(set => ({
   isAiActive: false,
   toggleAi: isActive => set({ isAiActive: isActive }),
   iaToken: '',
-  setIaToken: token => set({ iaToken: token })
+  setIaToken: token => set({ iaToken: token }),
+  aiProvider: 'openai',
+  setAiProvider: provider => set({ aiProvider: provider })
 }))
 
 export const useAiHintStore = create<AiHintStoreState>()(set => ({

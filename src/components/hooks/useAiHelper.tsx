@@ -19,7 +19,7 @@ interface UseAiHelperResult {
 }
 
 export function useAiHelper(): UseAiHelperResult {
-  const { isAiActive, iaToken } = useAiStore()
+  const { isAiActive, iaToken, aiProvider } = useAiStore()
   const [isLoading, setIsLoading] = useState(false)
 
   const generateAiContent = useCallback(
@@ -31,7 +31,12 @@ export function useAiHelper(): UseAiHelperResult {
 
       setIsLoading(true)
       try {
-        const result = await fetchApiAi(character, type, iaToken)
+        const result = await fetchApiAi({
+          character,
+          type,
+          token: iaToken,
+          provider: aiProvider
+        })
         return result
       } catch (error) {
         console.error(`Failed to fetch AI ${type}:`, error)
@@ -45,7 +50,7 @@ export function useAiHelper(): UseAiHelperResult {
         setIsLoading(false)
       }
     },
-    [isAiActive, iaToken, isLoading]
+    [isAiActive, isLoading, iaToken, aiProvider]
   )
 
   const regenerateAiContent = useCallback(
@@ -58,7 +63,13 @@ export function useAiHelper(): UseAiHelperResult {
 
       setIsLoading(true)
       try {
-        const result = await fetchApiAi(character, type, iaToken, lastResult)
+        const result = await fetchApiAi({
+          character,
+          type,
+          token: iaToken,
+          provider: aiProvider,
+          lastResult
+        })
         return result
       } catch (error) {
         console.error(`Failed to fetch AI ${type}:`, error)
@@ -72,7 +83,7 @@ export function useAiHelper(): UseAiHelperResult {
         setIsLoading(false)
       }
     },
-    [isAiActive, iaToken, isLoading]
+    [isAiActive, isLoading, iaToken, aiProvider]
   )
 
   return { isLoading, generateAiContent, regenerateAiContent }
