@@ -13,7 +13,8 @@ import {
 import {
   useConfigLearnStore,
   useModalStore,
-  useLearnStore
+  useLearnStore,
+  useAiHintStore
 } from '@/store/learn-store'
 import { generateRandomNumber } from '@/lib/utils'
 
@@ -38,8 +39,10 @@ export default function ConfirmModal() {
     totalCards,
     currentAlphabet
   } = useLearnStore()
+  const { setAiHint } = useAiHintStore()
 
   const resetProgress = () => {
+    setAiHint('')
     setIsLearning(false)
     setTotalCards(0)
     setLearningCards([])

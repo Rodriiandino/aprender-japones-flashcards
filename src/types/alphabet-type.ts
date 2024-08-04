@@ -7,3 +7,5 @@ export type AlphabetCategory =
   | 'hiragana+katakana'
 
 export type StudyMode = 'order' | 'random'
+
+export type Category = 'hiragana' | 'katakana' | 'romaji'

@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import {
+  AiHintStoreState,
+  AiStoreState,
   ConfigLearnStoreState,
   FavoriteStoreState,
   LearnHistoryStoreState,
@@ -77,7 +79,11 @@ export const useModalStore = create<ModalStoreState>()(set => ({
   isChangeLearnModalOpen: false,
   toggleChangeLearnModal: isOpen => set({ isChangeLearnModalOpen: isOpen }),
   isCardModal: false,
-  toggleCardModal: isOpen => set({ isCardModal: isOpen })
+  toggleCardModal: isOpen => set({ isCardModal: isOpen }),
+  isAiModalOpen: false,
+  toggleAiModal: isOpen => set({ isAiModalOpen: isOpen }),
+  isHelpModalOpen: false,
+  toggleHelpModal: isOpen => set({ isHelpModalOpen: isOpen })
 }))
 
 export const useUiStore = create<UiStoreState>()(
@@ -105,3 +111,17 @@ export const useLearnHistoryStore = create<LearnHistoryStoreState>()(
     }
   )
 )
+
+export const useAiStore = create<AiStoreState>()(set => ({
+  isAiActive: false,
+  toggleAi: isActive => set({ isAiActive: isActive }),
+  iaToken: '',
+  setIaToken: token => set({ iaToken: token }),
+  aiProvider: 'openai',
+  setAiProvider: provider => set({ aiProvider: provider })
+}))
+
+export const useAiHintStore = create<AiHintStoreState>()(set => ({
+  aiHint: '',
+  setAiHint: hint => set({ aiHint: hint })
+}))

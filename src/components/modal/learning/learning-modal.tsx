@@ -4,7 +4,9 @@ import { useState } from 'react'
 import {
   useModalStore,
   useLearnStore,
-  useLearnHistoryStore
+  useLearnHistoryStore,
+  useAiStore,
+  useAiHintStore
 } from '@/store/learn-store'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import {
@@ -40,6 +42,7 @@ export default function LearningModal() {
   const [inputValue, setInputValue] = useState('')
   const [isAnswerCorrect, setIsAnsweredCorrect] = useState<boolean | null>(null)
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
+  const { setAiHint } = useAiHintStore()
 
   const { romaji } = getCharacterDetails(learningCards[currentCardIndex])
 
@@ -108,6 +111,7 @@ export default function LearningModal() {
     setInputValue('')
     setCorrectAnswers(newCorrectAnswers)
     setCorrectPercentage(newCorrectPercentage)
+    setAiHint('')
   }
 
   const handleReset = (e: React.FormEvent) => {
@@ -122,6 +126,7 @@ export default function LearningModal() {
     setIsAnsweredCorrect(null)
     setIsSubmitDisabled(false)
     setIsFinished(false)
+    setAiHint('')
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

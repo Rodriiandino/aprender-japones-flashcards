@@ -48,6 +48,10 @@ export type ModalStoreState = {
   toggleChangeLearnModal: (isOpen: boolean) => void
   isCardModal: boolean
   toggleCardModal: (isOpen: boolean) => void
+  isAiModalOpen: boolean
+  toggleAiModal: (isOpen: boolean) => void
+  isHelpModalOpen: boolean
+  toggleHelpModal: (isOpen: boolean) => void
 }
 
 export type UiStoreState = {
@@ -68,4 +72,18 @@ export type LearnHistoryStoreState = {
   history: LearnHistoryItem[]
   addHistoryItem: (item: LearnHistoryItem) => void
   clearHistory: () => void
+}
+
+export type AiStoreState = {
+  isAiActive: boolean
+  toggleAi: (isActive: boolean) => void
+  iaToken: string
+  setIaToken: (token: string) => void
+  aiProvider: 'openai' | 'groq'
+  setAiProvider: (provider: 'openai' | 'groq') => void
+}
+
+export type AiHintStoreState = {
+  aiHint: string
+  setAiHint: (hint: string) => void
 }
