@@ -3,7 +3,44 @@
 
 Esta es una aplicación web desarrollada con Next.js que te brinda una experiencia de aprendizaje interactiva para los alfabetos japoneses Hiragana y Katakana.
 
-![533shots_so](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/0cf2b42a-7d4b-4bc2-af7e-977f4597a131)
+![217_2x_shots_so](https://github.com/user-attachments/assets/373e561e-4945-42f3-94ed-99bf5b93746b)
+
+<hr>
+
+### Funcionalidades
+
+- 🔤 Elige entre practicar Hiragana, Katakana o próximamente, Kanji.
+- 📚 Visualiza tarjetas con los caracteres, su pronunciación en Romaji y su contraparte.
+- 🎲 Selecciona entre modo de aprendizaje aleatorio o secuencial.
+- 📊 Sigue tu progreso y estadísticas de respuestas correctas.
+- 💯 Disfruta de animaciones que indican si tu respuesta es correcta o incorrecta.
+- ⭐ Favoritos: Puedes guardar tus caracteres favoritos y enfocarte en aprender esos primero.
+- 🔄 Aprendizaje combinado: Practica Hiragana y Katakana simultáneamente para un aprendizaje más integral.
+- 🖼️ Modal de detalles: Haz clic en una tarjeta para abrir un modal que muestra diferentes variantes tipográficas del carácter.
+  
+#### ✨Inteligencia Artificial Integrada:
+
+🪄Generación de Ejemplos: En los modales de cada carácter, un botón te permite generar palabras que usen ese carácter, con formato: "Palabra en japonés (Pronunciación) - Traducción".
+
+🔊Pistas de Pronunciación: Durante una prueba, puedes generar una pista para ayudarte a recordar la pronunciación correcta.
+
+🗨️Chat Interactivo: ¡Ahora puedes abrir un chat y preguntar cualquier duda sobre el idioma japonés!
+
+🌐 Activación de la Inteligencia Artificial:
+
+Para activar la IA en la aplicación, sigue estos sencillos pasos:
+
+1. Accede a la Sección de AI en el Aside: Encuentra la sección dedicada a la IA en el menú lateral.
+
+2. Selecciona el Proveedor de AI: Escoge entre OpenAI GPT-4 o Meta Llama-3-8b-instruct-groq.
+
+3. Introduce tu Token: Introduce tu token correspondiente al proveedor elegido.
+
+4. Activación: Con el token introducido, se habilitarán dos botones:
+
+- Desactivar: Para desactivar la IA.
+
+- Abrir Chat: Para iniciar un chat interactivo.
 
 <hr>
 
@@ -15,24 +52,15 @@ Esta es una aplicación web desarrollada con Next.js que te brinda una experienc
 - TypeScript
 - Zustand
 - Componenste UI de shadcn/ui
+- Vercel SDK AI
 
 <hr>
 
-![395shots_so](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/33906ac2-87f5-43a2-bc2d-2b5e4e51258b)
+![993_2x_shots_so](https://github.com/user-attachments/assets/c53ddc47-0984-4389-a90d-f03a92137789)
 
 <hr>
 
-### Funcionalidades
-
-- Elige entre aprender Hiragana, Katakana o próximamente, Kanji
-- Visualiza tarjetas con los caracteres, su pronunciación en Romaji y su contraparte
-- Selecciona entre modo de aprendizaje aleatorio o secuencial
-- Sigue tu progreso y estadísticas de respuestas correctas
-- Disfruta de animaciones que indican si tu respuesta es correcta o incorrecta
-
-<hr>
-
-![73shots_so](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/93eb6631-db3d-4067-af48-df4f196c1c13)
+![227_2x_shots_so](https://github.com/user-attachments/assets/b066b8a2-cea0-4d80-ab18-ee82bea7cd7c)
 
 
 <hr>
@@ -45,4 +73,9 @@ Esta es una aplicación web desarrollada con Next.js que te brinda una experienc
   - Abre tu navegador y visita `localhost` en el puerto donde se levantó la aplicación.
 3.  ¡Y disfruta aprendiendo los alfabetos japoneses!
 
-![31shots_so (1)](https://github.com/Rodriiandino/aprender-japones-flashcards/assets/106351323/39685c0b-7853-490e-a045-cce69a9a131c)
+![431_2x_shots_so](https://github.com/user-attachments/assets/1386cbec-2e04-40ad-84b4-965c7f2aba22)
+
+![471_2x_shots_so](https://github.com/user-attachments/assets/edcf9fdd-aba7-44a4-97ae-3dabdaddcf6b)
+
+
+
