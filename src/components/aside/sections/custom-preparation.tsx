@@ -1,14 +1,60 @@
-import TooltipCustom from '@/components/tooltip-custom'
+'use client'
+
+import { useCustomFontStore } from '@/store/learn-store'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+import { Paintbrush } from 'lucide-react'
 
 export default function CustomPreparation() {
+  const { selectedFont, setSelectedFont } = useCustomFontStore()
+
+  const fonts = [
+    { value: 'noto', label: 'Noto Sans' },
+    { value: 'kosugi', label: 'Kosugi Maru' },
+    { value: 'zen', label: 'Zen Antique' },
+    { value: 'yuji', label: 'Yuji Syuku' },
+    { value: 'mochiy', label: 'Mochiy Pop One' },
+    { value: 'shippori', label: 'Shippori Mincho' }
+  ]
+
   return (
-    <TooltipCustom text='Feature in development'>
-      <section className='h-full flex flex-col justify-center items-center select-none opacity-60'>
-        <p>Custom</p>
-        <small className='text-xs text-center opacity-60'>
-          This feature is in development and will be available soon.
-        </small>
-      </section>
-    </TooltipCustom>
+    <section className='flex flex-col gap-1'>
+      <div className='flex items-center gap-2'>
+        <Paintbrush className='w-4 h-4 text-muted-foreground' />
+        <h2 className='sm:text-ls text-base font-bold'>Font Selection</h2>
+      </div>
+      <p className='text-sm text-gray-500'>
+        Choose a font style to customize the appearance of your study session
+      </p>
+      <Select value={selectedFont} onValueChange={setSelectedFont}>
+        <SelectTrigger className='w-full'>
+          <SelectValue placeholder='Choose a font style' />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Available Fonts</SelectLabel>
+            {fonts.map(font => (
+              <SelectItem
+                key={font.value}
+                value={font.value}
+                className={`font-${font.value}`}
+              >
+                <span className='inline-flex items-center gap-2'>
+                  <span className='text-base'>あ</span>
+                  {font.label}
+                </span>
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </section>
   )
 }

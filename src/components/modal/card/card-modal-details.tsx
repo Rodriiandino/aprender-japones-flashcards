@@ -13,11 +13,13 @@ import { useCallback } from 'react'
 interface CardModalDetailsProps {
   character: CharacterDetails
   category: Category
+  selectedFont: string
 }
 
 export default function CardModalDetails({
   character,
-  category
+  category,
+  selectedFont
 }: CardModalDetailsProps) {
   const renderCardDetails = useCallback(() => {
     const { hiragana, katakana, romaji } = getCharacterDetails(character)
@@ -78,9 +80,12 @@ export default function CardModalDetails({
       <div className='flex'>
         <div className='w-full flex flex-col justify-center items-center gap-2'>
           <DialogTitle
-            className={cn('text-5xl sm:text-7xl text-center', {
-              'text-2xl sm:text-4xl': category === 'romaji'
-            })}
+            className={cn(
+              `text-5xl sm:text-7xl text-center font-${selectedFont}`,
+              {
+                'text-2xl sm:text-4xl': category === 'romaji'
+              }
+            )}
           >
             {getMainText(category)}
           </DialogTitle>
@@ -91,7 +96,7 @@ export default function CardModalDetails({
 
         <div className='w-full flex flex-col justify-center items-center gap-2'>
           <div className='flex flex-col justify-center items-center'>
-            <h3 className='text-xl sm:text-2xl'>
+            <h3 className={`text-xl sm:text-2xl font-${selectedFont}`}>
               <Link
                 href={`/?category=${getSecondaryDescription(
                   category
@@ -106,7 +111,7 @@ export default function CardModalDetails({
             </DialogDescription>
           </div>
           <div className='flex flex-col justify-center items-center'>
-            <h3 className='text-xl sm:text-2xl'>
+            <h3 className={`text-xl sm:text-2xl`}>
               <Link
                 href={`/?category=${getTertiaryDescription(
                   category
@@ -123,7 +128,7 @@ export default function CardModalDetails({
         </div>
       </div>
     )
-  }, [character, category])
+  }, [character, category, selectedFont])
 
   return renderCardDetails()
 }

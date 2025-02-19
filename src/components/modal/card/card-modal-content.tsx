@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback, useMemo } from 'react'
-import { useModalStore } from '@/store/learn-store'
+import { useModalStore, useCustomFontStore } from '@/store/learn-store'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { Dialog, DialogContent } from '../../ui/dialog'
 import { CharacterDetails } from '@/types/card-type'
@@ -26,6 +26,7 @@ export default function ModalContent() {
   const [aiExample, setAiExample] = useState<AiExample>()
 
   const { isCardModal, toggleCardModal } = useModalStore()
+  const { selectedFont } = useCustomFontStore()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
@@ -87,14 +88,16 @@ export default function ModalContent() {
   }, [pathname, replace, searchParams, toggleCardModal])
 
   const fonts = useMemo(
-    () => [
-      'font-kosugi',
-      'font-zen',
-      'font-yuji',
-      'font-mochiy',
-      'font-shippori'
-    ],
-    []
+    () =>
+      [
+        'font-noto',
+        'font-kosugi',
+        'font-zen',
+        'font-yuji',
+        'font-mochiy',
+        'font-shippori'
+      ].filter(font => !font.endsWith(selectedFont)),
+    [selectedFont]
   )
 
   return (
@@ -104,7 +107,11 @@ export default function ModalContent() {
           {category !== 'romaji' && (
             <CardModalHeader character={character} category={category} />
           )}
-          <CardModalDetails character={character} category={category} />
+          <CardModalDetails
+            character={character}
+            category={category}
+            selectedFont={selectedFont}
+          />
         </div>
 
         <CardModalAiExample

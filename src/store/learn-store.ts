@@ -8,7 +8,8 @@ import {
   LearnHistoryStoreState,
   LearnStoreState,
   ModalStoreState,
-  UiStoreState
+  UiStoreState,
+  CustomFontStoreState
 } from '@/types/store-types'
 
 export const useLearnStore = create<LearnStoreState>()(
@@ -125,3 +126,15 @@ export const useAiHintStore = create<AiHintStoreState>()(set => ({
   aiHint: '',
   setAiHint: hint => set({ aiHint: hint })
 }))
+
+export const useCustomFontStore = create<CustomFontStoreState>()(
+  persist(
+    set => ({
+      selectedFont: 'noto',
+      setSelectedFont: font => set({ selectedFont: font })
+    }),
+    {
+      name: 'custom-font-storage'
+    }
+  )
+)

@@ -14,7 +14,7 @@ import {
   getEffectiveCategory,
   getFirstRomaji
 } from '@/lib/utils'
-import { useModalStore } from '@/store/learn-store'
+import { useModalStore, useCustomFontStore } from '@/store/learn-store'
 import Link from 'next/link'
 
 interface CardSymbolProps {
@@ -26,6 +26,7 @@ export default function CardSymbol({ character, category }: CardSymbolProps) {
   const { hiragana, katakana, romaji } = getCharacterDetails(character)
   const effectiveCategory = getEffectiveCategory(character, category)
   const { toggleCardModal, isCardModal } = useModalStore()
+  const { selectedFont } = useCustomFontStore()
 
   const handleOpenModal = () => {
     if (!isCardModal) {
@@ -42,7 +43,9 @@ export default function CardSymbol({ character, category }: CardSymbolProps) {
         <FavoriteButton character={character} category={effectiveCategory} />
       </CardHeader>
       <CardContent className='p-0 flex items-center justify-center h-full'>
-        <CardTitle className='lg:text-5xl md:text-4xl sm:text-3xl text-2xl'>
+        <CardTitle
+          className={`lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-${selectedFont}`}
+        >
           <Link href={url} passHref onClick={handleOpenModal}>
             {effectiveCategory === 'hiragana' ? hiragana : katakana}
           </Link>
@@ -53,7 +56,9 @@ export default function CardSymbol({ character, category }: CardSymbolProps) {
           {firstRomaji}
         </CardDescription>
         |
-        <CardDescription className='md:text-sm xs:text-xs text-[11px]'>
+        <CardDescription
+          className={`md:text-sm xs:text-xs text-[11px] font-${selectedFont}`}
+        >
           {effectiveCategory === 'hiragana' ? katakana : hiragana}
         </CardDescription>
       </CardFooter>
