@@ -32,7 +32,10 @@ export default function HistorySection() {
       {history && history.length > 0 ? (
         <>
           <div className='flex flex-col gap-1'>
-            <h2 className='sm:text-xl text-lg font-bold'>History</h2>
+            <div className='flex items-center gap-2'>
+              <History className='w-4 h-4 text-muted-foreground' />
+              <h2 className='sm:text-ls text-base font-bold'>History</h2>
+            </div>
             <p className='text-sm text-gray-500'>Stats for last session</p>
           </div>
           <TooltipCustom text='Clear all history'>
@@ -48,9 +51,9 @@ export default function HistorySection() {
           <HistoryChart chartData={chartData} />
         </>
       ) : (
-        <div className='flex gap-1 items-center justify-center text-gray-500'>
-          <History size={24} />
-          <p className='text-sm  text-center'>
+        <div className='flex gap-1 items-center justify-center text-muted-foreground'>
+          <History size={18} />
+          <p className='text-sm text-center'>
             Start learning to see your progress.
           </p>
         </div>

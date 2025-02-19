@@ -87,3 +87,10 @@ export type AiHintStoreState = {
   aiHint: string
   setAiHint: (hint: string) => void
 }
+
+export type CustomFontStoreState = {
+  selectedFont: 'noto' | 'kosugi' | 'zen' | 'yuji' | 'mochiy' | 'shippori'
+  setSelectedFont: (
+    font: 'noto' | 'kosugi' | 'zen' | 'yuji' | 'mochiy' | 'shippori'
+  ) => void
+}

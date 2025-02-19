@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select'
 import { useAiStore, useModalStore } from '@/store/learn-store'
 import { useState } from 'react'
+import { Stars } from 'lucide-react'
 
 export default function AiSection() {
   const [token, setToken] = useState('')
@@ -47,7 +48,10 @@ export default function AiSection() {
 
   return (
     <div className='flex flex-col gap-1'>
-      <h2 className='sm:text-xl text-lg font-bold'>{title}</h2>
+      <div className='flex items-center gap-2'>
+        <Stars className='w-4 h-4 text-muted-foreground' />
+        <h2 className='sm:text-ls text-base font-bold'>{title}</h2>
+      </div>
       <p className='text-sm text-gray-500'>{subTitle}</p>
 
       {isAiActive ? (
