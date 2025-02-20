@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -14,6 +15,7 @@ import { useState } from 'react'
 import { Stars } from 'lucide-react'
 
 export default function AiSection() {
+  const t = useTranslations('AsideComponent.AiSection')
   const [token, setToken] = useState('')
   const {
     isAiActive,
@@ -41,10 +43,10 @@ export default function AiSection() {
     toggleAiModal(!isAiModalOpen)
   }
 
-  const title = isAiActive ? 'Ai Powered' : 'Ai No Powered'
+  const title = isAiActive ? t('powered.title') : t('noPowered.title')
   const subTitle = isAiActive
-    ? 'AI is activated. You can now use AI features.'
-    : 'Activate AI to use AI features'
+    ? t('powered.description')
+    : t('noPowered.description')
 
   return (
     <div className='flex flex-col gap-1'>
@@ -57,21 +59,21 @@ export default function AiSection() {
       {isAiActive ? (
         <>
           <Button size={'sm'} onClick={handleToggleModal}>
-            Open Chat
+            {t('buttons.openChat')}
           </Button>
           <Button variant={'secondary'} size={'sm'} onClick={handleDeactivate}>
-            Deactivate
+            {t('buttons.deactivate')}
           </Button>
         </>
       ) : (
         <div className='flex flex-col gap-1 items-center'>
           <Select value={aiProvider} onValueChange={setAiProvider}>
             <SelectTrigger className='w-[99%] h-8'>
-              <SelectValue placeholder='Selecciona un alfabetos' />
+              <SelectValue placeholder={t('select.placeholder')} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>AI Provider</SelectLabel>
+                <SelectLabel>{t('select.label')}</SelectLabel>
                 <SelectItem value='openai'>
                   <span className='flex gap-1 items-center'>
                     <svg width='16' height='16' strokeLinejoin='round'>
@@ -105,7 +107,7 @@ export default function AiSection() {
 
           <Input
             type='text'
-            placeholder='Your token...'
+            placeholder={t('input.placeholder')}
             className='w-[99%] h-8'
             onChange={e => setToken(e.target.value)}
             value={token}
@@ -117,7 +119,7 @@ export default function AiSection() {
             onClick={handleActivate}
             disabled={!token}
           >
-            Activate
+            {t('buttons.activate')}
           </Button>
         </div>
       )}

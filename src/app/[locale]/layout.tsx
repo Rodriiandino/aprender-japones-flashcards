@@ -9,6 +9,10 @@ import {
   yuji_syuku,
   zen_antique
 } from './fonts'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
+import { notFound } from 'next/navigation'
+import { routing } from '@/i18n/routing'
 
 export const metadata: Metadata = {
   title: 'Learn japanese',
@@ -16,11 +20,21 @@ export const metadata: Metadata = {
     'Learn japanese with us, hiragana, katakana and kanji with flashcards!'
 }
 
-export default function RootLayout({
-  children
+export default async function RootLayout({
+  children,
+  params
 }: Readonly<{
   children: React.ReactNode
+  params: any
 }>) {
+  const { locale } = await params
+
+  if (!routing.locales.includes(locale as any)) {
+    notFound()
+  }
+
+  const messages = await getMessages()
+
   return (
     <html lang='en'>
       <body
@@ -35,14 +49,16 @@ export default function RootLayout({
         font-noto
         `}
       >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

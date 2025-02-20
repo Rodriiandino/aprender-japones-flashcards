@@ -22,7 +22,7 @@ export default function HeaderSelect() {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>Tipo de Letras</SelectLabel>
+          <SelectLabel>Type of alphabet</SelectLabel>
           <SelectItem value='hiragana+katakana'>Hiragana + Katakana</SelectItem>
           <SelectItem value='hiragana'>Hiragana</SelectItem>
           <SelectItem value='katakana'>Katakana</SelectItem>

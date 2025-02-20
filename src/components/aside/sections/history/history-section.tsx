@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { useLearnHistoryStore } from '@/store/learn-store'
 import { HistoryChart } from './history-chart'
 import { History } from 'lucide-react'
@@ -7,6 +8,7 @@ import { Trash } from 'lucide-react'
 import TooltipCustom from '@/components/tooltip-custom'
 
 export default function HistorySection() {
+  const t = useTranslations('AsideComponent.HistorySection')
   const { history, clearHistory } = useLearnHistoryStore()
 
   const chartData: ChartData[][] = []
@@ -34,11 +36,11 @@ export default function HistorySection() {
           <div className='flex flex-col gap-1'>
             <div className='flex items-center gap-2'>
               <History className='w-4 h-4 text-muted-foreground' />
-              <h2 className='sm:text-ls text-base font-bold'>History</h2>
+              <h2 className='sm:text-ls text-base font-bold'>{t('title')}</h2>
             </div>
-            <p className='text-sm text-gray-500'>Stats for last session</p>
+            <p className='text-sm text-gray-500'>{t('description')}</p>
           </div>
-          <TooltipCustom text='Clear all history'>
+          <TooltipCustom text={t('tooltip')}>
             <Button
               onClick={clearHistory}
               variant={'ghost'}
@@ -53,9 +55,7 @@ export default function HistorySection() {
       ) : (
         <div className='flex gap-1 items-center justify-center text-muted-foreground'>
           <History size={18} />
-          <p className='text-sm text-center'>
-            Start learning to see your progress.
-          </p>
+          <p className='text-sm text-center'>{t('noHistory')}</p>
         </div>
       )}
     </section>

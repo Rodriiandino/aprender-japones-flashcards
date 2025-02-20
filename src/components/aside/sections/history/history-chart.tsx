@@ -1,5 +1,4 @@
-'use client'
-
+import { useTranslations } from 'next-intl'
 import {
   Label,
   PolarGrid,
@@ -30,6 +29,8 @@ interface HistoryChartProps {
 }
 
 export function HistoryChart({ chartData }: HistoryChartProps) {
+  const t = useTranslations('AsideComponent.HistorySection.stats')
+
   const [index, setIndex] = useState(chartData.length - 1)
 
   const handleNext = () => {
@@ -89,7 +90,7 @@ export function HistoryChart({ chartData }: HistoryChartProps) {
                           y={(viewBox.cy || 0) + 24}
                           className='fill-muted-foreground'
                         >
-                          Correct
+                          {t('correctAnswers')}
                         </tspan>
                       </text>
                     )
@@ -106,14 +107,14 @@ export function HistoryChart({ chartData }: HistoryChartProps) {
       <CardFooter className='flex-col gap-2 text-sm p-0'>
         <div className='flex leading-none'>
           <p className='text-center'>
-            Learning {chartData[index][0].alphabet} in{' '}
-            {chartData[index][0].studyMode} mode
+            {t('learning')} {chartData[index][0].alphabet} {t('in')}{' '}
+            {chartData[index][0].studyMode} {t('mode')}
           </p>
         </div>
         <div className='leading-none text-muted-foreground'>
           <p className='text-center'>
-            {chartData[index][0].correctPercentage}% correct answers from{' '}
-            {chartData[index][0].total} questions
+            {chartData[index][0].correctPercentage}% {t('percentage')}{' '}
+            {chartData[index][0].total} {t('total')}
           </p>
         </div>
         <div className='flex gap-2 justify-center'>

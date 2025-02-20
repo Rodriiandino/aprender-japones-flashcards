@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
   useModalStore,
@@ -7,15 +8,17 @@ import {
 import { toast } from 'sonner'
 
 export default function FooterAside() {
+  const t = useTranslations('AsideComponent.Footer')
+
   const { configCards } = useConfigLearnStore()
   const { toggleLearningModal, toggleConfirmModal } = useModalStore()
   const { isLearning } = useLearnStore()
 
   const handleStartLearning = () => {
     if (configCards.length < 10) {
-      toast.info('Not enough cards to start learning', {
-        description: 'Minimum of 10 cards required',
-        action: { label: 'undo', onClick: () => {} }
+      toast.info(t('notEnoughCards.info'), {
+        description: t('notEnoughCards.description'),
+        action: { label: t('notEnoughCards.action'), onClick: () => {} }
       })
       return
     }
@@ -38,7 +41,7 @@ export default function FooterAside() {
         className='w-full sm:h-16 h-10 sm:text-base'
         onClick={handleStartLearning}
       >
-        {isLearning ? 'Continue learning' : 'Start learning'}
+        {isLearning ? t('continueLearning') : t('startLearning')}
       </Button>
 
       {isLearning && (
@@ -47,7 +50,7 @@ export default function FooterAside() {
           className='lg:w-2/5 w-full sm:h-16 h-10 sm:text-xs'
           onClick={handleCancelLearning}
         >
-          Cancel learning
+          {t('cancelLearning')}
         </Button>
       )}
     </footer>
