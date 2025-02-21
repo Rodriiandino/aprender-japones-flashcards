@@ -97,6 +97,9 @@
       "dark": "Dark",
       "system": "System",
       "sr": "Toggle theme"
+    },
+    "languageToggle": {
+      "sr": "Toggle language"
     }
   },
   "MainComponent": {

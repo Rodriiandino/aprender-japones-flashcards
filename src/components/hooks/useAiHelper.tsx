@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { fetchApiAi } from '@/lib/fetch-api-ai'
 import { useAiStore } from '@/store/learn-store'
 import { useState, useCallback } from 'react'
@@ -21,8 +21,11 @@ interface UseAiHelperResult {
 
 export function useAiHelper(): UseAiHelperResult {
   const t = useTranslations('Sonner.ai')
+  const locale = useLocale()
   const { isAiActive, iaToken, aiProvider } = useAiStore()
   const [isLoading, setIsLoading] = useState(false)
+
+  const language = locale === 'es' ? 'es' : 'en'
 
   const generateAiContent = useCallback(
     async (
@@ -37,7 +40,8 @@ export function useAiHelper(): UseAiHelperResult {
           character,
           type,
           token: iaToken,
-          provider: aiProvider
+          provider: aiProvider,
+          language
         })
         return result
       } catch (error) {
@@ -57,7 +61,7 @@ export function useAiHelper(): UseAiHelperResult {
         setIsLoading(false)
       }
     },
-    [isAiActive, isLoading, iaToken, aiProvider, t]
+    [isAiActive, isLoading, iaToken, aiProvider, t, language]
   )
 
   const regenerateAiContent = useCallback(
@@ -75,7 +79,8 @@ export function useAiHelper(): UseAiHelperResult {
           type,
           token: iaToken,
           provider: aiProvider,
-          lastResult
+          lastResult,
+          language
         })
         return result
       } catch (error) {
@@ -95,7 +100,7 @@ export function useAiHelper(): UseAiHelperResult {
         setIsLoading(false)
       }
     },
-    [isAiActive, isLoading, iaToken, aiProvider, t]
+    [isAiActive, isLoading, iaToken, aiProvider, t, language]
   )
 
   return { isLoading, generateAiContent, regenerateAiContent }
