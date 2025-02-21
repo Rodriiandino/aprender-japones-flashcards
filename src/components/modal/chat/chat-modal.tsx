@@ -1,5 +1,5 @@
 'use client'
-
+import { useTranslations } from 'next-intl'
 import {
   Dialog,
   DialogContent,
@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
 
 export default function ChatModal() {
+  const t = useTranslations('ModalComponent.chat.header')
   const { isAiModalOpen, toggleAiModal } = useModalStore()
   const { iaToken, aiProvider } = useAiStore()
 
@@ -42,10 +43,10 @@ export default function ChatModal() {
     <Dialog open={isAiModalOpen} onOpenChange={toggleAiModal}>
       <DialogContent className='w-5/6'>
         <DialogHeader>
-          <DialogTitle>Chat</DialogTitle>
-          <DialogDescription>Chat with AI to learn Japanese</DialogDescription>
+          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogDescription>{t('description')}</DialogDescription>
           {messages.length > 0 && (
-            <TooltipCustom text='Clear all messages'>
+            <TooltipCustom text={t('clearTooltip')}>
               <Button
                 variant={'ghost'}
                 size={'sm'}

@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { Message } from 'ai'
 import {
@@ -29,6 +30,8 @@ function FormattedText({ text }: { text: string }) {
 export default function ChatModalMessages({
   messages
 }: ChatModalMessagesProps) {
+  const t = useTranslations('ModalComponent.chat.features')
+
   if (messages.length === 0) {
     return (
       <div className='flex flex-wrap gap-2 items-center justify-evenly'>
@@ -37,8 +40,8 @@ export default function ChatModalMessages({
             <BookA size={22} />
           </CardHeader>
           <CardContent className='p-0 h-full w-full'>
-            <CardTitle className='text-base'>Grammar Tips</CardTitle>
-            <CardDescription>Ask for grammar explanations.</CardDescription>
+            <CardTitle className='text-base'>{t('grammar.title')}</CardTitle>
+            <CardDescription>{t('grammar.description')}</CardDescription>
           </CardContent>
         </Card>
         <Card className='w-40 h-28 p-4 flex flex-col items-center justify-center text-center'>
@@ -46,8 +49,8 @@ export default function ChatModalMessages({
             <BookOpen size={22} />
           </CardHeader>
           <CardContent className='p-0 h-full w-full'>
-            <CardTitle className='text-base'>Vocabulary</CardTitle>
-            <CardDescription>Learn new words and meanings.</CardDescription>
+            <CardTitle className='text-base'>{t('vocabulary.title')}</CardTitle>
+            <CardDescription>{t('vocabulary.description')}</CardDescription>
           </CardContent>
         </Card>
         <Card className='w-40 h-28 p-4 flex flex-col items-center justify-center text-center'>
@@ -55,8 +58,10 @@ export default function ChatModalMessages({
             <Mic size={22} />
           </CardHeader>
           <CardContent className='p-0 h-full w-full'>
-            <CardTitle className='text-base'>Pronunciation</CardTitle>
-            <CardDescription>Get help with pronunciation.</CardDescription>
+            <CardTitle className='text-base'>
+              {t('pronunciation.title')}
+            </CardTitle>
+            <CardDescription>{t('pronunciation.description')}</CardDescription>
           </CardContent>
         </Card>
         <Card className='w-40 h-28 p-4 flex flex-col items-center justify-center text-center'>
@@ -64,8 +69,8 @@ export default function ChatModalMessages({
             <Info size={22} />
           </CardHeader>
           <CardContent className='p-0 h-full w-full'>
-            <CardTitle className='text-base'>Kanji Info</CardTitle>
-            <CardDescription>Details about kanji characters.</CardDescription>
+            <CardTitle className='text-base'>{t('kanji.title')}</CardTitle>
+            <CardDescription>{t('kanji.description')}</CardDescription>
           </CardContent>
         </Card>
       </div>

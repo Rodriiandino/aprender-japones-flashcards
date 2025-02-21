@@ -1,5 +1,5 @@
 'use client'
-
+import { useTranslations } from 'next-intl'
 import {
   Accordion,
   AccordionContent,
@@ -17,78 +17,64 @@ import {
 import { useModalStore } from '@/store/learn-store'
 
 export default function PrimaryHelpModal() {
+  const t = useTranslations('ModalComponent.help')
   const { isHelpModalOpen, toggleHelpModal } = useModalStore()
 
   return (
     <Dialog open={isHelpModalOpen} onOpenChange={toggleHelpModal}>
       <DialogContent className='w-5/6'>
         <DialogHeader>
-          <DialogTitle>How to use</DialogTitle>
-          <DialogDescription>
-            This is a simple app to help you learn Japanese characters. You can
-            choose the characters you want to learn, the study mode and start
-            learning.
-          </DialogDescription>
+          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogDescription>{t('description')}</DialogDescription>
         </DialogHeader>
         <div className='space-y-4 max-h-96 h-full flex flex-col gap-2 overflow-y-auto p-1'>
           <Accordion type='single' collapsible className='w-full'>
             <AccordionItem value='item-1'>
-              <AccordionTrigger>🔤 Choose Your Alphabet</AccordionTrigger>
+              <AccordionTrigger>
+                {t('sections.alphabet.title')}
+              </AccordionTrigger>
               <AccordionContent>
-                Select between <strong>Hiragana</strong>,{' '}
-                <strong>Katakana</strong>, or both. Kanji support is coming
-                soon!
+                {t('sections.alphabet.content')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-2'>
-              <AccordionTrigger>📚 Character Cards</AccordionTrigger>
-              <AccordionContent>
-                View cards displaying characters, their Romaji pronunciation,
-                and corresponding counterparts.
-              </AccordionContent>
+              <AccordionTrigger>{t('sections.cards.title')}</AccordionTrigger>
+              <AccordionContent>{t('sections.cards.content')}</AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-3'>
-              <AccordionTrigger>🎲 Learning Modes</AccordionTrigger>
-              <AccordionContent>
-                Choose between <strong>random</strong> or{' '}
-                <strong>sequential</strong> learning to match your study
-                preferences.
-              </AccordionContent>
+              <AccordionTrigger>{t('sections.modes.title')}</AccordionTrigger>
+              <AccordionContent>{t('sections.modes.content')}</AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-4'>
-              <AccordionTrigger>📊 Track Your Progress</AccordionTrigger>
+              <AccordionTrigger>
+                {t('sections.progress.title')}
+              </AccordionTrigger>
               <AccordionContent>
-                Keep track of your learning journey with detailed statistics on
-                your correct answers.
+                {t('sections.progress.content')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-5'>
-              <AccordionTrigger>⭐ Favorites</AccordionTrigger>
+              <AccordionTrigger>
+                {t('sections.favorites.title')}
+              </AccordionTrigger>
               <AccordionContent>
-                Save your favorite characters and prioritize learning them
-                first.
+                {t('sections.favorites.content')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-6'>
-              <AccordionTrigger>🖼️ Character Details</AccordionTrigger>
+              <AccordionTrigger>{t('sections.details.title')}</AccordionTrigger>
               <AccordionContent>
-                Click on a card to open a modal showcasing various typographic
-                variants of the character.
+                {t('sections.details.content')}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value='item-7'>
-              <AccordionTrigger>🤖 AI-Powered Assistance</AccordionTrigger>
-              <AccordionContent>
-                Activate AI features with your token to unlock helpful buttons
-                and an interactive chat for personalized learning support.
-              </AccordionContent>
+              <AccordionTrigger>{t('sections.ai.title')}</AccordionTrigger>
+              <AccordionContent>{t('sections.ai.content')}</AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
         <DialogFooter>
-          <h4 className='text-sm text-gray-500'>
-            Start your Japanese learning adventure with Learn Japanese today!
-          </h4>
+          <h4 className='text-sm text-gray-500'>{t('footer')}</h4>
           <div className='flex items-center gap-1'>
             <a
               href='https://github.com/Rodriiandino'

@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import TooltipCustom from '@/components/tooltip-custom'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -24,6 +26,8 @@ export default function CardModalAiExample({
   aiExample,
   setAiExample
 }: CardModalAiExampleProps) {
+  const t = useTranslations('ModalComponent.card.aiExample')
+
   const { isAiActive } = useAiStore()
   const { isLoading, generateAiContent, regenerateAiContent } = useAiHelper()
 
@@ -75,7 +79,7 @@ export default function CardModalAiExample({
           className='flex gap-1'
           onClick={handleRegenerateAiExample}
         >
-          <Sparkles size={16} /> Regenerate
+          <Sparkles size={16} /> {t('regenerate')}
         </Button>
         <Separator />
       </>
@@ -84,14 +88,14 @@ export default function CardModalAiExample({
 
   return (
     <div className='flex justify-center items-center'>
-      <TooltipCustom text='Generate a word using this character'>
+      <TooltipCustom text={t('tooltip')}>
         <Button
           size='sm'
           variant='ghost'
           className='flex gap-1'
           onClick={handleAiExample}
         >
-          <Sparkles size={16} /> Example
+          <Sparkles size={16} /> {t('button')}
         </Button>
       </TooltipCustom>
     </div>

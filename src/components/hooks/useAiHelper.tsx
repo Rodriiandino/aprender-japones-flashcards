@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { fetchApiAi } from '@/lib/fetch-api-ai'
 import { useAiStore } from '@/store/learn-store'
 import { useState, useCallback } from 'react'
@@ -19,6 +20,7 @@ interface UseAiHelperResult {
 }
 
 export function useAiHelper(): UseAiHelperResult {
+  const t = useTranslations('Sonner.ai')
   const { isAiActive, iaToken, aiProvider } = useAiStore()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -41,16 +43,21 @@ export function useAiHelper(): UseAiHelperResult {
       } catch (error) {
         console.error(`Failed to fetch AI ${type}:`, error)
 
-        toast.error(`Failed to generate AI ${type}`, {
-          description: 'Please try again or Token not valid',
-          action: { label: 'undo', onClick: () => {} }
-        })
+        toast.error(
+          t('title', {
+            type
+          }),
+          {
+            description: t('description'),
+            action: { label: t('action'), onClick: () => {} }
+          }
+        )
         return null
       } finally {
         setIsLoading(false)
       }
     },
-    [isAiActive, isLoading, iaToken, aiProvider]
+    [isAiActive, isLoading, iaToken, aiProvider, t]
   )
 
   const regenerateAiContent = useCallback(
@@ -74,16 +81,21 @@ export function useAiHelper(): UseAiHelperResult {
       } catch (error) {
         console.error(`Failed to fetch AI ${type}:`, error)
 
-        toast.error(`Failed to generate AI ${type}`, {
-          description: 'Please try again or Token not valid',
-          action: { label: 'undo', onClick: () => {} }
-        })
+        toast.error(
+          t('title', {
+            type
+          }),
+          {
+            description: t('description'),
+            action: { label: t('action'), onClick: () => {} }
+          }
+        )
         return null
       } finally {
         setIsLoading(false)
       }
     },
-    [isAiActive, isLoading, iaToken, aiProvider]
+    [isAiActive, isLoading, iaToken, aiProvider, t]
   )
 
   return { isLoading, generateAiContent, regenerateAiContent }

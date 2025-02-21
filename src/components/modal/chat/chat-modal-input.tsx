@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Send, Square, Repeat } from 'lucide-react'
@@ -21,6 +22,7 @@ export default function ChatModalInput({
   error,
   reload
 }: ChatModalInputProps) {
+  const t = useTranslations('ModalComponent.chat.input')
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -35,7 +37,7 @@ export default function ChatModalInput({
         className='w-full p-1 flex items-center bg-secondary rounded-md'
       >
         <Textarea
-          placeholder='Type your message here'
+          placeholder={t('placeholder')}
           className='min-h-10 h-10 text resize-none border-none focus-visible:ring-0 shadow-none'
           value={input}
           onChange={handleInputChange}
@@ -77,11 +79,7 @@ export default function ChatModalInput({
           </Button>
         )}
       </form>
-      {error && (
-        <div className='text-red text-xs'>
-          Error occurred. Please try again.
-        </div>
-      )}
+      {error && <div className='text-red text-xs'>{t('error')}</div>}
     </div>
   )
 }

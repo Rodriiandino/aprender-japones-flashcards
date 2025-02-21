@@ -1,5 +1,5 @@
 'use client'
-
+import { useTranslations } from 'next-intl'
 import {
   AlertDialog,
   AlertDialogContent,
@@ -19,6 +19,7 @@ import {
 import { generateRandomNumber } from '@/lib/utils'
 
 export default function ConfirmModal() {
+  const t = useTranslations('ModalComponent.confirm')
   const { selectedAlphabet, configCards, selectedStudyMode } =
     useConfigLearnStore()
   const { isConfirmModalOpen, toggleConfirmModal, toggleLearningModal } =
@@ -78,24 +79,36 @@ export default function ConfirmModal() {
   }
 
   const learningDescription = isLearning
-    ? `You are currently learning "${totalCards}" characters from the "${currentAlphabet}".`
-    : `You are going to learn "${configCards.length}" characters from the "${selectedAlphabet}".`
+    ? t('learningDescription.message', {
+        totalCards,
+        currentAlphabet
+      })
+    : t('learningDescriptionPart2.message', {
+        configCardsLength: configCards.length,
+        selectedAlphabet
+      })
 
   const leaningDescriptionPart2 = isLearning
-    ? `You are learning in "${studyMode}" mode.`
-    : `You will learn in "${selectedStudyMode}" mode.`
+    ? t('learningDescription.part2', {
+        studyMode
+      })
+    : t('learningDescriptionPart2.part2', {
+        selectedStudyMode
+      })
 
   const confirmMessage = isLearning
-    ? 'Are you sure you want to finish learning?'
-    : 'Are you sure you want to start learning?'
+    ? t('finishLearning.message')
+    : t('startLearning.message')
 
-  const actionLabel = isLearning ? 'Finish learning' : 'Start learning'
+  const actionLabel = isLearning
+    ? t('finishLearning.action')
+    : t('startLearning.action')
 
   return (
     <AlertDialog open={isConfirmModalOpen} onOpenChange={toggleConfirmModal}>
       <AlertDialogContent className='w-5/6'>
         <AlertDialogHeader>
-          <AlertDialogTitle>Confirm</AlertDialogTitle>
+          <AlertDialogTitle>{t('title')}</AlertDialogTitle>
           <AlertDialogDescription>{confirmMessage}</AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -105,7 +118,7 @@ export default function ConfirmModal() {
         </div>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
           <AlertDialogAction onClick={handleLearning}>
             {actionLabel}
           </AlertDialogAction>

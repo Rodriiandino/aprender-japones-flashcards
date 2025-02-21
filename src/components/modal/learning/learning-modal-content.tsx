@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
   DialogDescription,
@@ -44,6 +45,7 @@ export const LearningModalContent = ({
   handleSubmit,
   handleReset
 }: LearningModalContentProps) => {
+  const t = useTranslations('ModalComponent.learning')
   const { hiragana, katakana } = getCharacterDetails(
     learningCards[currentCardIndex]
   )
@@ -55,7 +57,11 @@ export const LearningModalContent = ({
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Learning {currentAlphabet}</DialogTitle>
+        <DialogTitle>
+          {t('title', {
+            alphabet: currentAlphabet
+          })}
+        </DialogTitle>
         <DialogDescription>
           {practicedCardsIndices.length + 1} / {totalCards}
         </DialogDescription>
@@ -78,7 +84,7 @@ export const LearningModalContent = ({
           />
         )}
         <Input
-          placeholder='Insert your answer'
+          placeholder={t('input.placeholder')}
           onChange={handleInputChange}
           className='sm:w-[200px]'
           value={inputValue}
@@ -91,10 +97,12 @@ export const LearningModalContent = ({
               onClick={handleReset}
               className='select-none'
             >
-              Reset
+              {t('buttons.reset')}
             </Button>
             <DialogDescription className='text-xs'>
-              You have finished learning {currentAlphabet}
+              {t('completion', {
+                alphabet: currentAlphabet
+              })}
             </DialogDescription>
           </div>
         ) : (
@@ -106,10 +114,10 @@ export const LearningModalContent = ({
               disabled={isSubmitDisabled}
               className='select-none'
             >
-              Submit
+              {t('buttons.submit')}
             </Button>
             <DialogDescription className='text-xs'>
-              Answer in romaji
+              {t('input.description')}
             </DialogDescription>
           </div>
         )}

@@ -83,131 +83,147 @@
   },
   "HeaderComponent": {
     "select": {
-      "placeholder": "Select an alphabet",
-      "label": "Type of alphabet",
+      "placeholder": "Selecciona un alfabeto",
+      "label": "Tipo de alfabeto",
       "options": {
         "both": "Hiragana + Katakana",
         "hiragana": "Hiragana",
         "katakana": "Katakana",
-        "favorite": "Favorite"
+        "favorite": "Favoritos"
       }
     },
     "themeToggle": {
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System",
-      "sr": "Toggle theme"
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema",
+      "sr": "Cambiar tema"
     }
   },
   "MainComponent": {
     "search": {
-      "placeholder": "Search for a character",
-      "noResults": "No results found"
+      "placeholder": "Buscar un carácter",
+      "noResults": "No se encontraron resultados"
     },
     "noCards": {
-      "message": "No Flashcards to Learn"
+      "message": "No hay tarjetas para aprender"
     }
   },
   "ModalComponent": {
     "card": {
-      "variations": "Variations",
+      "variations": "Variaciones",
       "aiExample": {
-        "button": "Example",
-        "regenerate": "Regenerate",
-        "tooltip": "Generate a word using this character"
+        "button": "Ejemplo",
+        "regenerate": "Regenerar",
+        "tooltip": "Generar una palabra usando este carácter"
       }
     },
     "chat": {
-      "title": "Chat",
-      "description": "Chat with AI to learn Japanese",
-      "clearTooltip": "Clear all messages",
+      "header": {
+        "title": "Chat",
+        "description": "Chatea con la IA para aprender japonés",
+        "clearTooltip": "Borrar todos los mensajes"
+      },
       "input": {
-        "placeholder": "Type your message here",
-        "error": "Error occurred. Please try again."
+        "placeholder": "Escribe tu mensaje aquí",
+        "error": "Ocurrió un error. Inténtalo de nuevo."
       },
       "features": {
         "grammar": {
-          "title": "Grammar Tips",
-          "description": "Ask for grammar explanations."
+          "title": "Consejos de gramática",
+          "description": "Solicita explicaciones gramaticales."
         },
         "vocabulary": {
-          "title": "Vocabulary",
-          "description": "Learn new words and meanings."
+          "title": "Vocabulario",
+          "description": "Aprende nuevas palabras y sus significados."
         },
         "pronunciation": {
-          "title": "Pronunciation",
-          "description": "Get help with pronunciation."
+          "title": "Pronunciación",
+          "description": "Obtén ayuda con la pronunciación."
         },
         "kanji": {
-          "title": "Kanji Info",
-          "description": "Details about kanji characters."
+          "title": "Información de Kanji",
+          "description": "Detalles sobre los caracteres kanji."
         }
       }
     },
     "confirm": {
-      "title": "Confirm",
+      "title": "Confirmar",
       "startLearning": {
-        "message": "Are you sure you want to start learning?",
-        "action": "Start learning"
+        "message": "¿Estás seguro de que quieres empezar a aprender?",
+        "action": "Comenzar a aprender"
       },
       "finishLearning": {
-        "message": "Are you sure you want to finish learning?",
-        "action": "Finish learning"
+        "message": "¿Estás seguro de que quieres finalizar el aprendizaje?",
+        "action": "Finalizar aprendizaje"
       },
-      "cancel": "Cancel"
+      "learningDescription": {
+        "message": "Actualmente estás aprendiendo {totalCards} caracteres del {currentAlphabet}.",
+        "part2": "Estás aprendiendo en el modo {studyMode}."
+      },
+      "learningDescriptionPart2": {
+        "message": "Vas a aprender {configCardsLength} caracteres del {selectedAlphabet}.",
+        "part2": "Aprenderás en el modo {selectedStudyMode}."
+      },
+      "cancel": "Cancelar"
     },
     "help": {
-      "title": "How to use",
-      "description": "This is a simple app to help you learn Japanese characters. You can choose the characters you want to learn, the study mode and start learning.",
+      "title": "Cómo usar",
+      "description": "Esta es una aplicación sencilla para ayudarte a aprender los caracteres japoneses. Puedes elegir los caracteres que quieres aprender, el modo de estudio y empezar a practicar.",
       "sections": {
         "alphabet": {
-          "title": "🔤 Choose Your Alphabet",
-          "content": "Select between <strong>Hiragana</strong>, <strong>Katakana</strong>, or both. Kanji support is coming soon!"
+          "title": "🔤 Elige tu alfabeto",
+          "content": "Selecciona entre Hiragana, Katakana o ambos. ¡El soporte para Kanji llegará pronto!"
         },
         "cards": {
-          "title": "📚 Character Cards",
-          "content": "View cards displaying characters, their Romaji pronunciation, and corresponding counterparts."
+          "title": "📚 Tarjetas de caracteres",
+          "content": "Consulta tarjetas con los caracteres, su pronunciación en romaji y sus equivalentes."
         },
         "modes": {
-          "title": "🎲 Learning Modes",
-          "content": "Choose between <strong>random</strong> or <strong>sequential</strong> learning to match your study preferences."
+          "title": "🎲 Modos de aprendizaje",
+          "content": "Elige entre aleatorio o secuencial según tus preferencias de estudio."
         },
         "progress": {
-          "title": "📊 Track Your Progress",
-          "content": "Keep track of your learning journey with detailed statistics on your correct answers."
+          "title": "📊 Seguimiento del progreso",
+          "content": "Lleva un registro de tu aprendizaje con estadísticas detalladas sobre tus respuestas correctas."
         },
         "favorites": {
-          "title": "⭐ Favorites",
-          "content": "Save your favorite characters and prioritize learning them first."
+          "title": "⭐ Favoritos",
+          "content": "Guarda tus caracteres favoritos y dales prioridad en tu aprendizaje."
         },
         "details": {
-          "title": "🖼️ Character Details",
-          "content": "Click on a card to open a modal showcasing various typographic variants of the character."
+          "title": "🖼️ Detalles del carácter",
+          "content": "Haz clic en una tarjeta para abrir un modal con diferentes variaciones tipográficas del carácter."
         },
         "ai": {
-          "title": "🤖 AI-Powered Assistance",
-          "content": "Activate AI features with your token to unlock helpful buttons and an interactive chat for personalized learning support."
+          "title": "🤖 Asistencia con IA",
+          "content": "Activa las funciones de IA con tu token para desbloquear botones útiles y un chat interactivo para apoyo personalizado en el aprendizaje."
         }
       },
-      "footer": "Start your Japanese learning adventure with Learn Japanese today!"
+      "footer": "¡Empieza tu aventura en el aprendizaje del japonés con Learn Japanese hoy mismo!"
     },
     "learning": {
-      "title": "Learning {alphabet}",
-      "progress": "{current} / {total}",
+      "title": "Aprendiendo {alphabet}",
       "input": {
-        "placeholder": "Insert your answer",
-        "description": "Answer in romaji"
+        "placeholder": "Escribe tu respuesta",
+        "description": "Responde en romaji"
       },
       "buttons": {
-        "submit": "Submit",
-        "reset": "Reset"
+        "submit": "Enviar",
+        "reset": "Reiniciar"
       },
-      "completion": "You have finished learning {alphabet}",
+      "completion": "Has finalizado el aprendizaje de {alphabet}",
       "stats": {
-        "total": "Total questions: ",
-        "correct": "Correct answers: ",
-        "percentage": "Percentage correct: "
+        "total": "Total de preguntas: ",
+        "correct": "Respuestas correctas: ",
+        "percentage": "Porcentaje de aciertos: "
       }
+    }
+  },
+  "Sonner": {
+    "ai": {
+      "title": "Error al generar IA {type}",
+      "description": "Inténtalo de nuevo o Token no válido.",
+      "action": "deshacer"
     }
   }
 }

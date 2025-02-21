@@ -118,9 +118,11 @@
       }
     },
     "chat": {
-      "title": "Chat",
-      "description": "Chat with AI to learn Japanese",
-      "clearTooltip": "Clear all messages",
+      "header": {
+        "title": "Chat",
+        "description": "Chat with AI to learn Japanese",
+        "clearTooltip": "Clear all messages"
+      },
       "input": {
         "placeholder": "Type your message here",
         "error": "Error occurred. Please try again."
@@ -154,6 +156,14 @@
         "message": "Are you sure you want to finish learning?",
         "action": "Finish learning"
       },
+      "learningDescription": {
+        "message": "You are currently learning {totalCards} characters from the {currentAlphabet}.",
+        "part2": "You are learning in {studyMode} mode."
+      },
+      "learningDescriptionPart2": {
+        "message": "You are going to learn {configCardsLength} characters from the {selectedAlphabet}.",
+        "part2": "You will learn in {selectedStudyMode} mode."
+      },
       "cancel": "Cancel"
     },
     "help": {
@@ -162,7 +172,7 @@
       "sections": {
         "alphabet": {
           "title": "🔤 Choose Your Alphabet",
-          "content": "Select between <strong>Hiragana</strong>, <strong>Katakana</strong>, or both. Kanji support is coming soon!"
+          "content": "Select between Hiragana, Katakana, or both. Kanji support is coming soon!"
         },
         "cards": {
           "title": "📚 Character Cards",
@@ -170,7 +180,7 @@
         },
         "modes": {
           "title": "🎲 Learning Modes",
-          "content": "Choose between <strong>random</strong> or <strong>sequential</strong> learning to match your study preferences."
+          "content": "Choose between random or sequential learning to match your study preferences."
         },
         "progress": {
           "title": "📊 Track Your Progress",
@@ -193,7 +203,6 @@
     },
     "learning": {
       "title": "Learning {alphabet}",
-      "progress": "{current} / {total}",
       "input": {
         "placeholder": "Insert your answer",
         "description": "Answer in romaji"
@@ -208,6 +217,13 @@
         "correct": "Correct answers: ",
         "percentage": "Percentage correct: "
       }
+    }
+  },
+  "Sonner": {
+    "ai": {
+      "title": "Failed to generate AI {type}",
+      "description": "Please try again or Token not valid.",
+      "action": "undo"
     }
   }
 }

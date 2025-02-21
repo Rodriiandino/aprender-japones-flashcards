@@ -1,5 +1,5 @@
 'use client'
-
+import { useTranslations } from 'next-intl'
 import { Input } from '@/components/ui/input'
 import { useState, useMemo } from 'react'
 import { Search as SearchIcon } from 'lucide-react'
@@ -11,6 +11,7 @@ import { useUiStore } from '@/store/learn-store'
 const characterArray = Object.values(AllCharacters)
 
 export default function Search() {
+  const t = useTranslations('MainComponent.search')
   const [search, setSearch] = useState('')
   const [showResults, setShowResults] = useState(false)
   const { isSearchBarVisible } = useUiStore()
@@ -49,7 +50,7 @@ export default function Search() {
         <Input
           type='text'
           className='pl-8 w-full'
-          placeholder='Search for a character'
+          placeholder={t('placeholder')}
           value={search}
           onChange={handleSearch}
           onFocus={() => setShowResults(true)}
@@ -65,7 +66,7 @@ export default function Search() {
               ))
             ) : (
               <li className='text-sm text-muted-foreground'>
-                No results found
+                {t('noResults')}
               </li>
             )}
           </ul>

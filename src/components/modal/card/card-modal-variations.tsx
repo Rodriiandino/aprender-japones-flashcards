@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { Category } from '@/types/alphabet-type'
 import { Card, CardTitle } from '../../ui/card'
 import { CharacterDetails } from '@/types/card-type'
@@ -29,6 +30,7 @@ export default function CardModalVariations({
   category,
   fonts
 }: CardModalVariationsProps) {
+  const t = useTranslations('ModalComponent.card')
   const variations = useMemo(() => {
     if (category === 'romaji') {
       return ['hiragana', 'katakana'].flatMap(cat =>
@@ -49,7 +51,9 @@ export default function CardModalVariations({
 
   return (
     <footer className='flex flex-col items-center gap-4'>
-      <h3 className='text-lg sm:text-xl text-muted-foreground'>Variations</h3>
+      <h3 className='text-lg sm:text-xl text-muted-foreground'>
+        {t('variations')}
+      </h3>
       <div className='flex gap-3 flex-wrap justify-center items-center'>
         {variations.map(({ key, font, char }) => (
           <VariationCard key={key} font={font} char={char} />
