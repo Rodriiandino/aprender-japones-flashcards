@@ -73,11 +73,19 @@
       }
     },
     "CustomPreparation": {
-      "title": "Selección de fuente",
-      "description": "Elige un estilo de fuente para personalizar la apariencia de tu sesión de estudio",
+      "title": "Personalizar Aprendizaje",
+      "description": "Personaliza tu experiencia de aprendizaje",
+      "fonts": {
+        "title": "Estilo de Fuente"
+      },
       "select": {
         "placeholder": "Elige un estilo de fuente",
-        "label": "Fuentes disponibles"
+        "label": "Fuentes Disponibles"
+      },
+      "visibility": {
+        "title": "Elementos de la Tarjeta",
+        "romaji": "Romaji",
+        "counterpart": "Contraparte"
       }
     }
   },

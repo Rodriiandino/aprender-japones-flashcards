@@ -73,11 +73,19 @@
       }
     },
     "CustomPreparation": {
-      "title": "Font Selection",
-      "description": "Choose a font style to customize the appearance of your study session",
+      "title": "Customize Learning",
+      "description": "Personalize your learning experience",
+      "fonts": {
+        "title": "Character Font Style"
+      },
       "select": {
         "placeholder": "Choose a font style",
         "label": "Available Fonts"
+      },
+      "visibility": {
+        "title": "Card Elements",
+        "romaji": "Romaji",
+        "counterpart": "Counterpart"
       }
     }
   },

@@ -88,9 +88,16 @@ export type AiHintStoreState = {
   setAiHint: (hint: string) => void
 }
 
-export type CustomFontStoreState = {
+export type CardVisibility = {
+  romaji: boolean
+  counterpart: boolean
+}
+
+export type CustomizationStoreState = {
   selectedFont: 'noto' | 'kosugi' | 'zen' | 'yuji' | 'mochiy' | 'shippori'
   setSelectedFont: (
     font: 'noto' | 'kosugi' | 'zen' | 'yuji' | 'mochiy' | 'shippori'
   ) => void
+  cardVisibility: CardVisibility
+  setCardVisibility: (visibility: CardVisibility) => void
 }

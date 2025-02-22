@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback, useMemo } from 'react'
-import { useModalStore, useCustomFontStore } from '@/store/learn-store'
+import { useModalStore, useCustomizationStore } from '@/store/learn-store'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { Dialog, DialogContent } from '../../ui/dialog'
 import { CharacterDetails } from '@/types/card-type'
@@ -26,7 +26,7 @@ export default function ModalContent() {
   const [aiExample, setAiExample] = useState<AiExample>()
 
   const { isCardModal, toggleCardModal } = useModalStore()
-  const { selectedFont } = useCustomFontStore()
+  const { selectedFont } = useCustomizationStore()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()

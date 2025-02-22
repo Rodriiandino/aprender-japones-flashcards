@@ -10,9 +10,9 @@ export default function SectionsAside() {
     <div className='flex flex-col gap-4 overflow-y-auto h-full py-4 pr-2'>
       <StudyPreparation />
       <Separator />
-      <AiSection />
-      <Separator />
       <CustomPreparation />
+      <Separator />
+      <AiSection />
       <Separator />
       <HistorySection />
       <Separator />

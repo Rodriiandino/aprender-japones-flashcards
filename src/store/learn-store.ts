@@ -9,7 +9,7 @@ import {
   LearnStoreState,
   ModalStoreState,
   UiStoreState,
-  CustomFontStoreState
+  CustomizationStoreState
 } from '@/types/store-types'
 
 export const useLearnStore = create<LearnStoreState>()(
@@ -127,14 +127,19 @@ export const useAiHintStore = create<AiHintStoreState>()(set => ({
   setAiHint: hint => set({ aiHint: hint })
 }))
 
-export const useCustomFontStore = create<CustomFontStoreState>()(
+export const useCustomizationStore = create<CustomizationStoreState>()(
   persist(
     set => ({
       selectedFont: 'noto',
-      setSelectedFont: font => set({ selectedFont: font })
+      setSelectedFont: font => set({ selectedFont: font }),
+      cardVisibility: {
+        romaji: true,
+        counterpart: true
+      },
+      setCardVisibility: visibility => set({ cardVisibility: visibility })
     }),
     {
-      name: 'custom-font-storage'
+      name: 'customization-storage'
     }
   )
 )
