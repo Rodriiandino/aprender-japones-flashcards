@@ -5,7 +5,6 @@ import {
   useModalStore,
   useLearnStore,
   useLearnHistoryStore,
-  useAiStore,
   useAiHintStore
 } from '@/store/learn-store'
 import { Dialog, DialogContent } from '@/components/ui/dialog'

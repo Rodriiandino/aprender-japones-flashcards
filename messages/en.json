@@ -230,6 +230,12 @@
       }
     }
   },
+  "NotFoundPage": {
+    "title": "404 - Page Not Found",
+    "description": "Sorry, the page you are looking for could not be found. Would you like to return to the",
+    "homeLink": "homepage?",
+    "message": "道に迷った - Lost your way"
+  },
   "Sonner": {
     "ai": {
       "title": "Failed to generate AI {type}",

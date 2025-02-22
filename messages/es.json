@@ -236,5 +236,11 @@
       "description": "Inténtalo de nuevo o Token no válido.",
       "action": "deshacer"
     }
+  },
+  "NotFoundPage": {
+    "title": "404 - Página no encontrada",
+    "description": "Lo siento, no se pudo encontrar la página que estás buscando. ¿Quieres volver a la",
+    "homeLink": "página de inicio?",
+    "message": "道に迷った - Perdiste tu camino"
   }
 }
