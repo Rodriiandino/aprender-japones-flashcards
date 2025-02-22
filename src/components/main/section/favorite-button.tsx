@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { Heart } from 'lucide-react'
 import { useFavoriteStore } from '@/store/learn-store'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, memo, useMemo } from 'react'
 import { cn } from '@/lib/utils'
 import { AlphabetCategory } from '@/types/alphabet-type'
 
@@ -14,18 +14,21 @@ interface FavoriteButtonProps {
   className?: string
 }
 
-export default function FavoriteButton({
+const FavoriteButton = memo(function FavoriteButton({
   character,
   category,
   className
 }: FavoriteButtonProps) {
-  const { favoriteCards, setFavoriteCards } = useFavoriteStore()
-  const [isFavorite, setIsFavorite] = useState(false)
+  const favoriteCards = useFavoriteStore(state => state.favoriteCards)
+  const setFavoriteCards = useFavoriteStore(state => state.setFavoriteCards)
 
-  const card: CharacterCard = {
-    character: 'character' in character ? character.character : character,
-    type: category
-  }
+  const card = useMemo(
+    () => ({
+      character: 'character' in character ? character.character : character,
+      type: category
+    }),
+    [character, category]
+  )
 
   const isCardFavorite = useCallback(
     (favCard: CharacterCard) =>
@@ -34,7 +37,7 @@ export default function FavoriteButton({
     [card.character.romaji, card.type]
   )
 
-  const handleFavorite = () => {
+  const handleFavorite = useCallback(() => {
     if (favoriteCards.some(isCardFavorite)) {
       const newFavoriteCards = favoriteCards.filter(
         favCard => !isCardFavorite(favCard)
@@ -43,11 +46,9 @@ export default function FavoriteButton({
     } else {
       setFavoriteCards([...favoriteCards, card])
     }
-  }
+  }, [favoriteCards, isCardFavorite, card, setFavoriteCards])
 
-  useEffect(() => {
-    setIsFavorite(favoriteCards.some(isCardFavorite))
-  }, [favoriteCards, isCardFavorite])
+  const isFavorite = favoriteCards.some(isCardFavorite)
 
   return (
     <Button
@@ -62,4 +63,6 @@ export default function FavoriteButton({
       />
     </Button>
   )
-}
+})
+
+export default FavoriteButton

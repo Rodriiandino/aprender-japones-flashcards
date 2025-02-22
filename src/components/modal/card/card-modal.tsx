@@ -1,10 +1,6 @@
-import { Suspense } from 'react'
+'use client'
 import ModalContent from './card-modal-content'
 
 export default function CardModal() {
-  return (
-    <Suspense>
-      <ModalContent />
-    </Suspense>
-  )
+  return <ModalContent />
 }

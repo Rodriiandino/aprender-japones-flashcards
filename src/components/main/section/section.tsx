@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useMemo } from 'react'
 import { AllCharacters } from '@/data/characters'
 import { useConfigLearnStore, useFavoriteStore } from '@/store/learn-store'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
@@ -9,33 +9,23 @@ import NoCardsAvailable from './no-cards-available'
 import LoadingCards from './loading-cards'
 
 export default function Section() {
-  const { configCards, setConfigCards, selectedAlphabet } =
-    useConfigLearnStore()
+  const { selectedAlphabet } = useConfigLearnStore()
   const { favoriteCards } = useFavoriteStore()
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const loadCards = () => {
-      if (selectedAlphabet === 'favorite') {
-        setConfigCards(favoriteCards)
-      } else if (selectedAlphabet === 'hiragana+katakana') {
-        const charactersArray: CharacterCard[] = Object.values(
-          AllCharacters
-        ).flatMap(char => [
-          { character: char, type: 'hiragana' },
-          { character: char, type: 'katakana' }
-        ])
-        setConfigCards(charactersArray)
-      } else {
-        const charactersArray: CharacterDetails[] = Object.values(AllCharacters)
-        setConfigCards(charactersArray)
-      }
-      setLoading(false)
+  const configCards = useMemo(() => {
+    if (selectedAlphabet === 'favorite') {
+      return favoriteCards
+    } else if (selectedAlphabet === 'hiragana+katakana') {
+      return Object.values(AllCharacters).flatMap(char => [
+        { character: char, type: 'hiragana' },
+        { character: char, type: 'katakana' }
+      ])
+    } else {
+      return Object.values(AllCharacters)
     }
-    loadCards()
-  }, [selectedAlphabet, favoriteCards, setConfigCards])
+  }, [selectedAlphabet, favoriteCards]) as CharacterDetails[] | CharacterCard[]
 
-  if (loading) {
+  if (!configCards) {
     return <LoadingCards />
   }
 

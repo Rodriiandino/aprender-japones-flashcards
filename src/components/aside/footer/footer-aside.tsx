@@ -6,6 +6,7 @@ import {
   useConfigLearnStore
 } from '@/store/learn-store'
 import { toast } from 'sonner'
+import { useCallback } from 'react'
 
 export default function FooterAside() {
   const t = useTranslations('AsideComponent.Footer')
@@ -14,7 +15,7 @@ export default function FooterAside() {
   const { toggleLearningModal, toggleConfirmModal } = useModalStore()
   const { isLearning } = useLearnStore()
 
-  const handleStartLearning = () => {
+  const handleStartLearning = useCallback(() => {
     if (configCards.length < 10) {
       toast.info(t('notEnoughCards.info'), {
         description: t('notEnoughCards.description'),
@@ -28,7 +29,13 @@ export default function FooterAside() {
       return
     }
     toggleLearningModal(true)
-  }
+  }, [
+    configCards.length,
+    isLearning,
+    t,
+    toggleConfirmModal,
+    toggleLearningModal
+  ])
 
   const handleCancelLearning = () => {
     toggleConfirmModal(true)

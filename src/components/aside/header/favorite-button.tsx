@@ -4,14 +4,15 @@ import { Button } from '@/components/ui/button'
 import { Heart } from 'lucide-react'
 import { useConfigLearnStore } from '@/store/learn-store'
 import { cn } from '@/lib/utils'
+import { useCallback } from 'react'
 
 export default function FavoriteButton() {
   const { selectedAlphabet, setSelectedAlphabet } = useConfigLearnStore()
 
-  const handleFavorite = () => {
+  const handleFavorite = useCallback(() => {
     if (selectedAlphabet !== 'favorite') setSelectedAlphabet('favorite')
     if (selectedAlphabet === 'favorite') setSelectedAlphabet('hiragana')
-  }
+  }, [selectedAlphabet, setSelectedAlphabet])
 
   return (
     <Button

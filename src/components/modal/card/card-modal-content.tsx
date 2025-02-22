@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useCallback, useMemo } from 'react'
 import { useModalStore, useCustomizationStore } from '@/store/learn-store'
-import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from '@/i18n/routing'
 import { Dialog, DialogContent } from '../../ui/dialog'
 import { CharacterDetails } from '@/types/card-type'
 import { AllCharacters } from '@/data/characters'
@@ -16,75 +17,65 @@ export type AiExample = {
   [key: string]: { example: string }
 }
 
-export default function ModalContent() {
-  const [character, setCharacter] = useState<CharacterDetails>({
+const initialCharacterData = {
+  character: {
     hiragana: '',
     katakana: '',
     romaji: ''
-  })
-  const [category, setCategory] = useState<Category>('hiragana')
-  const [aiExample, setAiExample] = useState<AiExample>()
+  } as CharacterDetails,
+  category: 'hiragana' as Category
+}
 
+export default function ModalContent() {
+  const [characterData, setCharacterData] = useState(initialCharacterData)
+  const [aiExample, setAiExample] = useState<AiExample>()
   const { isCardModal, toggleCardModal } = useModalStore()
   const { selectedFont } = useCustomizationStore()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
 
-  const validateParams = useCallback(() => {
-    const params = new URLSearchParams(searchParams)
-    const categoryParam = params.get('category')
-    const characterParam = params.get('character')
+  const validateAndGetParams = useMemo(() => {
+    const categoryParam = searchParams.get('category')
+    const characterParam = searchParams.get('character')
 
-    const isValidCategory =
-      categoryParam === 'hiragana' ||
-      categoryParam === 'katakana' ||
-      categoryParam === 'romaji'
-    const isValidCharacter = characterParam && AllCharacters[characterParam]
+    if (!categoryParam || !characterParam) return null
 
-    if (!isValidCategory || !isValidCharacter) {
-      params.delete('category')
-      params.delete('character')
-      const url = `${pathname}?${params.toString()}`
-      replace(url)
-      return false
+    const isValidCategory = ['hiragana', 'katakana', 'romaji'].includes(
+      categoryParam
+    )
+    const character = AllCharacters[characterParam]
+
+    if (!isValidCategory || !character) {
+      return null
     }
 
-    return { categoryParam, characterParam }
-  }, [pathname, replace, searchParams])
-
-  const fetchCardDetails = useCallback(() => {
-    const result = validateParams()
-    if (!result) return
-
-    const { categoryParam, characterParam } = result
-
-    setCategory(categoryParam as Category)
-    setCharacter(AllCharacters[characterParam])
-  }, [validateParams])
+    return {
+      category: categoryParam as Category,
+      character
+    }
+  }, [searchParams])
 
   useEffect(() => {
-    fetchCardDetails()
-  }, [fetchCardDetails])
+    if (validateAndGetParams) {
+      setCharacterData(validateAndGetParams)
+      toggleCardModal(true)
+    }
 
-  useEffect(() => {
-    const initializeModal = () => {
-      const result = validateParams()
-      if (result) {
-        toggleCardModal(true)
+    return () => {
+      if (!validateAndGetParams) {
+        setCharacterData(initialCharacterData)
+        setAiExample(undefined)
       }
     }
-
-    initializeModal()
-  }, [validateParams, toggleCardModal])
+  }, [validateAndGetParams, toggleCardModal])
 
   const handleModalClose = useCallback(() => {
     toggleCardModal(false)
     const params = new URLSearchParams(searchParams)
     params.delete('category')
     params.delete('character')
-    const url = `${pathname}?${params.toString()}`
-    replace(url)
+    replace(`${pathname}?${params.toString()}`, { scroll: false })
   }, [pathname, replace, searchParams, toggleCardModal])
 
   const fonts = useMemo(
@@ -99,6 +90,12 @@ export default function ModalContent() {
       ].filter(font => !font.endsWith(selectedFont)),
     [selectedFont]
   )
+
+  if (!validateAndGetParams) {
+    return null
+  }
+
+  const { character, category } = characterData
 
   return (
     <Dialog open={isCardModal} onOpenChange={handleModalClose}>
