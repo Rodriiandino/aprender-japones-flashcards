@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import {
   useModalStore,
   useLearnStore,
@@ -38,7 +38,7 @@ export default function LearningModal() {
     setIsFinished
   } = useLearnStore()
   const { addHistoryItem } = useLearnHistoryStore()
-  const [inputValue, setInputValue] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
   const [isAnswerCorrect, setIsAnsweredCorrect] = useState<boolean | null>(null)
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
   const { setAiHint } = useAiHintStore()
@@ -47,12 +47,11 @@ export default function LearningModal() {
 
   const handleNextCard = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    const lowerCasedInput = inputValue.toLowerCase()
+    const inputValue = inputRef.current?.value.toLowerCase().trim() || ''
 
     const isMatch =
-      (typeof romaji === 'string' && romaji === lowerCasedInput) ||
-      (Array.isArray(romaji) && romaji.includes(lowerCasedInput))
+      (typeof romaji === 'string' && romaji === inputValue) ||
+      (Array.isArray(romaji) && romaji.includes(inputValue))
 
     let newCorrectAnswers = correctAnswers
     let newCorrectPercentage = correctPercentage
@@ -77,9 +76,7 @@ export default function LearningModal() {
 
     if (updatedPracticedCardsIndices.length < totalCards) {
       setPracticedCardsIndices(updatedPracticedCardsIndices)
-    }
 
-    if (updatedPracticedCardsIndices.length < totalCards) {
       const nextIndex =
         studyMode === 'random'
           ? generateRandomNumberExcluded(
@@ -92,7 +89,6 @@ export default function LearningModal() {
       setIsAnsweredCorrect(null)
     } else {
       setIsFinished(true)
-      setInputValue('')
       setIsAnsweredCorrect(null)
       setIsSubmitDisabled(false)
 
@@ -107,7 +103,9 @@ export default function LearningModal() {
       addHistoryItem(newHistory)
     }
 
-    setInputValue('')
+    if (inputRef.current) {
+      inputRef.current.value = ''
+    }
     setCorrectAnswers(newCorrectAnswers)
     setCorrectPercentage(newCorrectPercentage)
     setAiHint('')
@@ -121,15 +119,13 @@ export default function LearningModal() {
     setCurrentCardIndex(
       studyMode === 'random' ? generateRandomNumber(totalCards) : 0
     )
-    setInputValue('')
+    if (inputRef.current) {
+      inputRef.current.value = ''
+    }
     setIsAnsweredCorrect(null)
     setIsSubmitDisabled(false)
     setIsFinished(false)
     setAiHint('')
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
   }
 
   return (
@@ -149,18 +145,21 @@ export default function LearningModal() {
           learningCards={learningCards}
           totalCards={totalCards}
           isFinished={isFinished}
-          inputValue={inputValue}
+          inputRef={inputRef}
           isSubmitDisabled={isSubmitDisabled}
-          handleInputChange={handleInputChange}
           handleSubmit={handleNextCard}
           handleReset={handleReset}
-        />
-
-        <LearningModalFooter
-          totalCards={totalCards}
           correctAnswers={correctAnswers}
           correctPercentage={correctPercentage}
         />
+
+        {!isFinished && (
+          <LearningModalFooter
+            totalCards={totalCards}
+            correctAnswers={correctAnswers}
+            correctPercentage={correctPercentage}
+          />
+        )}
       </DialogContent>
     </Dialog>
   )

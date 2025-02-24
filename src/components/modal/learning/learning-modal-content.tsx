@@ -13,6 +13,8 @@ import { AlphabetCategory } from '@/types/alphabet-type'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import { getCharacterDetails, getEffectiveCategory } from '@/lib/utils'
 import LearningModalAiHint from './learning-modal-aiHint'
+import { LearningResults } from './learning-results'
+import { RefObject } from 'react'
 
 interface LearningModalContentProps {
   romaji: string | string[]
@@ -23,11 +25,12 @@ interface LearningModalContentProps {
   learningCards: CharacterDetails[] | CharacterCard[]
   totalCards: number
   isFinished: boolean
-  inputValue: string
+  inputRef: RefObject<HTMLInputElement>
   isSubmitDisabled: boolean
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleSubmit: (e: React.FormEvent) => void
   handleReset: (e: React.FormEvent) => void
+  correctAnswers: number
+  correctPercentage: number
 }
 
 export const LearningModalContent = ({
@@ -39,11 +42,12 @@ export const LearningModalContent = ({
   learningCards,
   totalCards,
   isFinished,
-  inputValue,
+  inputRef,
   isSubmitDisabled,
-  handleInputChange,
   handleSubmit,
-  handleReset
+  handleReset,
+  correctAnswers,
+  correctPercentage
 }: LearningModalContentProps) => {
   const t = useTranslations('ModalComponent.learning')
   const { hiragana, katakana } = getCharacterDetails(
@@ -53,6 +57,18 @@ export const LearningModalContent = ({
     learningCards[currentCardIndex],
     currentAlphabet
   )
+
+  if (isFinished) {
+    return (
+      <LearningResults
+        correctAnswers={correctAnswers}
+        totalCards={totalCards}
+        correctPercentage={correctPercentage}
+        currentAlphabet={currentAlphabet}
+        handleReset={handleReset}
+      />
+    )
+  }
 
   return (
     <>
@@ -73,7 +89,10 @@ export const LearningModalContent = ({
           katakana={katakana}
         />
       </DialogHeader>
-      <form className='flex flex-col items-center gap-4 p-1'>
+      <form
+        className='flex flex-col items-center gap-4 p-1'
+        onSubmit={handleSubmit}
+      >
         {isAnswerCorrect !== null ? (
           <LeaningResultCard romaji={romaji} />
         ) : (
@@ -84,43 +103,24 @@ export const LearningModalContent = ({
           />
         )}
         <Input
+          ref={inputRef}
           placeholder={t('input.placeholder')}
-          onChange={handleInputChange}
           className='sm:w-[200px]'
-          value={inputValue}
         />
-        {isFinished ? (
-          <div className='flex flex-col items-center gap-1'>
-            <Button
-              variant='default'
-              size='lg'
-              onClick={handleReset}
-              className='select-none'
-            >
-              {t('buttons.reset')}
-            </Button>
-            <DialogDescription className='text-xs'>
-              {t('completion', {
-                alphabet: currentAlphabet
-              })}
-            </DialogDescription>
-          </div>
-        ) : (
-          <div className='flex flex-col items-center gap-1'>
-            <Button
-              variant='default'
-              size='lg'
-              onClick={handleSubmit}
-              disabled={isSubmitDisabled}
-              className='select-none'
-            >
-              {t('buttons.submit')}
-            </Button>
-            <DialogDescription className='text-xs'>
-              {t('input.description')}
-            </DialogDescription>
-          </div>
-        )}
+        <div className='flex flex-col items-center gap-1'>
+          <Button
+            type='submit'
+            variant='default'
+            size='lg'
+            disabled={isSubmitDisabled}
+            className='select-none'
+          >
+            {t('buttons.submit')}
+          </Button>
+          <DialogDescription className='text-xs'>
+            {t('input.description')}
+          </DialogDescription>
+        </div>
       </form>
     </>
   )

@@ -157,6 +157,33 @@
         }
       }
     },
+    "learning": {
+      "title": "Learning {alphabet}",
+      "input": {
+        "placeholder": "Insert your answer",
+        "description": "Answer in romaji"
+      },
+      "completion": "You have finished learning {alphabet}",
+      "stats": {
+        "total": "Total questions: ",
+        "correct": "Correct answers: ",
+        "percentage": "Percentage correct: "
+      },
+      "results": {
+        "title": "Practice completed!",
+        "excellent": "Excellent work! You've mastered these characters!",
+        "good": "Good work! You're making great progress.",
+        "fair": "You're on the right track. Keep practicing!",
+        "needsPractice": "You need more practice. Don't give up!",
+        "score": "You got {correct} out of {total} characters correct",
+        "correctAnswers": "Correct"
+      },
+      "buttons": {
+        "submit": "Send",
+        "reset": "Reset",
+        "tryAgain": "Try again"
+      }
+    },
     "confirm": {
       "title": "Confirm",
       "startLearning": {
@@ -211,23 +238,6 @@
         }
       },
       "footer": "Start your Japanese learning adventure with Learn Japanese today!"
-    },
-    "learning": {
-      "title": "Learning {alphabet}",
-      "input": {
-        "placeholder": "Insert your answer",
-        "description": "Answer in romaji"
-      },
-      "buttons": {
-        "submit": "Submit",
-        "reset": "Reset"
-      },
-      "completion": "You have finished learning {alphabet}",
-      "stats": {
-        "total": "Total questions: ",
-        "correct": "Correct answers: ",
-        "percentage": "Percentage correct: "
-      }
     }
   },
   "NotFoundPage": {

@@ -157,6 +157,33 @@
         }
       }
     },
+    "learning": {
+      "title": "Aprendiendo {alphabet}",
+      "input": {
+        "placeholder": "Escribe tu respuesta",
+        "description": "Responde en romaji"
+      },
+      "completion": "Has finalizado el aprendizaje de {alphabet}",
+      "stats": {
+        "total": "Total de preguntas: ",
+        "correct": "Respuestas correctas: ",
+        "percentage": "Porcentaje de aciertos: "
+      },
+      "results": {
+        "title": "¡Práctica completada!",
+        "excellent": "¡Excelente trabajo! ¡Has dominado estos caracteres!",
+        "good": "¡Buen trabajo! Estás progresando muy bien.",
+        "fair": "Vas por buen camino. ¡Sigue practicando!",
+        "needsPractice": "Necesitas más práctica. ¡No te rindas!",
+        "score": "Acertaste {correct} de {total} caracteres",
+        "correctAnswers": "Correctas"
+      },
+      "buttons": {
+        "submit": "Enviar",
+        "reset": "Reiniciar",
+        "tryAgain": "Practicar de nuevo"
+      }
+    },
     "confirm": {
       "title": "Confirmar",
       "startLearning": {
@@ -211,23 +238,6 @@
         }
       },
       "footer": "¡Empieza tu aventura en el aprendizaje del japonés con Learn Japanese hoy mismo!"
-    },
-    "learning": {
-      "title": "Aprendiendo {alphabet}",
-      "input": {
-        "placeholder": "Escribe tu respuesta",
-        "description": "Responde en romaji"
-      },
-      "buttons": {
-        "submit": "Enviar",
-        "reset": "Reiniciar"
-      },
-      "completion": "Has finalizado el aprendizaje de {alphabet}",
-      "stats": {
-        "total": "Total de preguntas: ",
-        "correct": "Respuestas correctas: ",
-        "percentage": "Porcentaje de aciertos: "
-      }
     }
   },
   "Sonner": {

@@ -127,8 +127,6 @@ export async function fetchApiAi({
       language
     })
 
-    console.log('Prompt:', prompt)
-
     const res = await fetch('/api/ai', {
       method: 'POST',
       headers: {
