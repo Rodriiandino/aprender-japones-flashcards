@@ -14,7 +14,8 @@ export const noto_sans_jp = Noto_Sans_JP({
   weight: ['400', '500'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-noto-sans-jp'
+  variable: '--font-noto-sans-jp',
+  preload: true
 })
 
 export const mplus_rounded = M_PLUS_Rounded_1c({

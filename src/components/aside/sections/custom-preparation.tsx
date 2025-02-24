@@ -48,7 +48,7 @@ export default function CustomizationSection() {
         <div>
           <h3 className='text-sm font-medium mb-2'>{t('fonts.title')}</h3>
           <Select value={selectedFont} onValueChange={setSelectedFont}>
-            <SelectTrigger className='w-full'>
+            <SelectTrigger className='w-[99%] h-8 mx-auto'>
               <SelectValue placeholder={t('select.placeholder')} />
             </SelectTrigger>
             <SelectContent>

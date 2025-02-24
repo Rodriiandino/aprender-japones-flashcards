@@ -33,9 +33,9 @@ export default async function BaseLayout({ children, locale }: Props) {
 
   return (
     <html className='h-full' lang={locale}>
-      <head>
+      {/* <head>
         <script src='https://unpkg.com/react-scan/dist/auto.global.js' async />
-      </head>
+      </head> */}
       <body
         className={`
         ${noto_sans_jp.variable}
