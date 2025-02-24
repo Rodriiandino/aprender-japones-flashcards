@@ -73,7 +73,7 @@ export const LearningModalContent = ({
   return (
     <>
       <DialogHeader>
-        <DialogTitle>
+        <DialogTitle className='font-medium'>
           {t('title', {
             alphabet: currentAlphabet
           })}

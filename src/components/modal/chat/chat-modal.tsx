@@ -43,7 +43,7 @@ export default function ChatModal() {
     <Dialog open={isAiModalOpen} onOpenChange={toggleAiModal}>
       <DialogContent className='w-5/6'>
         <DialogHeader>
-          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogTitle className='font-medium'>{t('title')}</DialogTitle>
           <DialogDescription>{t('description')}</DialogDescription>
           {messages.length > 0 && (
             <TooltipCustom text={t('clearTooltip')}>

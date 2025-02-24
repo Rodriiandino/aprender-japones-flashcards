@@ -5,11 +5,14 @@ import { getMessages } from 'next-intl/server'
 import { ReactNode } from 'react'
 import {
   noto_sans_jp,
-  kosugi_maru,
-  mochiy_pop_one,
+  mplus_rounded,
+  zen_kaku_gothic,
+  klee_one,
+  zen_maru_gothic,
+  biz_udgothic,
+  kaisei_decol,
   shippori_mincho,
-  yuji_syuku,
-  zen_antique
+  yuji_syuku
 } from '../fonts'
 import { Metadata } from 'next'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -36,12 +39,15 @@ export default async function BaseLayout({ children, locale }: Props) {
       <body
         className={`
         ${noto_sans_jp.variable}
-        ${kosugi_maru.variable}
-        ${zen_antique.variable}
-        ${yuji_syuku.variable}
-        ${mochiy_pop_one.variable}
+        ${mplus_rounded.variable}
+        ${zen_kaku_gothic.variable}
+        ${klee_one.variable}
+        ${zen_maru_gothic.variable}
+        ${biz_udgothic.variable}
+        ${kaisei_decol.variable}
         ${shippori_mincho.variable}
-
+        ${yuji_syuku.variable}
+        
         font-noto
         `}
       >

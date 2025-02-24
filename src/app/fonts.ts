@@ -1,45 +1,62 @@
 import {
   Noto_Sans_JP,
-  Kosugi_Maru,
-  Zen_Antique,
-  Yuji_Syuku,
-  Mochiy_Pop_One,
-  Shippori_Mincho
+  M_PLUS_Rounded_1c,
+  Zen_Kaku_Gothic_New,
+  Klee_One,
+  Zen_Maru_Gothic,
+  BIZ_UDGothic,
+  Kaisei_Decol,
+  Shippori_Mincho,
+  Yuji_Syuku
 } from 'next/font/google'
 
 export const noto_sans_jp = Noto_Sans_JP({
-  weight: ['400', '600'],
+  weight: ['400', '500'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-noto-sans-jp'
 })
 
-export const kosugi_maru = Kosugi_Maru({
-  weight: ['400'],
+export const mplus_rounded = M_PLUS_Rounded_1c({
+  weight: ['400', '500'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-kosugi-maru'
+  variable: '--font-mplus-rounded'
 })
 
-export const zen_antique = Zen_Antique({
-  weight: ['400'],
+export const zen_kaku_gothic = Zen_Kaku_Gothic_New({
+  weight: ['400', '500'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-zen-antique'
+  variable: '--font-zen-kaku-gothic'
 })
 
-export const yuji_syuku = Yuji_Syuku({
-  weight: ['400'],
+export const klee_one = Klee_One({
+  weight: ['400', '600'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-yuji-syuku'
+  variable: '--font-klee-one'
 })
 
-export const mochiy_pop_one = Mochiy_Pop_One({
-  weight: ['400'],
+export const zen_maru_gothic = Zen_Maru_Gothic({
+  weight: ['400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-mochiy-pop-one'
+  variable: '--font-zen-maru-gothic'
+})
+
+export const biz_udgothic = BIZ_UDGothic({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-biz-udgothic'
+})
+
+export const kaisei_decol = Kaisei_Decol({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-kaisei-decol'
 })
 
 export const shippori_mincho = Shippori_Mincho({
@@ -47,4 +64,11 @@ export const shippori_mincho = Shippori_Mincho({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-shippori-mincho'
+})
+
+export const yuji_syuku = Yuji_Syuku({
+  weight: ['400'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-yuji-syuku'
 })

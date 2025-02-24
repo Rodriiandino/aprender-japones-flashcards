@@ -108,7 +108,9 @@ export default function ConfirmModal() {
     <AlertDialog open={isConfirmModalOpen} onOpenChange={toggleConfirmModal}>
       <AlertDialogContent className='w-5/6'>
         <AlertDialogHeader>
-          <AlertDialogTitle>{t('title')}</AlertDialogTitle>
+          <AlertDialogTitle className='font-medium'>
+            {t('title')}
+          </AlertDialogTitle>
           <AlertDialogDescription>{confirmMessage}</AlertDialogDescription>
         </AlertDialogHeader>
 

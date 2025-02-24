@@ -81,7 +81,7 @@ export default function CardModalDetails({
         <div className='w-full flex flex-col justify-center items-center gap-2'>
           <DialogTitle
             className={cn(
-              `text-5xl sm:text-7xl text-center font-${selectedFont}`,
+              `text-5xl sm:text-7xl text-center font-${selectedFont} className='font-medium'`,
               {
                 'text-2xl sm:text-4xl': category === 'romaji'
               }

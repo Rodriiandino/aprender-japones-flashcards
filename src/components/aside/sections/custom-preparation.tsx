@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/select'
 import { Settings2, Eye, EyeOff } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
 
 export default function CustomizationSection() {
   const t = useTranslations('AsideComponent.CustomPreparation')
@@ -20,10 +19,13 @@ export default function CustomizationSection() {
 
   const fonts = [
     { value: 'noto', label: 'Noto Sans' },
-    { value: 'kosugi', label: 'Kosugi Maru' },
-    { value: 'zen', label: 'Zen Antique' },
+    { value: 'mplus', label: 'M PLUS Rounded 1c' },
+    { value: 'zenkaku', label: 'Zen Kaku Gothic New' },
+    { value: 'klee', label: 'Klee One' },
+    { value: 'zenmaru', label: 'Zen Maru Gothic' },
+    { value: 'bizud', label: 'BIZ UDGothic' },
+    { value: 'kaisei', label: 'Kaisei Decol' },
     { value: 'yuji', label: 'Yuji Syuku' },
-    { value: 'mochiy', label: 'Mochiy Pop One' },
     { value: 'shippori', label: 'Shippori Mincho' }
   ]
 

@@ -56,7 +56,7 @@ export const LearningResults = ({
   return (
     <>
       <DialogHeader className='text-center items-center'>
-        <DialogTitle>{t('results.title')}</DialogTitle>
+        <DialogTitle className='font-medium'>{t('results.title')}</DialogTitle>
         <DialogDescription>{getResultMessage()}</DialogDescription>
       </DialogHeader>
 

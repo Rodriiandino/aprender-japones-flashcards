@@ -24,7 +24,7 @@ export default function PrimaryHelpModal() {
     <Dialog open={isHelpModalOpen} onOpenChange={toggleHelpModal}>
       <DialogContent className='w-5/6'>
         <DialogHeader>
-          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogTitle className='font-medium'>{t('title')}</DialogTitle>
           <DialogDescription>{t('description')}</DialogDescription>
         </DialogHeader>
         <div className='space-y-4 max-h-96 h-full flex flex-col gap-2 overflow-y-auto p-1'>
