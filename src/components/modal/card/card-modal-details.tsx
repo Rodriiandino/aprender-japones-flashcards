@@ -76,16 +76,16 @@ export default function CardModalDetails({
 
     const firstRomaji = getFirstRomaji(romaji)
 
+    const font = `font-${selectedFont}`
+
     return (
       <div className='flex'>
         <div className='w-full flex flex-col justify-center items-center gap-2'>
           <DialogTitle
-            className={cn(
-              `text-5xl sm:text-7xl text-center font-${selectedFont} className='font-medium'`,
-              {
-                'text-2xl sm:text-4xl': category === 'romaji'
-              }
-            )}
+            className={cn('text-5xl sm:text-7xl text-center font-medium', {
+              [font]: ['hiragana', 'katakana'].includes(category),
+              'text-2xl sm:text-4xl': category === 'romaji'
+            })}
           >
             {getMainText(category)}
           </DialogTitle>

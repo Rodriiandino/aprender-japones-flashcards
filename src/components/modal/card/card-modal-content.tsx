@@ -82,11 +82,12 @@ export default function ModalContent() {
     () =>
       [
         'font-noto',
-        'font-kosugi',
-        'font-zen',
+        'font-klee',
+        'font-zenmaru',
+        'font-shippori',
         'font-yuji',
-        'font-mochiy',
-        'font-shippori'
+        'font-mai',
+        'font-dot'
       ].filter(font => !font.endsWith(selectedFont)),
     [selectedFont]
   )

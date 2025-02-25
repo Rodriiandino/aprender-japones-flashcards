@@ -85,14 +85,12 @@ const config = {
       },
       fontFamily: {
         noto: ['var(--font-noto-sans-jp)'],
-        mplus: ['var(--font-mplus-rounded)'],
-        zenkaku: ['var(--font-zen-kaku-gothic)'],
         klee: ['var(--font-klee-one)'],
         zenmaru: ['var(--font-zen-maru-gothic)'],
-        bizud: ['var(--font-biz-udgothic)'],
-        kaisei: ['var(--font-kaisei-decol)'],
         shippori: ['var(--font-shippori-mincho)'],
-        yuji: ['var(--font-yuji-syuku)']
+        yuji: ['var(--font-yuji-syuku)'],
+        mai: ['var(--font-yuji-mai)'],
+        dot: ['var(--font-dot-gothic-16)']
       }
     }
   },

@@ -1,13 +1,11 @@
 import {
   Noto_Sans_JP,
-  M_PLUS_Rounded_1c,
-  Zen_Kaku_Gothic_New,
   Klee_One,
   Zen_Maru_Gothic,
-  BIZ_UDGothic,
-  Kaisei_Decol,
   Shippori_Mincho,
-  Yuji_Syuku
+  Yuji_Syuku,
+  Yuji_Mai,
+  DotGothic16
 } from 'next/font/google'
 
 export const noto_sans_jp = Noto_Sans_JP({
@@ -16,20 +14,6 @@ export const noto_sans_jp = Noto_Sans_JP({
   display: 'swap',
   variable: '--font-noto-sans-jp',
   preload: true
-})
-
-export const mplus_rounded = M_PLUS_Rounded_1c({
-  weight: ['400', '500'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-mplus-rounded'
-})
-
-export const zen_kaku_gothic = Zen_Kaku_Gothic_New({
-  weight: ['400', '500'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-zen-kaku-gothic'
 })
 
 export const klee_one = Klee_One({
@@ -46,20 +30,6 @@ export const zen_maru_gothic = Zen_Maru_Gothic({
   variable: '--font-zen-maru-gothic'
 })
 
-export const biz_udgothic = BIZ_UDGothic({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-biz-udgothic'
-})
-
-export const kaisei_decol = Kaisei_Decol({
-  weight: ['400', '500'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-kaisei-decol'
-})
-
 export const shippori_mincho = Shippori_Mincho({
   weight: ['400', '600'],
   subsets: ['latin'],
@@ -72,4 +42,18 @@ export const yuji_syuku = Yuji_Syuku({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-yuji-syuku'
+})
+
+export const yuji_mai = Yuji_Mai({
+  weight: ['400'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-yuji-mai'
+})
+
+export const dot_gothic_16 = DotGothic16({
+  weight: ['400'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dot-gothic-16'
 })

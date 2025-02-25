@@ -17,7 +17,7 @@ type VariationCardProps = {
 
 const VariationCard = memo(({ font, char }: VariationCardProps) => (
   <Card
-    className={`w-[80px] h-[80px] bg-secondary flex justify-center items-center ${font}`}
+    className={`w-[65px] h-[65px] sm:w-[80px] sm:h-[80px] bg-secondary flex justify-center items-center ${font}`}
   >
     <CardTitle className='text-4xl font-normal'>{char}</CardTitle>
   </Card>

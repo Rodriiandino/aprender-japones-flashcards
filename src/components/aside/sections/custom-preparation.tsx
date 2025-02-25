@@ -19,14 +19,12 @@ export default function CustomizationSection() {
 
   const fonts = [
     { value: 'noto', label: 'Noto Sans' },
-    { value: 'mplus', label: 'M PLUS Rounded 1c' },
-    { value: 'zenkaku', label: 'Zen Kaku Gothic New' },
     { value: 'klee', label: 'Klee One' },
     { value: 'zenmaru', label: 'Zen Maru Gothic' },
-    { value: 'bizud', label: 'BIZ UDGothic' },
-    { value: 'kaisei', label: 'Kaisei Decol' },
     { value: 'yuji', label: 'Yuji Syuku' },
-    { value: 'shippori', label: 'Shippori Mincho' }
+    { value: 'shippori', label: 'Shippori Mincho' },
+    { value: 'mai', label: 'Yuji Mai' },
+    { value: 'dot', label: 'DotGothic16' }
   ]
 
   const toggleVisibility = (type: 'romaji' | 'counterpart') => {
