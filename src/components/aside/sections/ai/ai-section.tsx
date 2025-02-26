@@ -106,7 +106,7 @@ export default function AiSection() {
           </Select>
 
           <Input
-            type='text'
+            type='password'
             placeholder={t('input.placeholder')}
             className='w-[99%] h-8'
             onChange={e => setToken(e.target.value)}

@@ -35,41 +35,47 @@ export default function ChatModalMessages({
   if (messages.length === 0) {
     return (
       <div className='flex flex-wrap gap-2 items-center justify-evenly'>
-        <Card className='w-40 h-28 p-4 flex flex-col items-center justify-center text-center'>
+        <Card className='w-48 h-36 p-4 flex flex-col items-center justify-center text-center'>
           <CardHeader className='p-0'>
             <BookA size={22} />
           </CardHeader>
-          <CardContent className='p-0 h-full w-full'>
-            <CardTitle className='text-base'>{t('grammar.title')}</CardTitle>
+          <CardContent className='p-0 h-full w-full flex flex-col items-center justify-evenly'>
+            <CardTitle className='text-base font-medium'>
+              {t('grammar.title')}
+            </CardTitle>
             <CardDescription>{t('grammar.description')}</CardDescription>
           </CardContent>
         </Card>
-        <Card className='w-40 h-28 p-4 flex flex-col items-center justify-center text-center'>
+        <Card className='w-48 h-36 p-4 flex flex-col items-center justify-center text-center'>
           <CardHeader className='p-0'>
             <BookOpen size={22} />
           </CardHeader>
-          <CardContent className='p-0 h-full w-full'>
-            <CardTitle className='text-base'>{t('vocabulary.title')}</CardTitle>
+          <CardContent className='p-0 h-full w-full flex flex-col items-center justify-evenly'>
+            <CardTitle className='text-base font-medium'>
+              {t('vocabulary.title')}
+            </CardTitle>
             <CardDescription>{t('vocabulary.description')}</CardDescription>
           </CardContent>
         </Card>
-        <Card className='w-40 h-28 p-4 flex flex-col items-center justify-center text-center'>
+        <Card className='w-48 h-36 p-4 flex flex-col items-center justify-center text-center'>
           <CardHeader className='p-0'>
             <Mic size={22} />
           </CardHeader>
-          <CardContent className='p-0 h-full w-full'>
-            <CardTitle className='text-base'>
+          <CardContent className='p-0 h-full w-full flex flex-col items-center justify-evenly'>
+            <CardTitle className='text-base font-medium'>
               {t('pronunciation.title')}
             </CardTitle>
             <CardDescription>{t('pronunciation.description')}</CardDescription>
           </CardContent>
         </Card>
-        <Card className='w-40 h-28 p-4 flex flex-col items-center justify-center text-center'>
+        <Card className='w-48 h-36 p-4 flex flex-col items-center justify-center text-center'>
           <CardHeader className='p-0'>
             <Info size={22} />
           </CardHeader>
-          <CardContent className='p-0 h-full w-full'>
-            <CardTitle className='text-base'>{t('kanji.title')}</CardTitle>
+          <CardContent className='p-0 h-full w-full flex flex-col items-center justify-evenly'>
+            <CardTitle className='text-base font-medium'>
+              {t('kanji.title')}
+            </CardTitle>
             <CardDescription>{t('kanji.description')}</CardDescription>
           </CardContent>
         </Card>
