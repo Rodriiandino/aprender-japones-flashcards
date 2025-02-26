@@ -136,7 +136,8 @@
       },
       "input": {
         "placeholder": "Escribe tu mensaje aquí",
-        "error": "Ocurrió un error. Inténtalo de nuevo."
+        "error": "Ocurrió un error. Inténtalo de nuevo.",
+        "typing": "Escribiendo..."
       },
       "features": {
         "grammar": {

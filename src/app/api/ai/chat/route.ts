@@ -137,7 +137,7 @@ export async function POST(req: Request) {
       throw new Error('Failed to generate text')
     }
 
-    return result.toAIStreamResponse()
+    return result.toDataStreamResponse()
   } catch (error) {
     console.error(error)
     return NextResponse.error()
