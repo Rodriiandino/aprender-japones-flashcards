@@ -11,7 +11,7 @@
       }
     },
     "StudyPreparation": {
-      "title": "Preparación para el estudio",
+      "title": "Preparación",
       "description": "Configura tu sesión de estudio.",
       "stats": {
         "toLearn": "Por aprender:",
@@ -27,7 +27,7 @@
     },
     "AiSection": {
       "powered": {
-        "title": "Con tecnología de IA",
+        "title": "AI activada",
         "description": "La IA está activada. Ahora puedes usar sus funciones."
       },
       "noPowered": {
@@ -62,7 +62,7 @@
       }
     },
     "LearningProgress": {
-      "title": "Progreso de aprendizaje",
+      "title": "Progreso",
       "description": "Estadísticas de la sesión actual",
       "stats": {
         "correct": "Correctas",
@@ -73,7 +73,7 @@
       }
     },
     "CustomPreparation": {
-      "title": "Personalizar Aprendizaje",
+      "title": "Personalizar",
       "description": "Personaliza tu experiencia de aprendizaje",
       "fonts": {
         "title": "Estilo de Fuente"

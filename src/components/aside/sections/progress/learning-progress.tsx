@@ -22,7 +22,7 @@ export default function LearningProgress() {
     <div className='flex flex-col gap-1'>
       <div className='flex items-center gap-2'>
         <BarChart className='w-4 h-4 text-muted-foreground' />
-        <h2 className='sm:text-ls text-base font-bold'>{t('title')}</h2>
+        <h2 className='sm:text-ls text-base font-medium'>{t('title')}</h2>
       </div>
       <p className='text-sm text-gray-500'>{t('description')}</p>
       <StatsLearning
