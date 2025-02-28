@@ -7,6 +7,7 @@ import { AllCharacters } from '@/data/characters'
 import CharacterLi from './character-li'
 import { cn } from '@/lib/utils'
 import { useUiStore } from '@/store/learn-store'
+import CharacterSelector from './character-selector'
 
 const characterArray = Object.values(AllCharacters)
 
@@ -40,22 +41,23 @@ export default function Search() {
         hidden: !isSearchBarVisible
       })}
     >
-      <div className='relative w-full'>
-        <div>
+      <div className='relative w-full flex gap-2'>
+        <CharacterSelector />
+        <div className='relative flex-1'>
           <SearchIcon
             size='16px'
             className='absolute top-1/2 left-2 transform -translate-y-1/2 text-muted-foreground/70'
           />
+          <Input
+            type='text'
+            className='pl-8 w-full h-[40px]'
+            placeholder={t('placeholder')}
+            value={search}
+            onChange={handleSearch}
+            onFocus={() => setShowResults(true)}
+            onBlur={() => setTimeout(() => setShowResults(false), 100)}
+          />
         </div>
-        <Input
-          type='text'
-          className='pl-8 w-full'
-          placeholder={t('placeholder')}
-          value={search}
-          onChange={handleSearch}
-          onFocus={() => setShowResults(true)}
-          onBlur={() => setTimeout(() => setShowResults(false), 100)}
-        />
       </div>
       {showResults && (
         <div className='absolute top-10 w-full max-h-56 overflow-y-auto overflow-x-hidden z-50 bg-background p-3 border border-border rounded-md animate-fade-in-down duration-150'>

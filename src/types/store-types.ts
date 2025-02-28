@@ -2,6 +2,36 @@ import { CharacterDetails } from './card-type'
 import { AlphabetCategory, StudyMode } from './alphabet-type'
 import { CharacterCard } from './card-type'
 
+export type CharacterGroup = {
+  name: string
+  selected: boolean
+  characters: {
+    [key: string]: boolean
+  }
+}
+
+export type CharacterSelectionState = {
+  hiraganaGroups: {
+    [groupKey: string]: CharacterGroup
+  }
+  katakanaGroups: {
+    [groupKey: string]: CharacterGroup
+  }
+  setGroupSelection: (
+    alphabet: AlphabetCategory,
+    groupKey: string,
+    selected: boolean
+  ) => void
+  setCharacterSelection: (
+    alphabet: AlphabetCategory,
+    groupKey: string,
+    charKey: string,
+    selected: boolean
+  ) => void
+  resetSelections: () => void
+  getSelectedCharacters: (alphabet: AlphabetCategory) => CharacterDetails[]
+}
+
 export type LearnStoreState = {
   learningCards: CharacterDetails[] | CharacterCard[]
   setLearningCards: (cards: CharacterDetails[] | CharacterCard[]) => void
