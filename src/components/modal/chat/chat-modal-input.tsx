@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Send, Square, Repeat, Loader2 } from 'lucide-react'
-import { useRef, useEffect } from 'react'
 
 interface ChatModalInputProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
@@ -10,8 +9,8 @@ interface ChatModalInputProps {
   handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   stop: () => void
   isLoading: boolean
-  error: any
-  reload: () => void
+  error: Error | undefined
+  regenerate: () => void
 }
 
 export default function ChatModalInput({
@@ -21,7 +20,7 @@ export default function ChatModalInput({
   stop,
   isLoading,
   error,
-  reload
+  regenerate
 }: ChatModalInputProps) {
   const t = useTranslations('ModalComponent.chat.input')
 
@@ -75,11 +74,10 @@ export default function ChatModalInput({
               type='submit'
               variant='ghost'
               size='sm'
-              className={`h-10 w-10 shadow-none rounded-full transition-colors flex items-center justify-center ${
-                !input.trim()
+              className={`h-10 w-10 shadow-none rounded-full transition-colors flex items-center justify-center ${!input.trim()
                   ? 'opacity-50 cursor-not-allowed'
                   : 'hover:bg-primary/20'
-              }`}
+                }`}
               disabled={!input.trim() || isLoading}
               aria-label='Send message'
             >
@@ -92,7 +90,7 @@ export default function ChatModalInput({
               variant='ghost'
               size='sm'
               className='h-10 w-10 shadow-none hover:bg-yellow-500/10 transition-colors rounded-full'
-              onClick={reload}
+              onClick={regenerate}
               aria-label='Retry request'
               type='button'
             >
@@ -118,9 +116,8 @@ export default function ChatModalInput({
 
       {input.length > 800 && (
         <div
-          className={`text-xs mt-1 text-right ${
-            input.length > 950 ? 'text-red-500' : 'text-muted-foreground'
-          }`}
+          className={`text-xs mt-1 text-right ${input.length > 950 ? 'text-red-500' : 'text-muted-foreground'
+            }`}
         >
           {input.length}/1000
         </div>

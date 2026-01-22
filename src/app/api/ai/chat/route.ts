@@ -1,4 +1,4 @@
-import { CoreMessage, streamText } from 'ai'
+import { streamText, UIMessage, convertToModelMessages } from 'ai'
 import { createOpenAI } from '@ai-sdk/openai'
 import { NextResponse } from 'next/server'
 
@@ -99,47 +99,50 @@ Your ultimate goal is not just to answer questions but to empower users to becom
 `
 
 export async function POST(req: Request) {
-  try {
-    const {
-      messages,
-      token,
-      provider
-    }: { messages: CoreMessage[]; token: string; provider: 'openai' | 'groq' } =
-      await req.json()
+   try {
+      const {
+         messages,
+         token,
+         provider
+      }: { messages: UIMessage[]; token: string; provider: 'openai' | 'groq' } =
+         await req.json()
 
-    let ai, model
+      let ai, model
 
-    if (provider === 'openai') {
-      ai = createOpenAI({
-        apiKey: token
+      if (provider === 'openai') {
+         ai = createOpenAI({
+            apiKey: token
+         })
+
+         model = ai('gpt-4o-mini')
+      } else {
+         ai = createOpenAI({
+            apiKey: token,
+            baseURL: 'https://api.groq.com/openai/v1'
+         })
+
+         model = ai('llama3-8b-8192')
+      }
+
+      // Convert UIMessage[] to ModelMessage[] for the AI
+      const modelMessages = await convertToModelMessages(messages)
+
+      const result = await streamText({
+         model,
+         messages: modelMessages,
+         system,
+         maxOutputTokens: 500,
+         temperature: 0.7,
+         topP: 1
       })
 
-      model = ai('gpt-4o-mini')
-    } else {
-      ai = createOpenAI({
-        apiKey: token,
-        baseURL: 'https://api.groq.com/openai/v1'
-      })
+      if (!result) {
+         throw new Error('Failed to generate text')
+      }
 
-      model = ai('llama3-8b-8192')
-    }
-
-    const result = await streamText({
-      model,
-      messages,
-      system,
-      maxTokens: 500,
-      temperature: 0.7,
-      topP: 1
-    })
-
-    if (!result) {
-      throw new Error('Failed to generate text')
-    }
-
-    return result.toDataStreamResponse()
-  } catch (error) {
-    console.error(error)
-    return NextResponse.error()
-  }
+      return result.toUIMessageStreamResponse()
+   } catch (error) {
+      console.error(error)
+      return NextResponse.error()
+   }
 }

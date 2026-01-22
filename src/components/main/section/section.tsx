@@ -1,50 +1,97 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AllCharacters } from '@/data/characters'
-import { useConfigLearnStore, useFavoriteStore } from '@/store/learn-store'
+import {
+  useConfigLearnStore,
+  useFavoriteStore,
+  useCharacterSelectionStore
+} from '@/store/learn-store'
 import { CharacterCard, CharacterDetails } from '@/types/card-type'
 import CardList from './card-list'
 import NoCardsAvailable from './no-cards-available'
 import LoadingCards from './loading-cards'
 
 const getHiraganaAndKatakanaCards = (
-  characters: Record<string, CharacterDetails>
+  hiraganaCharacters: CharacterDetails[],
+  katakanaCharacters: CharacterDetails[]
 ): CharacterCard[] => {
-  return Object.values(characters).flatMap(char => [
-    { character: char, type: 'hiragana' },
-    { character: char, type: 'katakana' }
-  ])
+  const cards: CharacterCard[] = []
+
+  hiraganaCharacters.forEach(char => {
+    cards.push({ character: char, type: 'hiragana' })
+  })
+
+  katakanaCharacters.forEach(char => {
+    cards.push({ character: char, type: 'katakana' })
+  })
+
+  return cards
 }
 
 const getConfigCards = (
   selectedAlphabet: string,
-  favoriteCards: CharacterCard[]
+  favoriteCards: CharacterCard[],
+  hiraganaSelectedCharacters: CharacterDetails[],
+  katakanaSelectedCharacters: CharacterDetails[]
 ): CharacterCard[] | CharacterDetails[] => {
   switch (selectedAlphabet) {
     case 'favorite':
       return favoriteCards
     case 'hiragana+katakana':
-      return getHiraganaAndKatakanaCards(AllCharacters)
+      return getHiraganaAndKatakanaCards(
+        hiraganaSelectedCharacters,
+        katakanaSelectedCharacters
+      )
+    case 'hiragana':
+      return hiraganaSelectedCharacters
+    case 'katakana':
+      return katakanaSelectedCharacters
     default:
       return Object.values(AllCharacters)
   }
 }
 
 export default function Section() {
-  const { configCards, setConfigCards, selectedAlphabet } =
-    useConfigLearnStore()
-  const { favoriteCards } = useFavoriteStore()
+  const configCards = useConfigLearnStore(state => state.configCards)
+  const setConfigCards = useConfigLearnStore(state => state.setConfigCards)
+  const selectedAlphabet = useConfigLearnStore(state => state.selectedAlphabet)
+
+  const favoriteCards = useFavoriteStore(state => state.favoriteCards)
+
+  const getSelectedCharacters = useCharacterSelectionStore(
+    state => state.getSelectedCharacters
+  )
+  const hiraganaGroups = useCharacterSelectionStore(
+    state => state.hiraganaGroups
+  )
+  const katakanaGroups = useCharacterSelectionStore(
+    state => state.katakanaGroups
+  )
+
   const [loading, setLoading] = useState(true)
 
-  const loadCards = useCallback(() => {
-    setConfigCards(getConfigCards(selectedAlphabet, favoriteCards))
-    setLoading(false)
-  }, [selectedAlphabet, favoriteCards, setConfigCards])
-
   useEffect(() => {
-    loadCards()
-  }, [loadCards])
+    const hiraganaSelectedCharacters = getSelectedCharacters('hiragana')
+    const katakanaSelectedCharacters = getSelectedCharacters('katakana')
+
+    setConfigCards(
+      getConfigCards(
+        selectedAlphabet,
+        favoriteCards,
+        hiraganaSelectedCharacters,
+        katakanaSelectedCharacters
+      )
+    )
+    setLoading(false)
+  }, [
+    selectedAlphabet,
+    favoriteCards,
+    getSelectedCharacters,
+    setConfigCards,
+    hiraganaGroups,
+    katakanaGroups
+  ])
 
   if (loading) {
     return <LoadingCards />

@@ -11,34 +11,41 @@ import {
 import { useAiStore, useModalStore } from '@/store/learn-store'
 import ChatModalInput from './chat-modal-input'
 import ChatModalMessages from './chat-modal-messages'
-import { useChat } from 'ai/react'
+import { useChat } from '@ai-sdk/react'
+import { DefaultChatTransport } from 'ai'
 import TooltipCustom from '@/components/tooltip-custom'
 import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState, useMemo } from 'react'
+
+// Create a stable transport instance outside the component or memoize it
+const createTransport = () =>
+  new DefaultChatTransport({
+    api: '/api/ai/chat'
+  })
 
 export default function ChatModal() {
   const t = useTranslations('ModalComponent.chat.header')
   const { isAiModalOpen, toggleAiModal } = useModalStore()
   const { iaToken, aiProvider } = useAiStore()
+  const [input, setInput] = useState('')
+
+  // Memoize transport with empty deps - it never needs to change
+  const transport = useMemo(createTransport, [])
 
   const {
     messages,
-    input,
-    handleInputChange,
-    handleSubmit,
-    isLoading,
+    sendMessage,
+    status,
     stop,
     error,
-    reload,
+    regenerate,
     setMessages
   } = useChat({
-    api: '/api/ai/chat',
-    body: {
-      token: iaToken,
-      provider: aiProvider
-    }
+    transport
   })
+
+  const isLoading = status === 'streaming' || status === 'submitted'
 
   useEffect(() => {
     if (isAiModalOpen) {
@@ -54,6 +61,26 @@ export default function ChatModal() {
 
   const handleClearMessages = () => {
     setMessages([])
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!input.trim()) return
+    // Pass dynamic values at request time (recommended pattern)
+    sendMessage(
+      { text: input },
+      {
+        body: {
+          token: iaToken,
+          provider: aiProvider
+        }
+      }
+    )
+    setInput('')
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value)
   }
 
   return (
@@ -100,7 +127,7 @@ export default function ChatModal() {
             stop={stop}
             isLoading={isLoading}
             error={error}
-            reload={reload}
+            regenerate={regenerate}
           />
         </DialogFooter>
       </DialogContent>

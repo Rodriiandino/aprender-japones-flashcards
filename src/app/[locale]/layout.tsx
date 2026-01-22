@@ -5,13 +5,12 @@ import { ReactNode } from 'react'
 
 type Props = {
   children: ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
-export default async function RootLayout({
-  children,
-  params: { locale }
-}: Props) {
+export default async function RootLayout({ children, params }: Props) {
+  const { locale } = await params
+
   if (!routing.locales.includes(locale as any)) {
     notFound()
   }

@@ -31,10 +31,8 @@ const CardSymbol = memo(function CardSymbol({
   const { hiragana, katakana, romaji } = getCharacterDetails(character)
   const effectiveCategory = getEffectiveCategory(character, category)
   const { toggleCardModal, isCardModal } = useModalStore()
-  const { selectedFont, cardVisibility } = useCustomizationStore(state => ({
-    selectedFont: state.selectedFont,
-    cardVisibility: state.cardVisibility
-  }))
+  const selectedFont = useCustomizationStore(state => state.selectedFont)
+  const cardVisibility = useCustomizationStore(state => state.cardVisibility)
   const searchParams = useSearchParams()
 
   const firstRomaji = useMemo(() => getFirstRomaji(romaji), [romaji])

@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
-import { Message } from 'ai'
+import { UIMessage } from 'ai'
 import {
   Card,
   CardContent,
@@ -11,10 +11,10 @@ import {
 import { BookA, BookOpen, Mic, Info, BotIcon, UserIcon } from 'lucide-react'
 import { marked } from 'marked'
 import styles from './markdown.module.css'
-import { memo, useRef } from 'react'
+import { memo } from 'react'
 
 interface ChatModalMessagesProps {
-  messages: Message[]
+  messages: UIMessage[]
   isLoading?: boolean
 }
 
@@ -54,6 +54,17 @@ const FeatureCard = memo(
 )
 
 FeatureCard.displayName = 'FeatureCard'
+
+// Helper function to extract text content from UIMessage parts
+const getMessageText = (message: UIMessage): string => {
+  if (!message.parts || message.parts.length === 0) {
+    return ''
+  }
+  return message.parts
+    .filter((part) => part.type === 'text')
+    .map((part) => part.text)
+    .join('')
+}
 
 export default function ChatModalMessages({
   messages,
@@ -107,50 +118,54 @@ export default function ChatModalMessages({
         aria-live='polite'
         aria-atomic='false'
       >
-        {messages.map((m, index) => (
-          <li
-            key={index}
-            className={cn(
-              'p-3 rounded-lg relative w-fit max-w-[90%] min-w-12 animate-fadeIn',
-              m.role === 'user'
-                ? 'ml-auto bg-secondary text-secondary-foreground shadow-md'
-                : 'mr-auto bg-primary/15 border border-primary/30 text-foreground shadow-sm'
-            )}
-            aria-label={`${m.role === 'user' ? 'User' : 'AI'} message`}
-          >
-            <div className='flex items-center gap-1 mb-1 text-xs opacity-80'>
-              {m.role === 'user' ? (
-                <UserIcon size={14} aria-hidden='true' />
-              ) : (
-                <BotIcon
-                  size={14}
-                  className='text-primary'
-                  aria-hidden='true'
-                />
-              )}
-              <span
-                className={
-                  m.role === 'assistant' ? 'font-medium text-primary' : ''
-                }
-              >
-                {m.role === 'user' ? 'You' : 'AI Assistant'}
-              </span>
-            </div>
+        {messages.map((m) => {
+          const messageText = getMessageText(m)
 
-            <div
+          return (
+            <li
+              key={m.id}
               className={cn(
-                'text-sm break-words',
-                m.role === 'assistant' ? 'text-foreground' : ''
+                'p-3 rounded-lg relative w-fit max-w-[90%] min-w-12 animate-fadeIn',
+                m.role === 'user'
+                  ? 'ml-auto bg-secondary text-secondary-foreground shadow-md'
+                  : 'mr-auto bg-primary/15 border border-primary/30 text-foreground shadow-sm'
               )}
+              aria-label={`${m.role === 'user' ? 'User' : 'AI'} message`}
             >
-              {m.role === 'assistant' ? (
-                <FormattedText text={m.content} />
-              ) : (
-                <>{m.content}</>
-              )}
-            </div>
-          </li>
-        ))}
+              <div className='flex items-center gap-1 mb-1 text-xs opacity-80'>
+                {m.role === 'user' ? (
+                  <UserIcon size={14} aria-hidden='true' />
+                ) : (
+                  <BotIcon
+                    size={14}
+                    className='text-primary'
+                    aria-hidden='true'
+                  />
+                )}
+                <span
+                  className={
+                    m.role === 'assistant' ? 'font-medium text-primary' : ''
+                  }
+                >
+                  {m.role === 'user' ? 'You' : 'AI Assistant'}
+                </span>
+              </div>
+
+              <div
+                className={cn(
+                  'text-sm break-words',
+                  m.role === 'assistant' ? 'text-foreground' : ''
+                )}
+              >
+                {m.role === 'assistant' ? (
+                  <FormattedText text={messageText} />
+                ) : (
+                  <>{messageText}</>
+                )}
+              </div>
+            </li>
+          )
+        })}
 
         {isLoading && (
           <li

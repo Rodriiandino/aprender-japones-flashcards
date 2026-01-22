@@ -25,7 +25,7 @@ interface LearningModalContentProps {
   learningCards: CharacterDetails[] | CharacterCard[]
   totalCards: number
   isFinished: boolean
-  inputRef: RefObject<HTMLInputElement>
+  inputRef: RefObject<HTMLInputElement | null>
   isSubmitDisabled: boolean
   handleSubmit: (e: React.FormEvent) => void
   handleReset: (e: React.FormEvent) => void
