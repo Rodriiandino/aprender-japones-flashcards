@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 }
 
 export default async function BaseLayout({ children, locale }: Props) {
-  const messages = await getMessages()
+  const messages = await getMessages({ locale })
 
   return (
     <html className='h-full' lang={locale}>
