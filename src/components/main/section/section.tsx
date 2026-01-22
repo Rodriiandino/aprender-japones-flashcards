@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AllCharacters } from '@/data/characters'
 import {
   useConfigLearnStore,
@@ -53,13 +53,25 @@ const getConfigCards = (
 }
 
 export default function Section() {
-  const { configCards, setConfigCards, selectedAlphabet } =
-    useConfigLearnStore()
-  const { favoriteCards } = useFavoriteStore()
-  const { getSelectedCharacters } = useCharacterSelectionStore()
+  const configCards = useConfigLearnStore(state => state.configCards)
+  const setConfigCards = useConfigLearnStore(state => state.setConfigCards)
+  const selectedAlphabet = useConfigLearnStore(state => state.selectedAlphabet)
+
+  const favoriteCards = useFavoriteStore(state => state.favoriteCards)
+
+  const getSelectedCharacters = useCharacterSelectionStore(
+    state => state.getSelectedCharacters
+  )
+  const hiraganaGroups = useCharacterSelectionStore(
+    state => state.hiraganaGroups
+  )
+  const katakanaGroups = useCharacterSelectionStore(
+    state => state.katakanaGroups
+  )
+
   const [loading, setLoading] = useState(true)
 
-  const loadCards = useCallback(() => {
+  useEffect(() => {
     const hiraganaSelectedCharacters = getSelectedCharacters('hiragana')
     const katakanaSelectedCharacters = getSelectedCharacters('katakana')
 
@@ -72,23 +84,14 @@ export default function Section() {
       )
     )
     setLoading(false)
-  }, [selectedAlphabet, favoriteCards, getSelectedCharacters, setConfigCards])
-
-  useEffect(() => {
-    loadCards()
-  }, [loadCards])
-
-  useEffect(() => {
-    const reloadCards = () => {
-      loadCards()
-    }
-
-    const unsubscribe = useCharacterSelectionStore.subscribe(reloadCards)
-
-    return () => {
-      unsubscribe()
-    }
-  }, [loadCards])
+  }, [
+    selectedAlphabet,
+    favoriteCards,
+    getSelectedCharacters,
+    setConfigCards,
+    hiraganaGroups,
+    katakanaGroups
+  ])
 
   if (loading) {
     return <LoadingCards />

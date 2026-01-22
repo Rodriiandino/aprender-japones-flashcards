@@ -50,7 +50,7 @@ export async function POST(req: Request) {
     const result = await generateText({
       model,
       prompt,
-      maxTokens: 50,
+      maxOutputTokens: 50,
       temperature: 0.1,
       system
     })
